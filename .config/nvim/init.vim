@@ -60,7 +60,7 @@ let NERDTreeShowHidden=1
 let NERDTreeWinPos="right"
 let NERDTreeNaturalSort=1
 let NERDTreeStatusline=-1
-let NERDTreeWinSize=35 
+let NERDTreeWinSize=35
 let g:undotree_ShortIndicators=1
 let g:undotree_SplitWidth=35
 let g:user_emmet_mode='n'
@@ -108,6 +108,9 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 &&
     \ exists('b:NERDTree') && b:NERDTree.isTabTree() |
     \ quit | endif
 
+" Remove all trailing spaces
+autocmd FileType c,cpp,java,rust,javascript autocmd BufWritePre <buffer> %s/\s\+$//e
+
 " Useful keymaps
 let mapleader = " "
 noremap <leader>ss :update<CR>
@@ -131,6 +134,10 @@ nnoremap <leader>sv :vsplit<CR>
 nnoremap <leader>= :vertical resize +5<CR>
 nnoremap <leader>- :vertical resize -5<CR>
 nnoremap <leader>f :resize 100<CR>
+
+" jump tabs
+nnoremap <C-h> gT
+nnoremap <C-l> gt<CR>
 
 " move lines
 vnoremap J :m '>+1<CR>gv=gv
@@ -176,7 +183,7 @@ function! s:check_back_space() abort
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
-" use <cr> to confirm th autocomplete target 
+" use <cr> to confirm th autocomplete target
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 inoremap <silent><expr> <Tab>
