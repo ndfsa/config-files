@@ -109,7 +109,6 @@ zle -N down-line-or-beginning-search
 alias grep='grep --color=auto'
 alias vim='nvim'
 alias ls='exa -al'
-alias cat='bat'
 alias top='bpytop'
 
 ### Useful keybinds

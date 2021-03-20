@@ -11,7 +11,7 @@ super + r
     rofi -show drun
 
 super + shift + p
-    ~/.config/rofi/powermenu/powermenu.sh &
+    rofi -show powermenu --confirm
 
 # make sxhkd reload its configuration files:
 super + Escape
