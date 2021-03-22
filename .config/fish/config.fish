@@ -2,7 +2,12 @@
 
 set fish_greeting
 
-alias grep='grep --color=auto'
-alias vim='nvim'
-alias ls='exa -al'
-alias top='bpytop'
+if status --is-interactive
+    abbr --add --global g 'rg'
+    abbr --add --global v 'nvim'
+    abbr --add --global l 'exa -al'
+    abbr --add --global t 'bpytop'
+end
+function fish_command_not_found
+    echo Command not found: $argv[1]
+end
