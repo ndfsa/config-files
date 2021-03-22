@@ -27,7 +27,6 @@ set updatetime=300
 set scrolloff=8
 
 set laststatus=2
-set guicursor=
 
 " Load vim plug
 call plug#begin('~/.vim/plugged')
@@ -42,7 +41,8 @@ Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'mbbill/undotree'
 Plug 'mattn/emmet-vim'
-"Plug 'puremourning/vimspector'
+Plug 'puremourning/vimspector'
+Plug 'szw/vim-maximizer'
 
 call plug#end()
 
@@ -100,7 +100,6 @@ if has('termguicolors')
 endif
 
 " Layout config for fzf
-let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
 let $FZF_DEFAULT_OPTS = '--reverse'
 
 " Exit Vim if NERDTree is the only window left.
@@ -130,18 +129,21 @@ nnoremap <leader>L <C-w>L
 nnoremap <leader>sh :split<CR>
 nnoremap <leader>sv :vsplit<CR>
 
-" resize windows
-nnoremap <leader>= :vertical resize +5<CR>
-nnoremap <leader>- :vertical resize -5<CR>
-nnoremap <leader>f :resize 100<CR>
-
 " jump tabs
 nnoremap <C-h> gT
 nnoremap <C-l> gt<CR>
 
 " move lines
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
+vnoremap <C-J> :m '>+1<CR>gv=gv
+vnoremap <C-K> :m '<-2<CR>gv=gv
+
+" Vim maximizer remap
+nnoremap <silent><F3> :MaximizerToggle<CR>
+vnoremap <silent><F3> :MaximizerToggle<CR>gv
+inoremap <silent><F3> <C-o>:MaximizerToggle<CR>
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
 
 " format code
 nnoremap <leader>ff :Format<CR>
@@ -175,21 +177,15 @@ nnoremap <silent><leader>n :set relativenumber!<CR>
 """ ------------- Other Keybinds -------------
 
 " Coc keybinds
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" use <tab> for trigger completion and navigate to the next complete item
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
 " use <cr> to confirm th autocomplete target
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
+" use <c-space>for trigger completion
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" use Tab and S-Tab to navigate completion list
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -201,7 +197,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> <leader>K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
         execute 'h '.expand('<cword>')
@@ -238,10 +234,3 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
     vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
     vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
-
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
-
-" Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-

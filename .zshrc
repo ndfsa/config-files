@@ -29,7 +29,7 @@ zstyle ':completion:*'  matcher-list 'm:{a-z}={A-Z}'	# tab completition is case 
 zstyle ':completion:*:default' list-colors \ 
        ${(s.:.)LS_COLORS}
 zmodload zsh/complist
-setopt menu_complete
+setopt nomenucomplete
 
 
 ##############
@@ -138,7 +138,6 @@ bindkey -e
 [[ -n "${key[C-Left]}"              ]] && bindkey -- "${key[C-Left]}"                 backward-word 
 [[ -n "${key[C-Right]}"             ]] && bindkey -- "${key[C-Right]}"                forward-word 
 [[ -n "${key[C-Backspace]}"         ]] && bindkey -- "${key[C-Backspace]}"            backward-kill-word
-[[ -n "${key[C-Delete]}"            ]] && bindkey -- "${key[C-Delete]}"               kill-word
 
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
