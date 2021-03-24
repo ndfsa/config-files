@@ -2,7 +2,6 @@
 #zmodload zsh/zprof
 
 # colors
-autoload -U colors && colors
 export EDITOR=nvim
 export PAGER=less
 export BROWSER=firefox
@@ -19,43 +18,40 @@ HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.cache/zsh/history
 HISTCONTROL=ignoreboth
-setopt hist_ignore_dups     # ignore dups in history
+setopt hist_ignore_dups                                                         # ignore dups in history
 
 
 ### Autocompletion
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
-zstyle ':completion:*'  matcher-list 'm:{a-z}={A-Z}'	# tab completition is case insensitive
-zstyle ':completion:*:default' list-colors \ 
-       ${(s.:.)LS_COLORS}
+zstyle ':completion:*'  matcher-list 'm:{a-z}={A-Z}'	                        # tab completition is case insensitive
 zmodload zsh/complist
-setopt nomenucomplete
+setopt menu_complete
 
 
 ##############
 ##  PROMPT  ##
 ##############
-setopt prompt_subst         # subject prompt to parameter expansion, command substitution and arithmetic expansion
+setopt prompt_subst                                                             # subject prompt to parameter expansion, command substitution and arithmetic expansion
 ### Git tab completition and VCS info in prompt
-autoload -Uz compinit && compinit
 autoload -Uz vcs_info
 
 precmd_vcs_info() {
     # only perform if the directory in question is a git repository
-    if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]]
-    then
+    if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" ]; then
         vcs_info
     else
         vcs_info_msg_0_=""
     fi
 }
+
 precmd_functions+=( precmd_vcs_info )
 zstyle ':vcs_info:git:*' enable git   
 zstyle ':vcs_info:git:*' stagedstr ' %F{green}%f' 
 zstyle ':vcs_info:git:*' unstagedstr ' %F{yellow}%f'
 zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
 zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' formats 'שׂ %F{magenta}(%b%f%c%u%m%F{magenta})%f '
+zstyle ':vcs_info:git:*' formats ' שׂ %F{magenta}(%b%f%c%u%m%F{magenta})%f'
 
 +vi-git-untracked() {
   if git status --porcelain | grep -m 1 '^??' &>/dev/null
@@ -68,8 +64,8 @@ zstyle ':vcs_info:git:*' formats 'שׂ %F{magenta}(%b%f%c%u%m%F{magenta})%f '
 ### Fancy prompt
 case ${TERM} in
     xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|alacritty|st|konsole*)
-        PS1='%F{blue}%n%f@%m %F{yellow}%~%f%F{green}>%f '
-        RPS1='${vcs_info_msg_0_}[%F{yellow}%?%f]'
+        PS1='%F{blue}%n%f@%m %F{yellow}%~%f${vcs_info_msg_0_} [%F{yellow}%?%f] %F{green}>%f '
+        RPS1=''
         ;;
     *)
         PS1='%F{green}%n@%m%f:%~%(!.#.$) '
@@ -108,7 +104,7 @@ zle -N down-line-or-beginning-search
 ### Enable color support of ls and also add handy aliases
 alias grep='grep --color=auto'
 alias vim='nvim'
-alias ls='exa -al'
+alias ls='exa -alF --sort=type'
 alias top='bpytop'
 
 ### Useful keybinds
@@ -138,6 +134,7 @@ bindkey -e
 [[ -n "${key[C-Left]}"              ]] && bindkey -- "${key[C-Left]}"                 backward-word 
 [[ -n "${key[C-Right]}"             ]] && bindkey -- "${key[C-Right]}"                forward-word 
 [[ -n "${key[C-Backspace]}"         ]] && bindkey -- "${key[C-Backspace]}"            backward-kill-word
+[[ -n "${key[C-Delete]}"            ]] && bindkey -- "${key[C-Delete]}"               kill-word
 
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

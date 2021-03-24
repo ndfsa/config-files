@@ -4,6 +4,7 @@ set fish_greeting
 
 if status --is-interactive
     abbr --add --global g 'rg'
+    abbr --add --global gh 'rg --hidden'
     abbr --add --global v 'nvim'
     abbr --add --global l 'exa -al'
     abbr --add --global t 'bpytop'

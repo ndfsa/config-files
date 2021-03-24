@@ -55,6 +55,7 @@ let g:coc_global_extensions = [
     \ 'coc-prettier',
     \ 'coc-html',
     \ 'coc-tsserver',
+    \ 'coc-pairs',
     \ ]
 let NERDTreeShowHidden=1
 let NERDTreeWinPos="right"
@@ -87,9 +88,11 @@ let g:lightline = {
       \       'charvaluehex': '0x%B'
       \     },
       \ }
-" hide another instert type
+" hide current mode, because using lightline
 set noshowmode
 
+" vimpsector
+let g:vimspector_install_gadgets = ['CodeLLDB']
 " set some basic color settings and background override
 colorscheme gruvbox
 highlight Normal guibg=none
@@ -126,8 +129,10 @@ nnoremap <leader>K <C-w>K
 nnoremap <leader>L <C-w>L
 
 " split windows
-nnoremap <leader>sh :split<CR>
-nnoremap <leader>sv :vsplit<CR>
+nnoremap <leader>wh :split<CR>
+nnoremap <leader>wv :vsplit<CR>
+nnoremap <leader>wt :tabnew<CR>
+nnoremap <leader>wc :close<CR>
 
 " jump tabs
 nnoremap <C-h> gT
@@ -138,9 +143,9 @@ vnoremap <C-J> :m '>+1<CR>gv=gv
 vnoremap <C-K> :m '<-2<CR>gv=gv
 
 " Vim maximizer remap
-nnoremap <silent><F3> :MaximizerToggle<CR>
-vnoremap <silent><F3> :MaximizerToggle<CR>gv
-inoremap <silent><F3> <C-o>:MaximizerToggle<CR>
+nnoremap <F3> :MaximizerToggle<CR>
+vnoremap <F3> :MaximizerToggle<CR>gv
+inoremap <F3> <C-o>:MaximizerToggle<CR>
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
@@ -163,16 +168,16 @@ command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 nnoremap <leader><C-p> :RG<CR>
 
 " show buffers in popup window
-nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>B :Buffers<CR>
 
 " nerdtree replacing netrw
 nnoremap <silent><C-t> :NERDTreeToggle<CR>
 
 " undotree
-nnoremap <silent><leader><F5> :UndotreeToggle<CR>
+nnoremap <F2> :UndotreeToggle<CR>
 
 " toggle relativenumber
-nnoremap <silent><leader>n :set relativenumber!<CR>
+nnoremap <leader>n :set relativenumber!<CR>
 
 """ ------------- Other Keybinds -------------
 
@@ -197,7 +202,11 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-nnoremap <silent> <leader>K :call <SID>show_documentation()<CR>
+
+nnoremap <silent> <F1> :call <SID>show_documentation()<CR>
+inoremap <silent> <F1> <ESC>:call <SID>show_documentation()<CR>
+vnoremap <silent> <F1> :call <SID>show_documentation()<CR>
+
 function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
         execute 'h '.expand('<cword>')
@@ -234,3 +243,14 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
     vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
     vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
+
+" Vimpsector for debugging
+nmap <F5> <Plug>VimspectorContinue
+nmap <F17> <Plug>VimspectorStop
+nmap <F29> <Plug>VimspectorRestart
+nmap <leader>dl <Plug>VimspectorStepInto
+nmap <leader>dj <Plug>VimspectorStepOver
+nmap <leader>dk <Plug>VimspectorStepOut
+nmap <leader>drc <Plug>VimspectorRunToCursor
+nmap <leader>dbp <Plug>VimspectorToggleBreakpoint
+nmap <leader>dcb <Plug>VimspectorToggleConditionalBreakpoint
