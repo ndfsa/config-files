@@ -55,7 +55,6 @@ let g:coc_global_extensions = [
     \ 'coc-prettier',
     \ 'coc-html',
     \ 'coc-tsserver',
-    \ 'coc-pairs',
     \ ]
 let NERDTreeShowHidden=1
 let NERDTreeWinPos="right"

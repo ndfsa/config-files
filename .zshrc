@@ -22,9 +22,10 @@ setopt hist_ignore_dups                                                         
 
 
 ### Autocompletion
-autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
 zstyle ':completion:*'  matcher-list 'm:{a-z}={A-Z}'	                        # tab completition is case insensitive
+zstyle ':completion:*' verbose yes
+autoload -Uz compinit && compinit
 zmodload zsh/complist
 setopt menu_complete
 
@@ -38,7 +39,7 @@ autoload -Uz vcs_info
 
 precmd_vcs_info() {
     # only perform if the directory in question is a git repository
-    if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" ]; then
+    if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) ]]; then
         vcs_info
     else
         vcs_info_msg_0_=""
@@ -64,7 +65,7 @@ zstyle ':vcs_info:git:*' formats ' שׂ %F{magenta}(%b%f%c%u%m%F{magenta})%f'
 ### Fancy prompt
 case ${TERM} in
     xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|alacritty|st|konsole*)
-        PS1='%F{blue}%n%f@%m %F{yellow}%~%f${vcs_info_msg_0_} [%F{yellow}%?%f] %F{green}>%f '
+        PS1='%F{yellow}%~%f${vcs_info_msg_0_} [%F{yellow}%?%f] %F{blue}>%f '
         RPS1=''
         ;;
     *)
@@ -102,9 +103,10 @@ zle -N down-line-or-beginning-search
 
 
 ### Enable color support of ls and also add handy aliases
-alias grep='grep --color=auto'
 alias vim='nvim'
-alias ls='exa -alF --sort=type'
+alias ls='exa -lF --sort=type'
+alias la='exa -alF --sort=type'
+alias lh='exa -ldF --sort=type .*'
 alias top='bpytop'
 
 ### Useful keybinds
