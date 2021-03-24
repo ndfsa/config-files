@@ -1,8 +1,8 @@
 #! /bin/sh
 
 pgrep -x sxhkd > /dev/null || sxhkd &
-pgrep -x picom > /dev/null || picom --experimental-backends --config "$HOME/.config/picom/picom.conf" &
-"$HOME/.config/polybar/launch.sh"
+"$HOME/.scripts/picom.sh"
+"$HOME/.scripts/polybar.sh"
 xsetroot -cursor_name left_ptr &
 
 bspc monitor -d 1 2 3 4 5 6 7
