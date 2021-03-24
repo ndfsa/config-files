@@ -23,7 +23,7 @@ do
 done
 
 selection="$(echo "$( IFS=$'\n'; echo "${messages[*]}" )" | rofi -p "Power menu" -dmenu)"
-if [ ! -z ${selection+x} ]
+if [ ! -z $selection ]
 then
     confirm="$(echo -e "${icons[confirm]} Yes\n${icons[cancel]} No\n" | rofi -p "$selection?" -dmenu)"
     case $confirm in
