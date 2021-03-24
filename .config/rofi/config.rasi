@@ -1,4 +1,4 @@
 configuration {
-    modi: "run,window,drun,powermenu:~/.config/rofi/powermenu.sh";
+    modi: "run,window,drun";
     theme: "gruvbox-dark";
  }
