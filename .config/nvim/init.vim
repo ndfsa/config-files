@@ -131,6 +131,7 @@ nnoremap <leader>L <C-w>L
 nnoremap <leader>wh :split<CR>
 nnoremap <leader>wv :vsplit<CR>
 nnoremap <leader>wt :tabnew<CR>
+nnoremap <leader>wy :tabclose<CR>
 nnoremap <leader>wc :close<CR>
 
 " jump tabs

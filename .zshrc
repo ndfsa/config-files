@@ -12,7 +12,6 @@ WORDCHARS='~!#$%^&*(){}[]<>?.+;-'
 ### set extended globs, may conflict with valid filenames, remember to look out
 setopt extended_glob
 
-
 ### Enable history and history cache, move to cache file in home
 HISTSIZE=10000
 SAVEHIST=10000
@@ -25,7 +24,11 @@ setopt hist_ignore_dups                                                         
 zstyle ':completion:*' menu select
 zstyle ':completion:*'  matcher-list 'm:{a-z}={A-Z}'	                        # tab completition is case insensitive
 zstyle ':completion:*' verbose yes
-autoload -Uz compinit && compinit
+
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.cache/zsh/completion_cache
+
+autoload -U compinit && compinit
 zmodload zsh/complist
 setopt menu_complete
 
@@ -142,7 +145,6 @@ bindkey -e
 [[ -n "${key[PageUp]}"      ]] && bindkey -- "${key[PageUp]}"         beginning-of-buffer-or-history
 [[ -n "${key[PageDown]}"    ]] && bindkey -- "${key[PageDown]}"       end-of-buffer-or-history
 [[ -n "${key[S-Tab]}"       ]] && bindkey -- "${key[S-Tab]}"          reverse-menu-complete
-
 [[ -n "${key[C-Left]}"      ]] && bindkey -- "${key[C-Left]}"         backward-word 
 [[ -n "${key[C-Right]}"     ]] && bindkey -- "${key[C-Right]}"        forward-word 
 [[ -n "${key[C-Backspace]}" ]] && bindkey -- "${key[C-Backspace]}"    backward-kill-word

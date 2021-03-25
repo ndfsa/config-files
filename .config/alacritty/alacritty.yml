@@ -18,8 +18,8 @@ env:
   # each instance of Alacritty. If it is not present, alacritty will
   # check the local terminfo database and use `alacritty` if it is
   # available, otherwise `xterm-256color` is used.
-  TERM: alacritty
-  #TERM: xterm-256color
+  #TERM: alacritty
+  TERM: xterm-256color
 
 window:
   # Window dimensions (changes require restart)
@@ -222,14 +222,14 @@ colors:
   # If the dim colors are not set, they will be calculated automatically based
   # on the `normal` colors.
   dim:
-    black:   '#282828'
-    red:     '#cc241d'
-    green:   '#98971a'
-    yellow:  '#d79921'
-    blue:    '#458588'
-    magenta: '#b16286'
-    cyan:    '#689d6a'
-    white:   '#a89984'
+    black:   '#32302f'
+    red:     '#9d0006'
+    green:   '#79740e'
+    yellow:  '#b57614'
+    blue:    '#076678'
+    magenta: '#8f3f71'
+    cyan:    '#427b58'
+    white:   '#928374'
 
   # Indexed Colors
   #
