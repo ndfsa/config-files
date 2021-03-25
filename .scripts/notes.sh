@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/dash
 
 now="$(date +'%H:%M')"
 today="$(date +'%F')"

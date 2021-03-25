@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/dash
 
 # Add this script to your wm startup file.
 
@@ -8,7 +8,8 @@ DIR="$HOME/.config/polybar"
 killall -q polybar
 
 # Wait until the processes have been shut down
-while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+$user_id=$(id-ru)
+while pgrep -u $user_id -x polybar >/dev/null; do sleep 0.3; done
 
 # Launch the bar
 polybar -q main -c "$DIR"/config.ini &
