@@ -6,7 +6,7 @@ export EDITOR=nvim
 export PAGER=less
 export BROWSER=firefox
 export BAT_THEME='gruvbox-dark'
-WORDCHARS='~!#$%^&*(){}[]<>?.+;-'
+WORDCHARS='~!#$%^&*(){}[]<>?.+-'
 
 
 ### set extended globs, may conflict with valid filenames, remember to look out
@@ -21,23 +21,20 @@ setopt hist_ignore_dups                                                         
 
 
 ### Autocompletion
-zstyle ':completion:*' menu select
-zstyle ':completion:*'  matcher-list 'm:{a-z}={A-Z}'	                        # tab completition is case insensitive
-zstyle ':completion:*' verbose yes
-
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.cache/zsh/completion_cache
-
-autoload -U compinit && compinit
 zmodload zsh/complist
 setopt menu_complete
+autoload -U compinit && compinit
+
+zstyle ':completion:*' menu select=1
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'	                        # tab completion is case insensitive
+zstyle ':completion:*' verbose yes
 
 
 ##############
 ##  PROMPT  ##
 ##############
 setopt prompt_subst                                                             # subject prompt to parameter expansion, command substitution and arithmetic expansion
-### Git tab completition and VCS info in prompt
+### Git tab completion and VCS info in prompt
 autoload -Uz vcs_info
 
 precmd_vcs_info() {
@@ -119,7 +116,6 @@ zle -N down-line-or-beginning-search
 alias vim='nvim'
 alias ls='exa -lF --sort=type'
 alias la='exa -alF --sort=type'
-alias lh='exa -ldF --sort=type .*'
 alias top='bpytop'
 
 ### Useful keybinds

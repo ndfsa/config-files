@@ -8,8 +8,7 @@ DIR="$HOME/.config/polybar"
 killall -q polybar
 
 # Wait until the processes have been shut down
-$user_id=$(id-ru)
-while pgrep -u $user_id -x polybar >/dev/null; do sleep 0.5; done
+while pgrep -u $(id -ru) -x polybar >/dev/null; do sleep 0.5; done
 
 # Launch the bar
 polybar -q main -c "$DIR"/config.ini &
