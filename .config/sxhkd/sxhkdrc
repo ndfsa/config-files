@@ -50,8 +50,8 @@ super + {t,shift + t,s,f}
 	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
 # set the node flags
-#super + ctrl + {m,x,y,z}
-#	bspc node -g {marked,locked,sticky,private}
+super + ctrl + {m,x,y,z}
+	bspc node -g {marked,locked,sticky,private}
 
 #
 # focus/swap
@@ -131,8 +131,13 @@ super + bracketleft
 super + {shift + g, g}
     G_SIZE=$((`bspc config -d focused window_gap` {-,+} 10 )); bspc config -d focused window_gap $(( $G_SIZE > 0 ? $G_SIZE : 0 ))
 
+# reset gaps
 super + ctrl + g
-    bspc config window_gap 10
+    bspc config window_gap 20
+
+# change border
+super + ctrl + {shift + b, b}
+    bspc config border_width {0, 5}
 
 # volume
 XF86Audio{Raise,Lower}Volume
@@ -140,7 +145,3 @@ XF86Audio{Raise,Lower}Volume
 
 XF86AudioMute
     amixer -q set Master toggle
-
-# flip layout
-super + shift + f
-    bspc desktop -R 90 
