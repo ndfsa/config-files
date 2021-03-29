@@ -1,5 +1,5 @@
 export EDITOR=nvim
-export PAGER=less
+export PAGER=bat
 export BROWSER=firefox
 export BAT_THEME='gruvbox-dark'
 export SXHKD_SHELL=/bin/dash
