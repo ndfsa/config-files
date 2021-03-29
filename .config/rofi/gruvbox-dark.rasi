@@ -12,7 +12,7 @@
    ========================================================================== */
 
 configuration {
-    font:           "Iosevka Nerd Font 13";
+    font:           "Iosevka Nerd Font 15";
 }
 
 * {
