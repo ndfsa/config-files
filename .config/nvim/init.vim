@@ -153,11 +153,8 @@ command! -nargs=0 Format :call CocAction('format')
 " format code
 nnoremap <leader>ff :Format<CR>
 
-" fuzzy finder
-nnoremap <C-p> :Rg<CR>
-
 function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --hidden --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let command_fmt = 'rg --hidden -g "!{node_modules,.git}" --column --line-number --no-heading --color=always --smart-case -- %s || true'
   let initial_command = printf(command_fmt, shellescape(a:query))
   let reload_command = printf(command_fmt, '{q}')
   let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
@@ -165,7 +162,7 @@ function! RipgrepFzf(query, fullscreen)
 endfunction
 " RG search for hidden files
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-nnoremap <leader><C-p> :RG<CR>
+nnoremap <C-p> :RG<CR>
 
 " show buffers in popup window
 nnoremap <leader>B :Buffers<CR>

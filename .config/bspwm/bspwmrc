@@ -1,4 +1,4 @@
-#! /bin/dash
+#!/bin/dash
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 "$HOME/.scripts/picom.sh"
