@@ -1,7 +1,3 @@
-export EDITOR=nvim
-export PAGER=less
-export BROWSER=firefox
-export BAT_THEME='gruvbox-dark'
 WORDCHARS='~!#$%^&*(){}[]<>?.+-'
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
   --color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f

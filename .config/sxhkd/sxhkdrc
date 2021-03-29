@@ -6,6 +6,9 @@
 super + Return
 	alacritty
 
+super + e
+	alacritty -e ranger
+
 # program launcher
 super + r
     rofi -show drun
@@ -145,3 +148,11 @@ XF86Audio{Raise,Lower}Volume
 
 XF86AudioMute
     amixer -q set Master toggle
+
+# set all to tiled to pseudo_tiled
+super + ctrl + shift + t
+    ~/.scripts/tiled.sh tiled pseudo_tiled
+
+# set all to pseudo_tiled to tiled
+super + ctrl + t
+    ~/.scripts/tiled.sh pseudo_tiled tiled
