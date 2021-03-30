@@ -131,16 +131,16 @@ super + bracketleft
     feh --bg-fill --randomize --recursive "$HOME/Pictures/Wallpapers"
 
 # change gaps
-super + {shift + g, g}
+super + g ; {minus,equal}
     G_SIZE=$((`bspc config -d focused window_gap` {-,+} 10 )); bspc config -d focused window_gap $(( $G_SIZE > 0 ? $G_SIZE : 0 ))
 
 # reset gaps
-super + ctrl + g
+super + g ; r
     bspc config window_gap 20
 
 # change border
 super + ctrl + {shift + b, b}
-    bspc config border_width {0, 5}
+    bspc config border_width {0, 3}
 
 # volume
 XF86Audio{Raise,Lower}Volume
@@ -149,10 +149,6 @@ XF86Audio{Raise,Lower}Volume
 XF86AudioMute
     amixer -q set Master toggle
 
-# set all to tiled to pseudo_tiled
-super + ctrl + shift + t
-    ~/.scripts/tiled.sh tiled pseudo_tiled
-
-# set all to pseudo_tiled to tiled
-super + ctrl + t
-    ~/.scripts/tiled.sh pseudo_tiled tiled
+# set all to pseudo_tiled or tiled
+super + w ; {p,t}
+    ACT={pseudo_t,t}; bspc query -N -d focused -n .!"$ACT"iled | xargs -I\{\} bspc node \{\} -t "$ACT"iled
