@@ -156,7 +156,7 @@ super + w ; {p,t}
 
 # Brightness
 XF86MonBrightnessUp
-    xbacklight -inc 10
+    xbacklight -inc 5
 
 XF86MonBrightnessDown
-    xbacklight -dec 10
+    xbacklight -dec 5
