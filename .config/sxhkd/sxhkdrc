@@ -153,3 +153,10 @@ XF86AudioMute
 # set all to pseudo_tiled or tiled
 super + w ; {p,t}
     ACT={pseudo_t,t}; bspc query -N -d focused -n .!"$ACT"iled | xargs -I\{\} bspc node \{\} -t "$ACT"iled
+
+# Brightness
+XF86MonBrightnessUp
+    xbacklight -inc 10
+
+XF86MonBrightnessDown
+    xbacklight -dec 10
