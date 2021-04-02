@@ -31,10 +31,8 @@ URxvt.color14: [100]#8ec07c
 URxvt.color7:  [100]#a89984
 URxvt.color15: [100]#ebdbb2
 
-!URxvt.transparent: true
 URxvt*font: xft:JetBrainsMono\ Nerd\ Font\ Mono:size=13
 URxvt*lineSpace: 0
-URxvt*letterSpace: 0
+URxvt*letterSpace: -1
 URxvt.clipboard.autocopy: true
-!URxvt.internalBorder: 7
 URxvt.scrollBar: false

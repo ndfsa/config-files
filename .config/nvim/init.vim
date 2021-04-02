@@ -42,6 +42,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'mbbill/undotree'
 Plug 'mattn/emmet-vim'
 Plug 'szw/vim-maximizer'
+Plug 'ap/vim-css-color'
 
 call plug#end()
 
