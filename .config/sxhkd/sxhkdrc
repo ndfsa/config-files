@@ -160,3 +160,7 @@ XF86MonBrightnessUp
 
 XF86MonBrightnessDown
     xbacklight -dec 5
+
+# Rotate nodes
+super + w ; r ; {h,l}
+    bspc node @/ -R {-,_}90

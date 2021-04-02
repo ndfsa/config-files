@@ -41,7 +41,6 @@ Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'mbbill/undotree'
 Plug 'mattn/emmet-vim'
-Plug 'puremourning/vimspector'
 Plug 'szw/vim-maximizer'
 
 call plug#end()
@@ -90,8 +89,6 @@ let g:lightline = {
 " hide current mode, because using lightline
 set noshowmode
 
-" vimpsector
-let g:vimspector_install_gadgets = ['CodeLLDB']
 " set some basic color settings and background override
 colorscheme gruvbox
 highlight Normal guibg=none
@@ -240,14 +237,3 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
     vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
     vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
-
-" Vimpsector for debugging
-nmap <F5> <Plug>VimspectorContinue
-nmap <F17> <Plug>VimspectorStop
-nmap <F29> <Plug>VimspectorRestart
-nmap <leader>dl <Plug>VimspectorStepInto
-nmap <leader>dj <Plug>VimspectorStepOver
-nmap <leader>dk <Plug>VimspectorStepOut
-nmap <leader>drc <Plug>VimspectorRunToCursor
-nmap <leader>dbp <Plug>VimspectorToggleBreakpoint
-nmap <leader>dcb <Plug>VimspectorToggleConditionalBreakpoint
