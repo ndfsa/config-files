@@ -137,8 +137,8 @@ nnoremap <C-h> gT
 nnoremap <C-l> gt<CR>
 
 " move lines
-vnoremap <C-J> :m '>+1<CR>gv=gv
-vnoremap <C-K> :m '<-2<CR>gv=gv
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
 
 " Vim maximizer remap
 nnoremap <F3> :MaximizerToggle<CR>
