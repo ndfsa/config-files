@@ -47,4 +47,3 @@ zle -N down-line-or-beginning-search
 [[ -n "${key[C-Backspace]}" ]] && bindkey -- "${key[C-Backspace]}"    backward-kill-word
 [[ -n "${key[C-Delete]}"    ]] && bindkey -- "${key[C-Delete]}"       kill-word
 [[ -n "${key[A-s]}"         ]] && bindkey -- "${key[A-s]}"            sudo-command-line
-[[ -n "${key[C-i]}"         ]] && bindkey -- "${key[C-i]}"            fzf_completion
