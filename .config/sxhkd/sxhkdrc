@@ -4,16 +4,16 @@
 
 # terminal emulator
 super + Return
-	alacritty
+	urxvt
 
 super + e
-	alacritty -e ranger
+	urxvt -e ranger
 
 # program launcher
 super + r
     rofi -show drun -show-icons
 
-super + shift + p
+super + shift + period
     ~/.scripts/powermenu.sh
 
 # make sxhkd reload its configuration files:
@@ -49,7 +49,7 @@ super + shift + Return
 #
 
 # set the window state
-super + {t,shift + t,s,f}
+super + {t,p,s,f}
 	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
 # set the node flags
@@ -141,7 +141,7 @@ super + g ; r
 
 # change border
 super + ctrl + {shift + b, b}
-    bspc config border_width {0, 3}
+    bspc config border_width {0, 1}
 
 # volume
 XF86Audio{Raise,Lower}Volume
@@ -151,8 +151,8 @@ XF86AudioMute
     amixer -q set Master toggle
 
 # set all to pseudo_tiled or tiled
-super + w ; {p,t}
-    ACT={pseudo_t,t}; bspc query -N -d focused -n .!"$ACT"iled | xargs -I\{\} bspc node \{\} -t "$ACT"iled
+super + w ; {p,t,s}
+    "$HOME/.scripts/state.sh" {pseudo_tiled, tiled, floating}
 
 # Brightness
 XF86MonBrightnessUp

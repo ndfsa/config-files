@@ -5,3 +5,4 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 
 ### set extended globs, may conflict with valid filenames, remember to look out
 setopt extended_glob
+unsetopt MULTIBYTE
