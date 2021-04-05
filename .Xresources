@@ -2,6 +2,7 @@ Xft.dpi: 92
 Xft.antialias: true
 
 URxvt.depth: 32
+URxvt.saveLines: 20000
 ! hard contrast: *background: #1d2021
 URxvt.background: [90]#282828
 ! soft contrast: URxvt.background: [100]#32302f

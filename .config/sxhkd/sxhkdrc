@@ -4,10 +4,10 @@
 
 # terminal emulator
 super + Return
-	urxvt
+	alacritty
 
 super + e
-	urxvt -e ranger
+	alacritty -e ranger
 
 # program launcher
 super + r
