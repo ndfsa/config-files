@@ -22,6 +22,8 @@ source ~/.config/zsh/alias.zsh
 ### Keybinds
 source ~/.config/zsh/keybinds.zsh
 
+### Functions
+source ~/.config/zsh/functions.zsh
 ### Syntax highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 

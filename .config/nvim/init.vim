@@ -52,7 +52,6 @@ let g:coc_global_extensions = [
     \ 'coc-sh',
     \ 'coc-pyright',
     \ 'coc-rls',
-    \ 'coc-prettier',
     \ 'coc-html',
     \ 'coc-tsserver',
     \ ]
@@ -112,6 +111,17 @@ autocmd FileType c,cpp,java,rust,javascript autocmd BufWritePre <buffer> %s/\s\+
 
 " Useful keymaps
 let mapleader = " "
+
+" Format
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" format code
+nnoremap <leader>ff :Format<CR>
+
 noremap <leader>ss :update<CR>
 
 " switch buffers
@@ -144,12 +154,6 @@ vnoremap K :m '<-2<CR>gv=gv
 nnoremap <F3> :MaximizerToggle<CR>
 vnoremap <F3> :MaximizerToggle<CR>gv
 inoremap <F3> <C-o>:MaximizerToggle<CR>
-
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
-
-" format code
-nnoremap <leader>ff :Format<CR>
 
 function! RipgrepFzf(query, fullscreen)
   let command_fmt = 'rg --hidden -g "!{node_modules,.git}" --column --line-number --no-heading --color=always --smart-case -- %s || true'
@@ -238,3 +242,4 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
     vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
     vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
+

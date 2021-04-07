@@ -14,7 +14,7 @@ super + r
     rofi -show drun -show-icons
 
 super + shift + period
-    ~/.scripts/powermenu.sh
+    ~/bin/powermenu
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -152,7 +152,7 @@ XF86AudioMute
 
 # set all to pseudo_tiled or tiled
 super + w ; {p,t,s}
-    "$HOME/.scripts/state.sh" {pseudo_tiled, tiled, floating}
+    ~/bin/change_state {pseudo_tiled, tiled, floating}
 
 # Brightness
 XF86MonBrightnessUp
