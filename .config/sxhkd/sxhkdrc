@@ -115,7 +115,7 @@ super + ctrl + shift + space
 #
 
 super + alt + {h,j,k,l}
-    n=10; \
+    n=20; \
     { d1=left;   d2=right;  dx=-$n; dy=0;   \
     , d1=bottom; d2=top;    dx=0;   dy=$n;  \
     , d1=top;    d2=bottom; dx=0;   dy=-$n; \
@@ -129,7 +129,7 @@ super + {Left,Down,Up,Right}
 
 # change wallpaper
 super + bracketleft 
-    feh --bg-fill --randomize --recursive "$HOME/Pictures/Wallpapers"
+    "$HOME/bin/random_wallpaper"
 
 # change gaps
 super + g ; {minus,equal}
