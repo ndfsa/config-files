@@ -141,7 +141,7 @@ super + g ; r
 
 # change border
 super + ctrl + {shift + b, b}
-    bspc config border_width {0, 1}
+    bspc config border_width {0, 2}
 
 # volume
 XF86Audio{Raise,Lower}Volume
