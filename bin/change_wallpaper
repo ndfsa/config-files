@@ -1,7 +1,6 @@
 #!/bin/dash
 img_color=$($HOME/bin/color_select "$1")
 color=""
-echo $img_color
 case $img_color in
     0)
         color="#ebdbb2"
