@@ -145,10 +145,10 @@ super + ctrl + {shift + b, b}
 
 # volume
 XF86Audio{Raise,Lower}Volume
-    amixer -q -c 0 set Master {2dB+,2dB-} -M unmute
+    pulseaudio-ctl {up, down} 2
 
 XF86AudioMute
-    amixer -q set Master toggle
+    pulseaudio-ctl mute && pulseaudio-ctl mute-input
 
 # set all to pseudo_tiled or tiled
 super + w ; {p,t,s}
