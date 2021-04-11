@@ -138,13 +138,13 @@ nnoremap <leader>L <C-w>L
 " split windows
 nnoremap <leader>wh :split<CR>
 nnoremap <leader>wv :vsplit<CR>
-nnoremap <leader>wt :tabnew<CR>
-nnoremap <leader>wy :tabclose<CR>
 nnoremap <leader>wc :close<CR>
 
-" jump tabs
-nnoremap <C-h> gT
-nnoremap <C-l> gt<CR>
+" tabs
+nnoremap <leader>tw :tabnew<CR>
+nnoremap <leader>tc :tabclose<CR>
+nnoremap <leader>tn :tabnext<CR>
+nnoremap <leader>tp :tabprevious<CR>
 
 " move lines
 vnoremap J :m '>+1<CR>gv=gv
