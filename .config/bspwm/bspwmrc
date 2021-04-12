@@ -12,7 +12,6 @@ bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
 bspc rule -a Screenkey manage=off
-bspc rule -a "*" state=tiled
 
 bspc config normal_border_color "#282828"
 

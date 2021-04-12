@@ -1,7 +1,7 @@
 #!/bin/dash
 
 feh --bg-fill $1
-img_color=$($HOME/bin/color_select "$1")
+img_color=$($HOME/bin/color_select "$1" -t 4)
 color=""
 case $img_color in
     0)

@@ -150,10 +150,6 @@ XF86Audio{Raise,Lower}Volume
 XF86AudioMute
     pulseaudio-ctl mute && pulseaudio-ctl mute-input
 
-# set all to pseudo_tiled or tiled
-super + w ; {p,t,s}
-    ~/bin/change_state {pseudo_tiled, tiled, floating}
-
 # Brightness
 XF86MonBrightnessUp
     xbacklight -inc 5
