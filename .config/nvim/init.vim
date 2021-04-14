@@ -1,6 +1,6 @@
-syntax on
 set title
 
+set exrc
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -31,37 +31,47 @@ set laststatus=2
 " Load vim plug
 call plug#begin('~/.vim/plugged')
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'gruvbox-community/gruvbox'
 Plug 'itchyny/lightline.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'preservim/nerdtree'
-Plug 'ryanoasis/vim-devicons'
 Plug 'mbbill/undotree'
 Plug 'mattn/emmet-vim'
 Plug 'szw/vim-maximizer'
-Plug 'ap/vim-css-color'
+Plug 'preservim/nerdtree'
+Plug 'ryanoasis/vim-devicons'
+"" vim 0.5 functions
+" lsp and treesitter
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+" telescope
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
 call plug#end()
 
-let g:coc_global_extensions = [
-    \ 'coc-clangd',
-    \ 'coc-rust-analyzer',
-    \ 'coc-sh',
-    \ 'coc-pyright',
-    \ 'coc-rls',
-    \ 'coc-html',
-    \ 'coc-tsserver',
-    \ ]
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+    ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+    highlight = {
+        enable = true              -- false will disable the whole extension
+    },
+}
+EOF
+
 let NERDTreeShowHidden=1
 let NERDTreeWinPos="right"
 let NERDTreeNaturalSort=1
 let NERDTreeStatusline=-1
-let NERDTreeWinSize=35
+let NERDTreeWinSize=40
+" Exit Vim if NERDTree is the only window left.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
+    \ quit | endif
+
+let g:undotree_WindowLayout = 4
 let g:undotree_ShortIndicators=1
-let g:undotree_SplitWidth=35
+let g:undotree_SplitWidth=40
+
 let g:user_emmet_mode='n'
 let g:user_emmet_install_global = 0
 autocmd FileType html,css,javascript EmmetInstall
@@ -98,49 +108,31 @@ if has('termguicolors')
     set termguicolors
 endif
 
-" Layout config for fzf
-let $FZF_DEFAULT_OPTS = '--reverse'
-
-" Exit Vim if NERDTree is the only window left.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 &&
-    \ exists('b:NERDTree') && b:NERDTree.isTabTree() |
-    \ quit | endif
-
 " Remove all trailing spaces
 autocmd FileType c,cpp,java,rust,javascript autocmd BufWritePre <buffer> %s/\s\+$//e
 
 " Useful keymaps
 let mapleader = " "
 
-" Format
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
-
-" format code
-nnoremap <leader>ff :Format<CR>
-
 noremap <leader>ss :update<CR>
 
-" switch buffers
-nnoremap <leader>h :wincmd h<CR>
-nnoremap <leader>j :wincmd j<CR>
-nnoremap <leader>k :wincmd k<CR>
-nnoremap <leader>l :wincmd l<CR>
-
-nnoremap <leader>H <C-w>H
-nnoremap <leader>J <C-w>J
-nnoremap <leader>K <C-w>K
-nnoremap <leader>L <C-w>L
-
-" split windows
-nnoremap <leader>wh :split<CR>
-nnoremap <leader>wv :vsplit<CR>
+" window operations
+nnoremap <leader>wh :wincmd h<CR>
+nnoremap <leader>wj :wincmd j<CR>
+nnoremap <leader>wk :wincmd k<CR>
+nnoremap <leader>wl :wincmd l<CR>
 nnoremap <leader>wc :close<CR>
 
-" tabs
+nnoremap <leader>wmh <C-w>H
+nnoremap <leader>wmj <C-w>J
+nnoremap <leader>wmk <C-w>K
+nnoremap <leader>wml <C-w>L
+
+" split windows
+nnoremap <leader>sh :split<CR>
+nnoremap <leader>sv :vsplit<CR>
+
+" tab operations
 nnoremap <leader>tw :tabnew<CR>
 nnoremap <leader>tc :tabclose<CR>
 nnoremap <leader>tn :tabnext<CR>
@@ -155,20 +147,6 @@ nnoremap <F3> :MaximizerToggle<CR>
 vnoremap <F3> :MaximizerToggle<CR>gv
 inoremap <F3> <C-o>:MaximizerToggle<CR>
 
-function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --hidden -g "!{node_modules,.git}" --column --line-number --no-heading --color=always --smart-case -- %s || true'
-  let initial_command = printf(command_fmt, shellescape(a:query))
-  let reload_command = printf(command_fmt, '{q}')
-  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-endfunction
-" RG search for hidden files
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-nnoremap <C-p> :RG<CR>
-
-" show buffers in popup window
-nnoremap <leader>B :Buffers<CR>
-
 " nerdtree replacing netrw
 nnoremap <silent><C-t> :NERDTreeToggle<CR>
 
@@ -176,70 +154,69 @@ nnoremap <silent><C-t> :NERDTreeToggle<CR>
 nnoremap <F2> :UndotreeToggle<CR>
 
 " toggle relativenumber
-nnoremap <leader>n :set relativenumber!<CR>
+nnoremap <leader>on :set relativenumber!<CR>
+nnoremap <leader>oh :set hlsearch!<CR>
 
-""" ------------- Other Keybinds -------------
+" Telescope bindings
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
-" Coc keybinds
-" use <cr> to confirm th autocomplete target
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" neovim-lsp keybindings
+lua << EOF
+local nvim_lsp = require('lspconfig')
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-" use <c-space>for trigger completion
-inoremap <silent><expr> <c-space> coc#refresh()
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-" use Tab and S-Tab to navigate completion list
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  -- Mappings.
+  local opts = { noremap=true, silent=false }
+  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+  -- Set some keybinds conditional on server capabilities
+  if client.resolved_capabilities.document_formatting then
+    buf_set_keymap("n", "<leader>fp", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  end
+  if client.resolved_capabilities.document_range_formatting then
+    buf_set_keymap("v", "<leader>fp", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+  end
 
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+  -- Set autocommands conditional on server_capabilities
+  if client.resolved_capabilities.document_highlight then
+    vim.api.nvim_exec([[
+      hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+      hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+      hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+      augroup lsp_document_highlight
+        autocmd! * <buffer>
+        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+      augroup END
+    ]], false)
+  end
+end
 
-nnoremap <silent> <F1> :call <SID>show_documentation()<CR>
-inoremap <silent> <F1> <ESC>:call <SID>show_documentation()<CR>
-vnoremap <silent> <F1> :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    elseif (coc#rpc#ready())
-        call CocActionAsync('doHover')
-    else
-        execute '!' . &keywordprg . " " . expand('<cword>')
-    endif
-endfunction
-
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-
-" Map function and class text objects
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
-
-" Remap <C-f> and <C-b> for scroll float windows/popups.
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-    nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-    nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-    inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-    inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-    vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-    vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-endif
-
+-- Use a loop to conveniently both setup defined servers 
+-- and map buffer local keybindings when the language server attaches
+--local servers = { "pyright", "rust_analyzer", "clangd" }
+--for _, lsp in ipairs(servers) do
+--  nvim_lsp[lsp].setup { on_attach = on_attach }
+--end
+EOF
