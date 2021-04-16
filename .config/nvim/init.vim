@@ -1,63 +1,51 @@
 set title
-
-set exrc
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
-
+set smartindent
 set nowrap
 set incsearch
 set nohlsearch
-
-set number relativenumber
+set nu rnu
 set colorcolumn=80
 set signcolumn=yes
 set cursorline
-
 set noswapfile
 set nobackup
 set undodir=~/.vim/undodir
 set undofile
 set hidden
-
 set encoding=UTF-8
 set laststatus=2
-set updatetime=300
 set scrolloff=8
-
 set laststatus=2
+set completeopt=menuone,noselect,noinsert
+set termguicolors
 
 " Load vim plug
 call plug#begin('~/.vim/plugged')
 
 Plug 'gruvbox-community/gruvbox'
-Plug 'itchyny/lightline.vim'
 Plug 'mbbill/undotree'
 Plug 'mattn/emmet-vim'
 Plug 'szw/vim-maximizer'
 Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
+Plug 'hoob3rt/lualine.nvim'
+Plug 'norcalli/nvim-colorizer.lua'
+
 "" vim 0.5 functions
 " lsp and treesitter
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
+Plug 'hrsh7th/nvim-compe'
 " telescope
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
 call plug#end()
-
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-    ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-    highlight = {
-        enable = true              -- false will disable the whole extension
-    },
-}
-EOF
 
 let NERDTreeShowHidden=1
 let NERDTreeWinPos="right"
@@ -76,26 +64,6 @@ let g:user_emmet_mode='n'
 let g:user_emmet_install_global = 0
 autocmd FileType html,css,javascript EmmetInstall
 
-" status line
-let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
-      \     'active': {
-      \       'right': [ [ 'lineinfo' ],
-      \                  [ 'percent' ],
-      \                  [ 'fileformat', 'fileencoding', 'filetype',
-      \                             'charvaluehex' ] ],
-      \       'left': [ [ 'mode', 'paste' ],
-      \                 [ 'gitbranch', 'cocstatus', 'readonly',
-      \                             'filename', 'modified' ] ]
-      \     },
-      \     'component_function': {
-      \       'gitbranch': 'FugitiveHead',
-      \       'cocstatus': 'coc#status'
-      \     },
-      \     'component': {
-      \       'charvaluehex': '0x%B'
-      \     },
-      \ }
 " hide current mode, because using lightline
 set noshowmode
 
@@ -103,13 +71,8 @@ set noshowmode
 colorscheme gruvbox
 highlight Normal guibg=none
 
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-if has('termguicolors')
-    set termguicolors
-endif
-
 " Remove all trailing spaces
-autocmd FileType c,cpp,java,rust,javascript autocmd BufWritePre <buffer> %s/\s\+$//e
+autocmd FileType * autocmd BufWritePre <buffer> %s/\s\+$//e
 
 " Useful keymaps
 let mapleader = " "
@@ -148,25 +111,91 @@ vnoremap <F3> :MaximizerToggle<CR>gv
 inoremap <F3> <C-o>:MaximizerToggle<CR>
 
 " nerdtree replacing netrw
-nnoremap <silent><C-t> :NERDTreeToggle<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
 
 " undotree
 nnoremap <F2> :UndotreeToggle<CR>
 
-" toggle relativenumber
+" toggle options
 nnoremap <leader>on :set relativenumber!<CR>
 nnoremap <leader>oh :set hlsearch!<CR>
+nnoremap <leader>oc :ColorizerToggle<CR>
 
 " Telescope bindings
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <C-p> <cmd>lua require('telescope.builtin').git_files()<cr>
+
+" compe mappints
+inoremap <expr> <C-Space> compe#complete()
+inoremap <expr> <CR> compe#confirm('<CR>')
+inoremap <expr> <C-e> compe#close('<C-e>')
+inoremap <expr> <C-f> compe#scroll({ 'delta': +4 })
+inoremap <expr> <C-d> compe#scroll({ 'delta': -4 })
 
 " neovim-lsp keybindings
 lua << EOF
-local nvim_lsp = require('lspconfig')
-local on_attach = function(client, bufnr)
+require'nvim-treesitter.configs'.setup {
+    ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+    highlight = {
+        enable = true              -- false will disable the whole extension
+    },
+}
+require'compe'.setup {
+  source = {
+    path = true;
+    buffer = true;
+    calc = true;
+    nvim_lsp = true;
+    nvim_lua = true;
+  };
+}
+
+require'colorizer'.setup()
+
+local t = function(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+local check_back_space = function()
+    local col = vim.fn.col('.') - 1
+    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+        return true
+    else
+        return false
+    end
+end
+
+-- Use (s-)tab to:
+--- move to prev/next item in completion menuone
+--- jump to prev/next snippet's placeholder
+_G.tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-n>"
+  elseif check_back_space() then
+    return t "<Tab>"
+  else
+    return vim.fn['compe#complete']()
+  end
+end
+_G.s_tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-p>"
+  else
+    return t "<S-Tab>"
+  end
+end
+
+vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+
+require('lualine').setup{options = {theme = 'gruvbox'}}
+  local nvim_lsp = require('lspconfig')
+  local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
@@ -192,12 +221,11 @@ local on_attach = function(client, bufnr)
 
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
-    buf_set_keymap("n", "<leader>fp", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    buf_set_keymap('n', '<leader>fm', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
   end
   if client.resolved_capabilities.document_range_formatting then
-    buf_set_keymap("v", "<leader>fp", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+    buf_set_keymap('v', '<leader>fm', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
   end
-
   -- Set autocommands conditional on server_capabilities
   if client.resolved_capabilities.document_highlight then
     vim.api.nvim_exec([[
@@ -212,11 +240,8 @@ local on_attach = function(client, bufnr)
     ]], false)
   end
 end
-
--- Use a loop to conveniently both setup defined servers 
--- and map buffer local keybindings when the language server attaches
---local servers = { "pyright", "rust_analyzer", "clangd" }
---for _, lsp in ipairs(servers) do
---  nvim_lsp[lsp].setup { on_attach = on_attach }
---end
+local servers = { "pyright", "rust_analyzer", "tsserver", "vimls", "clangd" }
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup { on_attach = on_attach }
+end
 EOF

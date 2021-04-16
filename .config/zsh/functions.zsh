@@ -6,3 +6,4 @@ function unset_clang(){
     unset CC
     unset CXX
 }
+eval "$(zoxide init zsh)"
