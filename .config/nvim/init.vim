@@ -137,6 +137,9 @@ inoremap <expr> <C-e> compe#close('<C-e>')
 inoremap <expr> <C-f> compe#scroll({ 'delta': +4 })
 inoremap <expr> <C-d> compe#scroll({ 'delta': -4 })
 
+" start new terminal in current folder
+nnoremap <leader>e` :!alacritty &<cr><cr>
+
 " neovim-lsp keybindings
 lua << EOF
 require'nvim-treesitter.configs'.setup {
