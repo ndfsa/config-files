@@ -121,6 +121,7 @@ nnoremap <F2> :UndotreeToggle<CR>
 " toggle options
 nnoremap <leader>on :set relativenumber!<CR>
 nnoremap <leader>oh :set hlsearch!<CR>
+nnoremap <leader>ow :set wrap!<CR>
 nnoremap <leader>oc :ColorizerToggle<CR>
 
 " Telescope bindings
