@@ -207,7 +207,7 @@ vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 
-require('lualine').setup{options = {theme = 'gruvbox'}}
+require('lualine').setup{options = {theme = 'gruvbox', section_separators = '', component_separators = '|'}}
     local nvim_lsp = require('lspconfig')
     local on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
