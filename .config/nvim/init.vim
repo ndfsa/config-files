@@ -35,11 +35,12 @@ Plug 'norcalli/nvim-colorizer.lua'
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'mhinz/vim-startify'
+Plug 'tpope/vim-fugitive'
 
 "" vim 0.5 functions
 " lsp and treesitter
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'hrsh7th/nvim-compe'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'hrsh7th/vim-vsnip'
@@ -90,7 +91,7 @@ set noshowmode
 
 " set some basic color settings and background override
 colorscheme gruvbox
-highlight Normal guibg=none
+"highlight Normal guibg=none
 
 " Remove all trailing spaces
 autocmd FileType * autocmd BufWritePre <buffer> %s/\s\+$//e
@@ -98,14 +99,15 @@ autocmd FileType * autocmd BufWritePre <buffer> %s/\s\+$//e
 " Useful keymaps
 let mapleader = " "
 
-noremap <leader>ss :update<CR>
+noremap <leader>ss :update<cr>
 
 " window operations
-nnoremap <leader>wh :wincmd h<CR>
-nnoremap <leader>wj :wincmd j<CR>
-nnoremap <leader>wk :wincmd k<CR>
-nnoremap <leader>wl :wincmd l<CR>
-nnoremap <leader>wc :close<CR>
+nnoremap <leader>wh :wincmd h<cr>
+nnoremap <leader>wj :wincmd j<cr>
+nnoremap <leader>wk :wincmd k<cr>
+nnoremap <leader>wl :wincmd l<cr>
+nnoremap <leader>wc :close<cr>
+nnoremap <leader>wo :only<cr>
 
 nnoremap <leader>wmh <C-w>H
 nnoremap <leader>wmj <C-w>J
@@ -113,35 +115,35 @@ nnoremap <leader>wmk <C-w>K
 nnoremap <leader>wml <C-w>L
 
 " split windows
-nnoremap <leader>sh :split<CR>
-nnoremap <leader>sv :vsplit<CR>
+nnoremap <leader>sh :split<cr>
+nnoremap <leader>sv :vsplit<cr>
 
 " tab operations
-nnoremap <leader>tw :tabnew<CR>
-nnoremap <leader>tc :tabclose<CR>
-nnoremap <leader>tn :tabnext<CR>
-nnoremap <leader>tp :tabprevious<CR>
+nnoremap <leader>tw :tabnew<cr>
+nnoremap <leader>tc :tabclose<cr>
+nnoremap <leader>tn :tabnext<cr>
+nnoremap <leader>tp :tabprevious<cr>
 
 " move lines
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
+vnoremap J :m '>+1<cr>gv=gv
+vnoremap K :m '<-2<cr>gv=gv
 
 " Vim maximizer remap
-nnoremap <F3> :MaximizerToggle<CR>
-vnoremap <F3> :MaximizerToggle<CR>gv
-inoremap <F3> <C-o>:MaximizerToggle<CR>
+nnoremap <F3> :MaximizerToggle<cr>
+vnoremap <F3> :MaximizerToggle<cr>gv
+inoremap <F3> <C-o>:MaximizerToggle<cr>
 
 " nvimtree replacing netrw
-nnoremap <C-n> :NvimTreeToggle<CR>
+nnoremap <C-n> :NvimTreeToggle<cr>
 
 " undotree
-nnoremap <F2> :UndotreeToggle<CR>
+nnoremap <F2> :UndotreeToggle<cr>
 
 " toggle options
-nnoremap <leader>on :set relativenumber!<CR>
-nnoremap <leader>oh :set hlsearch!<CR>
-nnoremap <leader>ow :set wrap!<CR>
-nnoremap <leader>oc :ColorizerToggle<CR>
+nnoremap <leader>on :set relativenumber!<cr>
+nnoremap <leader>oh :set hlsearch!<cr>
+nnoremap <leader>ow :set wrap!<cr>
+nnoremap <leader>oc :ColorizerToggle<cr>
 
 " Telescope bindings
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
@@ -151,12 +153,14 @@ nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 nnoremap <leader>fz <cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>
 
 nnoremap <leader>gb <cmd>lua require('telescope.builtin').git_branches()<cr>
-nnoremap <leader>gs <cmd>lua require('telescope.builtin').git_status()<cr>
 nnoremap <leader>gf <cmd>lua require('telescope.builtin').git_files()<cr>
+nnoremap <leader>gs <cmd>:Git<cr>
+nnoremap <leader>gmj <cmd>:diffget //3<cr>
+nnoremap <leader>gmf <cmd>:diffget //2<cr>
 
 " compe mappints
 inoremap <expr> <C-Space> compe#complete()
-inoremap <expr> <CR> compe#confirm('<CR>')
+inoremap <expr> <cr> compe#confirm('<cr>')
 inoremap <expr> <C-e> compe#close('<C-e>')
 inoremap <expr> <C-f> compe#scroll({ 'delta': +4 })
 inoremap <expr> <C-d> compe#scroll({ 'delta': -4 })
@@ -240,28 +244,28 @@ local on_attach = function(client, bufnr)
 
     -- Mappings.
     local opts = { noremap=true, silent=false }
-    buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    buf_set_keymap('n', '<leader>wsa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<leader>wsr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<leader>wsl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-    buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-    buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+    buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+    buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<cr>', opts)
+    buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<cr>', opts)
+    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+    buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+    buf_set_keymap('n', '<leader>wsa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>', opts)
+    buf_set_keymap('n', '<leader>wsr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>', opts)
+    buf_set_keymap('n', '<leader>wsl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>', opts)
+    buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+    buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+    buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>', opts)
+    buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>', opts)
+    buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<cr>', opts)
+    buf_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>', opts)
 
     -- Set some keybinds conditional on server capabilities
     if client.resolved_capabilities.document_formatting then
-        buf_set_keymap('n', '<leader>fm', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+        buf_set_keymap('n', '<leader>fm', '<cmd>lua vim.lsp.buf.formatting()<cr>', opts)
     end
     if client.resolved_capabilities.document_range_formatting then
-        buf_set_keymap('v', '<leader>fm', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
+        buf_set_keymap('v', '<leader>fm', '<cmd>lua vim.lsp.buf.range_formatting()<cr>', opts)
     end
     -- Set autocommands conditional on server_capabilities
     if client.resolved_capabilities.document_highlight then
