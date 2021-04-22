@@ -22,6 +22,7 @@ set scrolloff=8
 set laststatus=2
 set completeopt=menuone,noselect,noinsert
 set termguicolors
+set shortmess+=c
 
 " Load vim plug
 call plug#begin('~/.vim/plugged')
@@ -36,6 +37,7 @@ Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-fugitive'
+Plug 'liuchengxu/vim-which-key'
 
 "" vim 0.5 functions
 " lsp and treesitter
@@ -48,6 +50,7 @@ Plug 'hrsh7th/vim-vsnip'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'vimwiki/vimwiki'
 
 call plug#end()
 
@@ -89,6 +92,10 @@ autocmd FileType html,css,javascript EmmetInstall
 " hide current mode, because using lightline
 set noshowmode
 
+" make vimwiki use markdown
+let g:vimwiki_list = [{'path': '~/Documents/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
+
 " set some basic color settings and background override
 colorscheme gruvbox
 "highlight Normal guibg=none
@@ -102,21 +109,16 @@ let mapleader = " "
 noremap <leader>ss :update<cr>
 
 " window operations
-nnoremap <leader>wh :wincmd h<cr>
-nnoremap <leader>wj :wincmd j<cr>
-nnoremap <leader>wk :wincmd k<cr>
-nnoremap <leader>wl :wincmd l<cr>
-nnoremap <leader>wc :close<cr>
-nnoremap <leader>wo :only<cr>
-
-nnoremap <leader>wmh <C-w>H
-nnoremap <leader>wmj <C-w>J
-nnoremap <leader>wmk <C-w>K
-nnoremap <leader>wml <C-w>L
+nnoremap <leader>sh :wincmd h<cr>
+nnoremap <leader>sj :wincmd j<cr>
+nnoremap <leader>sk :wincmd k<cr>
+nnoremap <leader>sl :wincmd l<cr>
+nnoremap <leader>sc :close<cr>
+nnoremap <leader>so :only<cr>
 
 " split windows
-nnoremap <leader>sh :split<cr>
-nnoremap <leader>sv :vsplit<cr>
+nnoremap <leader>s<leader>h :split<cr>
+nnoremap <leader>s<leader>v :vsplit<cr>
 
 " tab operations
 nnoremap <leader>tw :tabnew<cr>
@@ -187,54 +189,18 @@ require'compe'.setup {
     calc = true;
     nvim_lsp = true;
     nvim_lua = true;
+    vsnip = true;
   };
 }
 
 require'colorizer'.setup()
-
-local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local check_back_space = function()
-    local col = vim.fn.col('.') - 1
-    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-        return true
-    else
-        return false
-    end
-end
-
--- Use (s-)tab to:
---- move to prev/next item in completion menuone
---- jump to prev/next snippet's placeholder
-_G.tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-n>"
-  elseif vim.fn.call("vsnip#available", {1}) == 1 then
-    return t "<Plug>(vsnip-expand-or-jump)"
-  elseif check_back_space() then
-    return t "<Tab>"
-  else
-    return vim.fn['compe#complete']()
-  end
-end
-_G.s_tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-p>"
-  elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
-    return t "<Plug>(vsnip-jump-prev)"
-  else
-    return t "<S-Tab>"
-  end
-end
-
-vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-
-require('lualine').setup{options = {theme = 'gruvbox', section_separators = '', component_separators = '|'}}
+require('lualine').setup{
+    options = {
+        theme = 'gruvbox',
+        section_separators = '',
+        component_separators = '|'
+    }
+}
 local nvim_lsp = require('lspconfig')
 local on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
