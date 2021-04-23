@@ -14,7 +14,7 @@ then
         "  Yes")
             case $selection in
                 $lockscreen)
-                    light-locker-command -l
+                    env XSECURELOCK_NO_COMPOSITE=1 xsecurelock
                     ;;
                 $logout)
                     bspc quit

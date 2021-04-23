@@ -103,8 +103,13 @@ colorscheme gruvbox
 " Remove all trailing spaces
 autocmd FileType * autocmd BufWritePre <buffer> %s/\s\+$//e
 
+autocmd! FileType which_key
+autocmd  FileType which_key set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 ruler
+
 " Useful keymaps
 let mapleader = " "
+nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 
 noremap <leader>ss :update<cr>
 
