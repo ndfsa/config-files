@@ -11,18 +11,6 @@ else
 fi
 bindkey -e
 
-## Add sudo to the start of the command
-sudo-command-line() {
-    [[ -z $BUFFER ]] && zle up-history
-    if [[ $BUFFER == sudo\ * ]]; then
-        LBUFFER="${LBUFFER#sudo }"
-    else
-        LBUFFER="sudo $LBUFFER"
-    fi
-}
-
-zle -N sudo-command-line
-
 ## History search
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
