@@ -1,6 +1,7 @@
 #!/bin/dash
 
 xsetroot -cursor_name left_ptr &
+xrdb -merge $HOME/.Xresources
 
 bspc monitor -d 1 2 3 4 5 6 7 8 9 10
 
