@@ -6,7 +6,6 @@ function unset_clang(){
     unset CC
     unset CXX
 }
-eval "$(zoxide init zsh)"
 
 ## Add sudo to the start of the command
 sudo-command-line() {
