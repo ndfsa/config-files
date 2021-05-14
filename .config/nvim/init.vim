@@ -59,6 +59,8 @@ let g:nvim_tree_width = 40
 let g:nvim_tree_auto_close = 1
 let g:nvim_tree_indent_markers = 1
 let g:nvim_tree_hijack_netrw = 0
+let g:nvim_tree_auto_ignore_ft = ['startify']
+let g:nvim_tree_auto_open = 1
 let g:startify_custom_header = [
             \ '         ⡔⠁⢇    ⠘ ⢀⠈⡄                                                                                            ',
             \ '        ⡘  ⢸    ⡆  ⡀⢰         ⡈⠂    ⢀⡀                                                    ⡯⣯⣻                    ',
