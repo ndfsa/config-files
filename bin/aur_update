@@ -1,4 +1,0 @@
-#/bin/dash
-for i in $(/bin/ls $HOME/AUR); do
-    printf '%s\n\n' "$(cd $HOME/AUR/$i; git pull; pwd)"
-done
