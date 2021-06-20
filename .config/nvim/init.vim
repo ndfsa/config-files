@@ -35,7 +35,6 @@ Plug 'hoob3rt/lualine.nvim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
-Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-fugitive'
 Plug 'liuchengxu/vim-which-key'
 
@@ -59,30 +58,7 @@ let g:nvim_tree_width = 40
 let g:nvim_tree_auto_close = 1
 let g:nvim_tree_indent_markers = 1
 let g:nvim_tree_hijack_netrw = 0
-let g:nvim_tree_auto_ignore_ft = ['startify']
 let g:nvim_tree_auto_open = 1
-let g:startify_custom_header = [
-            \ '         ⡔⠁⢇    ⠘ ⢀⠈⡄                                                                                            ',
-            \ '        ⡘  ⢸    ⡆  ⡀⢰         ⡈⠂    ⢀⡀                                                    ⡯⣯⣻                    ',
-            \ '   ⠰    ⡇ ⠄⠈⡆   ⢇ ⣀⣣ ⢇      ⠄⢂⠁⢈⡐⠠  ⠐⠊                                                    ⠉⠈⠈        ⡀      ⣀    ',
-            \ '  ⠂⠅⡅⠂  ⡇ ⢸⢀⠣⠄⠒⠋⠉  ⠐ ⠭⡙⠩⢅⠒⠠⢄  ⢁⡄           ⢰⠆⢀⡤⠖⠚⠒⠶⡤⡀   ⢀⡤⠖⠒⠓⠒⠦⣄   ⢀⣠⠖⠖⠑⠓⠶⡤⡀ ⢹⢯⣻⡂    ⢀⣞⡯⡟ ⣟⡽⡽  ⡯⡯⣗⡴⣺⢽⢽⣫⢦⣀⢴⣫⢯⣗⢯⣗⢦ ',
-            \ '   ⠐⢀⠐⠭⠂⣇⠔⠋   ⢀        ⠑⠤⡁⢢ ⠈⠢⡈⠁⢀⡠⠒⢀       ⢸⡳⠁     ⠸⣣  ⣰⠏      ⠑⣆ ⢠⡞⠁     ⠈⢫⣆ ⢫⢾⣝⡄   ⡼⣺⣺⠁ ⣗⣯⣻  ⡯⣯⣳⠋⠁ ⠈⢺⢽⣺⠝   ⢹⡺⡽⡅',
-            \ '   ⠐⢌⠆⢀⠜⠁      ⢢         ⠈⠢⡱⡀ ⠈⠢⡀⠉⡰⠁       ⢸⠎       ⡯  ⡷⡤⡤⡤⡤⡤⡤⡤⣤⣳ ⡼⡆       ⠈⣞⡀⠈⢗⢷⢵  ⡰⡯⣗⠃  ⣗⣗⣗  ⣟⣞⣞    ⢸⢽⣺⠅   ⢐⡯⡯⡇',
-            \ '    ⠈⢠⠋   ⢰     ⣳⣄⡄        ⠱⣷   ⠘⣆⠁        ⢸⢇       ⣟  ⡯          ⢯⠇        ⡷⠁ ⠘⡽⡽⣅⢠⢯⣻⠊   ⣗⣗⣗  ⣗⣗⡽    ⢸⡳⣝⡇   ⢐⡯⡯⡇',
-            \ '    ⢠⠃⠂ ⢰⡠⣺⣄⢠   ⠫⢟⠣⡀⠐⢄   ⠠ ⠆⠸⣇   ⠘⣦⣀       ⢸⡃       ⡯  ⢻⣂         ⠸⣣       ⣸⠝   ⠸⣝⢷⢼⢽⡚    ⣗⣗⣗  ⣗⣗⣟    ⢸⣝⣗⠇   ⢐⡯⡯⡇',
-            \ '    ⡞⢸  ⢸⠘⡗⠻ ⢇   ⠸⡀⠈⠢⣈⣳⣄  ⢆⢸ ⠹⡄  ⠱⣾⡄⠑⡄     ⢸⡣       ⣟   ⠑⠗⣤⣀⣀⡠⡤⠖⠃  ⠘⠱⡤⣀⣀⣀⡤⡞⠑     ⠹⡽⣝⡗     ⣗⣗⣗  ⣗⢷⢽    ⢸⡺⡮⡇   ⢐⢯⡻⡆',
-            \ '   ⢠⠇⢸  ⢸⢀⠃ ⠡⡈⡧⡀  ⢃⠐⣉⣤⣌⠙⢷⢄⠘⣼  ⣇   ⠹⣿ ⠘⣆                     ⠁          ⠈                                         ',
-            \ '   ⣸ ⢸  ⡈⣼⠤⠤ ⠈⠪⣌⠢⢀⠸⢰⣿⡎⠿⠷⡌⠂⠈⡽ ⡎⢸    ⡼  ⢸⡄                                 ⣠⠒⠒⠢⡀        ⠙⠛⠉⠉⠉⠙⠛⠻⣷⣶⣄                ',
-            \ '  ⢠⣿ ⢸⡆ ⡿⢡⣾⢷⣦       ⢯⣤⡠⣿⡇ ⡰⢣⠞ ⠘⡇ ⢀⣴⡇   ⡇                                 ⢣⡀ ⢀⠇              ⠐⠊⠉⠉⠉                ',
-            \ '  ⣼⢻⡄⠸⣧⢰⠃⠸⡟⠈⢉⡇      ⠈⠛⠓⠋  ⠋⢹⡀  ⡇⣤⣾⣿⡇  ⢰⠁                      ⣀⣀⡀         ⠉⠉⠁                                    ',
-            \ '  ⣟ ⣧⠠⣿⣿  ⢻⣷⣸⠏              ⡇  ⣿⢉⣾⣿⡇ ⢠⠏⢷                    ⣠⡾⠋⠉⠙⠷⣤⡀                                             ',
-            \ '  ⢸⡤⢘⠁⣛⣿⡆        ⢠⣄⡀        ⣹  ⢿⢞⣿⣿⡇⣰⠏ ⠸                  ⣠⡾⠋     ⠈⠙⠷⣦⣀                                          ',
-            \ '   ⣻⣿⣇⠙⢿⡇        ⢸⠋⠉⡆     ⣠⣴⣿⡇ ⢸⣿⣿⣿⣿⣯⡆ ⢸             ⢦⣀⣀⣠⡾⠋          ⠈⠛⢷⣦⣄⡀                                      ',
-            \ '  ⢀⣇⢏⢻⡆ ⢳⣄⡀      ⠈⠉⠉⢀⠤⠤⢠⣴⠾⡿⠟⠛⢳ ⢸⡙⢛⡿⣻⣿⡇ ⣸             ⠈⠛⠿⠿⠁              ⠈⠛⢿⣶⣤⣀      ⠈⣄                           ',
-            \ '  ⠘⡅⡎ ⣇⠠⡚⣧⠉⠑⣒⡦⠤⠤⣤⠤⠖⠁⠁   ⠁    ⠈⡆⢸⠟⢾⣿⣿⡿ ⣰⠛                                   ⠈⠙⠿⣿⡆     ⠈⠳⢶⣤⣤⣀⣀⣀⣀⣀⣀⣀⣀⡀              ',
-            \ '   ⠱⡄ ⢹ ⢱⣿⢠⡞⠁ ⢠⠊⠁             ⠸⣼ ⠈⡇ ⣇⡴⠃                                                  ⠉⠉⠉⠛⠛⠛⠛⠛⠛⠋              '
-            \ ]
-
 let g:undotree_WindowLayout = 4
 let g:undotree_ShortIndicators=1
 let g:undotree_SplitWidth=40
