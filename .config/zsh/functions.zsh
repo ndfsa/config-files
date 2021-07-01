@@ -1,12 +1,3 @@
-function set_clang(){
-    export CC=clang
-    export CXX=clang++
-}
-function unset_clang(){
-    unset CC
-    unset CXX
-}
-
 ## Add sudo to the start of the command
 sudo-command-line() {
     [[ -z $BUFFER ]] && zle up-history

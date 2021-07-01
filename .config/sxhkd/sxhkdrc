@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + Return
-	alacritty
+    alacritty
 
 super + e
 	alacritty -e ranger
@@ -128,7 +128,7 @@ super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
 # change wallpaper
-super + bracketleft 
+super + bracketleft
     "$HOME/bin/random_wallpaper"
 
 # change gaps
@@ -137,7 +137,7 @@ super + g ; {minus,equal}
 
 # reset gaps
 super + g ; r
-    bspc config window_gap 20
+    bspc config window_gap 10
 
 # change border
 super + ctrl + {shift + b, b}
@@ -158,5 +158,5 @@ XF86MonBrightnessDown
     xbacklight -dec 5
 
 # Rotate nodes
-super + w ; r ; {h,l}
-    bspc node @/ -R {-,_}90
+super + w
+    bspc node @/ -R 90
