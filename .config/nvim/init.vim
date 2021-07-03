@@ -152,7 +152,7 @@ inoremap <expr> <C-d> compe#scroll({ 'delta': -4 })
 
 " start new terminal in current folder
 if has('unix')
-    nnoremap <leader>e` :!alacritty &<cr><cr>
+    nnoremap <leader>e` :!st &<cr><cr>
 elseif has('win32')
     nnoremap <leader>e` :!start /MIN alacritty<cr><cr>
 endif

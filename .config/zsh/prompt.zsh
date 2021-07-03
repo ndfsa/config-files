@@ -7,23 +7,31 @@ setopt prompt_subst                                                             
 precmd_vcs_info() {
     # only perform if the directory in question is a git repository
     if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) ]]; then
+
         sts=$(git status --porcelain=1)
-        if [[ $(echo "$sts" | rg "^[AMD]") ]]; then
+        if [[ -n $(echo "$sts" | rg "^[AMD]") ]]; then
             staged=" %F{green}%f"
         else
             staged=""
         fi
-        if [[ $(echo "$sts" | rg "^\\s[MD]") ]]; then
+        if [[ -n $(echo "$sts" | rg "^\\s[MD]") ]]; then
             unstaged=" %F{yellow}%f"
         else
             unstaged=""
         fi
-        if [[ $(echo "$sts" | rg "^\\?\\?") ]]; then
+        if [[ -n $(echo "$sts" | rg "^\\?\\?") ]]; then
             untracked=" %F{red}%f"
         else
             untracked=""
         fi
-        vcs_wrapper="%F{magenta} שׂ $(git branch --show-current)%f$staged$unstaged$untracked"
+
+        branch=$(git branch --show-current)
+        if [[ -n $branch ]]; then
+            branch="%F{magenta} שׂ $branch%f"
+        else
+            branch="%F{magenta}  $(git describe --tags)%f"
+        fi
+        vcs_wrapper="$branch$staged$unstaged$untracked"
     else
         vcs_wrapper=""
     fi
