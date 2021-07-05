@@ -4,10 +4,10 @@
 
 # terminal emulator
 super + Return
-    alacritty
+    st
 
 super + e
-	alacritty -e ranger
+	st -e ranger
 
 # program launcher
 super + r
