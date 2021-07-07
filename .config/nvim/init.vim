@@ -20,9 +20,10 @@ set encoding=UTF-8
 set laststatus=2
 set scrolloff=8
 set laststatus=2
-set completeopt=menuone,noselect,noinsert
+set completeopt=menuone,noselect
 set termguicolors
 set shortmess+=c
+set updatetime=500
 
 " Load vim plug
 call plug#begin('~/.vim/plugged')
@@ -36,15 +37,15 @@ Plug 'norcalli/nvim-colorizer.lua'
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'tpope/vim-fugitive'
-Plug 'liuchengxu/vim-which-key'
 
 "" vim 0.5 functions
 " lsp and treesitter
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'hrsh7th/nvim-compe'
 Plug 'rafamadriz/friendly-snippets'
+Plug 'hrsh7th/nvim-compe'
 Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
 " telescope
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -80,10 +81,6 @@ colorscheme gruvbox
 
 " Remove all trailing spaces
 autocmd FileType * autocmd BufWritePre <buffer> %s/\s\+$//e
-
-autocmd! FileType which_key
-autocmd  FileType which_key set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 ruler
 
 " Useful keymaps
 let mapleader = " "
@@ -144,11 +141,11 @@ nnoremap <leader>gmj <cmd>:diffget //3<cr>
 nnoremap <leader>gmf <cmd>:diffget //2<cr>
 
 " compe mappints
-inoremap <expr> <C-Space> compe#complete()
-inoremap <expr> <cr> compe#confirm('<cr>')
-inoremap <expr> <C-e> compe#close('<C-e>')
-inoremap <expr> <C-f> compe#scroll({ 'delta': +4 })
-inoremap <expr> <C-d> compe#scroll({ 'delta': -4 })
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <cr> compe#confirm('<cr>')
+inoremap <silent><expr> <C-e> compe#close('<C-e>')
+inoremap <silent><expr> <C-f> compe#scroll({ 'delta': +4 })
+inoremap <silent><expr> <C-d> compe#scroll({ 'delta': -4 })
 
 " start new terminal in current folder
 if has('unix')
@@ -166,14 +163,26 @@ require'nvim-treesitter.configs'.setup {
     },
 }
 require'compe'.setup {
-  source = {
-    path = true;
-    buffer = true;
-    calc = true;
-    nvim_lsp = true;
-    nvim_lua = true;
-    vsnip = true;
-  };
+    enabled = true;
+    autocomplete = true;
+    debug = false;
+    min_length = 1;
+    preselect = 'enable';
+    throttle_time = 80;
+    source_timeout = 200;
+    incomplete_delay = 400;
+    max_abbr_width = 100;
+    max_kind_width = 100;
+    max_menu_width = 100;
+    documentation = 100;
+
+    source = {
+        path = true;
+        buffer = true;
+        calc = true;
+        nvim_lsp = true;
+        vsnip = true;
+    };
 }
 
 require'colorizer'.setup()
@@ -186,35 +195,29 @@ require('lualine').setup{
 }
 local nvim_lsp = require('lspconfig')
 local on_attach = function(client, bufnr)
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     -- Mappings.
-    local opts = { noremap=true, silent=false }
-    buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<cr>', opts)
-    buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<cr>', opts)
-    buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<cr>', opts)
-    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
-    buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-    buf_set_keymap('n', '<leader>wsa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>', opts)
-    buf_set_keymap('n', '<leader>wsr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>', opts)
-    buf_set_keymap('n', '<leader>wsl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>', opts)
-    buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
-    buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
-    buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>', opts)
-    buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>', opts)
-    buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<cr>', opts)
-    buf_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>', opts)
+    local opts = { noremap=true, silent=true }
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<cr>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>', opts)
 
     -- Set some keybinds conditional on server capabilities
     if client.resolved_capabilities.document_formatting then
-        buf_set_keymap('n', '<leader>fm', '<cmd>lua vim.lsp.buf.formatting()<cr>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>fm', '<cmd>lua vim.lsp.buf.formatting()<cr>', opts)
     end
     if client.resolved_capabilities.document_range_formatting then
-        buf_set_keymap('v', '<leader>fm', '<cmd>lua vim.lsp.buf.range_formatting()<cr>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'v', '<leader>fm', '<cmd>lua vim.lsp.buf.range_formatting()<cr>', opts)
     end
     -- Set autocommands conditional on server_capabilities
     if client.resolved_capabilities.document_highlight then
@@ -232,6 +235,11 @@ local on_attach = function(client, bufnr)
 end
 local servers = { "pyright", "rust_analyzer", "tsserver", "vimls", "clangd" }
 for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup { on_attach = on_attach }
+    nvim_lsp[lsp].setup {
+        on_attach = on_attach,
+        flags = {
+            debounce_text_changes = 150,
+            }
+        }
 end
 EOF
