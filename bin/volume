@@ -1,0 +1,15 @@
+#!/bin/dash
+
+case $1 in
+    up) pulseaudio-ctl up 2;;
+    down) pulseaudio-ctl down 2;;
+    mute) pulseaudio-ctl mute && pulseaudio-ctl mute-input 2;;
+    get)
+        status=`pulseaudio-ctl full-status`
+        if [ `echo $status | cut -d ' ' -f2` = "no" ]; then
+            echo "`echo $status | cut -d ' ' -f1`%"
+        else
+            echo "M"
+        fi
+        ;;
+esac
