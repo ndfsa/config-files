@@ -36,7 +36,6 @@ Plug 'hoob3rt/lualine.nvim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
-Plug 'tpope/vim-fugitive'
 
 "" vim 0.5 functions
 " lsp and treesitter
@@ -58,11 +57,16 @@ let g:nvim_tree_side = 'right'
 let g:nvim_tree_width = 40
 let g:nvim_tree_auto_close = 1
 let g:nvim_tree_indent_markers = 1
-let g:nvim_tree_hijack_netrw = 0
+let g:nvim_tree_ignore = ['.git', 'node_modules', '.cache']
 let g:nvim_tree_auto_open = 1
 let g:undotree_WindowLayout = 4
 let g:undotree_ShortIndicators=1
 let g:undotree_SplitWidth=40
+let g:nvim_tree_update_cwd = 1
+let g:nvim_tree_show_icons = {
+    \ 'folders': 1,
+    \ 'files': 1,
+    \ }
 
 let g:user_emmet_mode='n'
 let g:user_emmet_install_global = 0
@@ -114,7 +118,7 @@ vnoremap <F3> :MaximizerToggle<cr>gv
 inoremap <F3> <C-o>:MaximizerToggle<cr>
 
 " nvimtree replacing netrw
-nnoremap <C-n> :NvimTreeToggle<cr>
+nnoremap <leader>n :NvimTreeToggle<cr>
 
 " undotree
 nnoremap <F2> :UndotreeToggle<cr>
@@ -134,9 +138,6 @@ nnoremap <leader>fz <cmd>lua require('telescope.builtin').current_buffer_fuzzy_f
 
 nnoremap <leader>gb <cmd>lua require('telescope.builtin').git_branches()<cr>
 nnoremap <leader>gf <cmd>lua require('telescope.builtin').git_files()<cr>
-nnoremap <leader>gs <cmd>:Git<cr>
-nnoremap <leader>gmj <cmd>:diffget //3<cr>
-nnoremap <leader>gmf <cmd>:diffget //2<cr>
 
 " compe mappints
 inoremap <silent><expr> <C-Space> compe#complete()
@@ -155,10 +156,28 @@ endif
 " neovim-lsp keybindings
 lua << EOF
 require'nvim-treesitter.configs'.setup {
-    ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+    ensure_installed = {
+        "bash",
+        "c",
+        "cpp",
+        "cmake",
+        "comment",
+        "css",
+        "gdscript",
+        "html",
+        "java",
+        "javascript",
+        "json",
+        "latex",
+        "lua",
+        "python",
+        "regex",
+        "rust",
+        "typescript"
+    }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
     highlight = {
         enable = true              -- false will disable the whole extension
-    },
+    }
 }
 require'compe'.setup {
     enabled = true;
@@ -172,7 +191,7 @@ require'compe'.setup {
     max_abbr_width = 100;
     max_kind_width = 100;
     max_menu_width = 100;
-    --documentation = 100;
+    documentation = true;
 
     source = {
         path = true;
@@ -184,12 +203,28 @@ require'compe'.setup {
 }
 
 require'colorizer'.setup()
+
+local function hexvalue()
+    return "0x%04B"
+end
+local function bufinfo()
+    return "[%n] %t%m%r%w"
+end
 require('lualine').setup{
     options = {
         theme = 'gruvbox',
         section_separators = '',
-        component_separators = '|'
-    }
+        component_separators = '│'
+    },
+    sections = {
+        lualine_a = {'mode'},
+        lualine_b = {'branch'},
+        lualine_c = {bufinfo},
+        lualine_x = {'encoding', 'fileformat', 'filetype'},
+        lualine_y = {hexvalue, 'progress'},
+        lualine_z = {'location'}
+    },
+    extensions = {'nvim-tree', 'quickfix'}
 }
 local nvim_lsp = require('lspconfig')
 local on_attach = function(client, bufnr)
