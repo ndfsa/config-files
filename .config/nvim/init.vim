@@ -84,21 +84,19 @@ autocmd FileType * autocmd BufWritePre <buffer> %s/\s\+$//e
 
 " Useful keymaps
 let mapleader = " "
-nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 
-noremap <leader>ss :update<cr>
+noremap <leader>ss :write<cr>
 
 " window operations
-nnoremap <leader>sh :wincmd h<cr>
-nnoremap <leader>sj :wincmd j<cr>
-nnoremap <leader>sk :wincmd k<cr>
-nnoremap <leader>sl :wincmd l<cr>
-nnoremap <leader>sc :close<cr>
-nnoremap <leader>so :only<cr>
+nnoremap <leader>wh :wincmd h<cr>
+nnoremap <leader>wj :wincmd j<cr>
+nnoremap <leader>wk :wincmd k<cr>
+nnoremap <leader>wl :wincmd l<cr>
+nnoremap <leader>wc :close<cr>
 
 " split windows
-nnoremap <leader>s<leader>h :split<cr>
-nnoremap <leader>s<leader>v :vsplit<cr>
+nnoremap <leader>w<leader>h :split<cr>
+nnoremap <leader>w<leader>v :vsplit<cr>
 
 " tab operations
 nnoremap <leader>tw :tabnew<cr>
@@ -174,7 +172,7 @@ require'compe'.setup {
     max_abbr_width = 100;
     max_kind_width = 100;
     max_menu_width = 100;
-    documentation = 100;
+    --documentation = 100;
 
     source = {
         path = true;

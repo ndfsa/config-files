@@ -1,3 +1,3 @@
 #!/bin/dash
-file=$(ls Pictures/Wallpapers | sort -R | tail -n 1)
-$HOME/bin/change_wallpaper "$HOME/Pictures/Wallpapers/$file"
+file=$(ls $HOME/Pictures/Wallpapers | sort -R | tail -n 1)
+feh --bg-fill "$HOME/Pictures/Wallpapers/$file"
