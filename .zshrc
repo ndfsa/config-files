@@ -25,6 +25,7 @@ source ~/.config/zsh/functions.zsh
 ### Keybinds
 source ~/.config/zsh/keybinds.zsh
 
+eval "$(zoxide init zsh)"
 ### Syntax highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
