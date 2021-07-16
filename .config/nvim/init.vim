@@ -2,7 +2,6 @@ set title
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-set expandtab
 set smartindent
 set nowrap
 set incsearch
@@ -49,7 +48,6 @@ Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'vimwiki/vimwiki'
 
 call plug#end()
 
@@ -58,7 +56,7 @@ let g:nvim_tree_width = 40
 let g:nvim_tree_auto_close = 1
 let g:nvim_tree_indent_markers = 1
 let g:nvim_tree_ignore = ['.git', 'node_modules', '.cache']
-let g:nvim_tree_auto_open = 1
+let g:nvim_tree_auto_open = 0
 let g:undotree_WindowLayout = 4
 let g:undotree_ShortIndicators=1
 let g:undotree_SplitWidth=40
