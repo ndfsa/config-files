@@ -87,6 +87,8 @@ autocmd FileType * autocmd BufWritePre <buffer> %s/\s\+$//e
 " Useful keymaps
 let mapleader = " "
 
+tnoremap <Esc> <C-\><C-n>
+
 noremap <leader>ss :write<cr>
 
 " window operations
