@@ -206,7 +206,7 @@ local function hexvalue()
     return "0x%04B"
 end
 local function bufinfo()
-    return "[%n] %t%m%r%w"
+    return "[%n] %t %m %r %w"
 end
 require('lualine').setup{
     options = {
