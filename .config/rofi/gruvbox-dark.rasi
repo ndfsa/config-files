@@ -12,7 +12,7 @@
    ========================================================================== */
 
 configuration {
-    font:           "JetBrainsMono Nerd Font 13";
+    font:           "FiraCode Nerd Font 13";
 }
 
 * {

@@ -1,6 +1,0 @@
-#!/bin/dash
-
-$HOME/bin/start_picom
-$HOME/bin/set_wallpaper
-pulseaudio --start
-slstatus &

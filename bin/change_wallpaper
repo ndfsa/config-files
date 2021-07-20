@@ -1,37 +1,5 @@
 #!/bin/dash
 
-feh --bg-fill $1
-img_color=$($HOME/bin/color_select "$1" -t 4)
-color=""
-case $img_color in
-    0)
-        color="#ebdbb2"
-        ;;
-    1)
-        color="#458588"
-        ;;
-    2)
-        color="#98971a"
-        ;;
-    3)
-        color="#689d6a"
-        ;;
-    4)
-        color="#cc241d"
-        ;;
-    5)
-        color="#b16286"
-        ;;
-    6)
-        color="#d79921"
-        ;;
-    *)
-        color="#ebdbb2"
-        ;;
-esac
+. $HOME/bin/func.sh
 
-if [ ! $color = "" ]; then
-    bspc config focused_border_color "$color"
-    # the -r flag in polybar is required at startup
-    sed -i "/primary =/s/.*/primary = $color/" $HOME/.config/polybar/config.ini
-fi
+feh --bg-fill "$HOME/Pictures/Wallpapers/$(rofi_prompt "/bin/ls -1 $HOME/Pictures/Wallpapers" "Select")"

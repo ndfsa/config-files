@@ -1,13 +1,12 @@
 #!/bin/dash
 
 case $1 in
-    up) pulseaudio-ctl up 2;;
-    down) pulseaudio-ctl down 2;;
-    mute) pulseaudio-ctl mute && pulseaudio-ctl mute-input 2;;
+    up) pamixer -i 2;;
+    down) pamixer -d 2;;
+    mute) pamixer -t;;
     get)
-        status=`pulseaudio-ctl full-status`
-        if [ `echo $status | cut -d ' ' -f2` = "no" ]; then
-            echo "`echo $status | cut -d ' ' -f1`%"
+        if [ `pamixer --get-mute` = "false" ]; then
+            echo "`pamixer --get-volume`%"
         else
             echo "M"
         fi

@@ -7,29 +7,32 @@ setopt prompt_subst                                                             
 precmd_vcs_info() {
     # only perform if the directory in question is a git repository
     if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) ]]; then
-
         sts=$(git status --porcelain=1)
         if [[ -n $(echo "$sts" | rg "^[AMD]") ]]; then
-            staged=" %F{green}%f"
+            staged=" %F{2}%f"
         else
             staged=""
         fi
         if [[ -n $(echo "$sts" | rg "^\\s[MD]") ]]; then
-            unstaged=" %F{yellow}%f"
+            unstaged=" %F{3}%f"
         else
             unstaged=""
         fi
         if [[ -n $(echo "$sts" | rg "^\\?\\?") ]]; then
-            untracked=" %F{red}%f"
+            untracked=" %F{1}%f"
         else
             untracked=""
         fi
-
         branch=$(git branch --show-current)
         if [[ -n $branch ]]; then
-            branch="%F{magenta} שׂ $branch%f"
+            branch="%F{5} שׂ $branch%f"
         else
-            branch="%F{magenta}  $(git describe --tags)%f"
+			branch=$(git describe --tags --exact-match 2> /dev/null)
+			if [[ $branch ]]; then
+				branch="%F{5}  $branch%f"
+			else
+				branch="%F{5}  $(git rev-parse --short HEAD)%f"
+			fi
         fi
         vcs_wrapper="$branch$staged$unstaged$untracked"
     else
@@ -42,9 +45,9 @@ precmd_functions+=( precmd_vcs_info )
 ### Fancy prompt
 case ${TERM} in
     xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|alacritty|st*|konsole*)
-        PS1='[%F{yellow}%?%f] %F{yellow}%~%f${vcs_wrapper} %F{blue}>%f '
+        PS1='[%F{3}%?%f] %F{3}%~%f${vcs_wrapper} %F{4}Ⲗ%f '
         ;;
     *)
-        PS1='%F{green}%n@%m%f:%~%(!.#.$) '
+        PS1='%F{1}%n%f@%F{2}%m%f:%~%(!.#.$) '
         ;;
 esac
