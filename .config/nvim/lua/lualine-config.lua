@@ -89,9 +89,9 @@ require('lualine').setup({
 		lualine_a = {'mode'},
 		lualine_b = {},
 		lualine_c = {filesize, bufinfo, 'location', 'progress', diag, separator, lsp_name},
-		lualine_x = {encoding, fileformat, hexvalue},
+		lualine_x = {encoding, fileformat, hexvalue, 'filetype', 'branch'},
 		lualine_y = {},
-		lualine_z = {'filetype', 'branch'}
+		lualine_z = {}
 	},
 	inactive_sections = {
 		lualine_a = {},

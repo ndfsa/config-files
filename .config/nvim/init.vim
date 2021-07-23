@@ -25,6 +25,7 @@ set termguicolors
 set shortmess+=c
 set updatetime=500
 set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:~,space:·,eol:§
+set background=dark
 
 lua require('plugins')
 
@@ -99,12 +100,14 @@ nnoremap <leader>sn :set relativenumber!<CR>
 nnoremap <leader>sh :set hlsearch!<CR>
 nnoremap <leader>sw :set wrap!<CR>
 nnoremap <leader>sl :set list!<CR>
+nnoremap <leader>ss :set spell!<CR>
 nnoremap <leader>sc :ColorizerToggle<CR>
 
 " Telescope bindings
 nnoremap <silent><leader>ff <cmd>lua require('telescope.builtin').find_files()<CR>
 nnoremap <silent><leader>fr <cmd>lua require('telescope.builtin').live_grep()<CR>
 nnoremap <silent><leader>fb <cmd>lua require('telescope.builtin').buffers()<CR>
+nnoremap <silent><leader>fg <cmd>lua require('telescope.builtin').registers()<CR>
 nnoremap <silent><leader>fh <cmd>lua require('telescope.builtin').help_tags()<CR>
 nnoremap <silent><leader>fz <cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>
 nnoremap <silent><leader>fp <cmd>lua require('telescope').extensions.project.project{}<CR>

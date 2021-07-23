@@ -5,6 +5,7 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 return require('packer').startup(function()
 	use 'gruvbox-community/gruvbox'
+	use 'npxbr/glow.nvim'
 	use 'wbthomason/packer.nvim'
 	use 'mbbill/undotree'
 	use 'mattn/emmet-vim'
@@ -48,6 +49,12 @@ return require('packer').startup(function()
 	}
 	use {
 		'terrortylor/nvim-comment',
-		config = require('nvim_comment').setup()
+		config = function() require('nvim_comment').setup() end
+	}
+	use {
+		'lewis6991/spellsitter.nvim',
+		ft = {'markdown', 'tex', 'text'},
+		after = 'nvim-treesitter',
+		config = function() require('spellsitter-config') end
 	}
 end)
