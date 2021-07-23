@@ -45,7 +45,7 @@ precmd_functions+=( precmd_vcs_info )
 ### Fancy prompt
 case ${TERM} in
     xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|alacritty|st*|konsole*)
-        PS1='[%F{3}%?%f] %F{3}%~%f${vcs_wrapper} %F{4}Ⲗ%f '
+        PS1=' %F{3}%~%f${vcs_wrapper} %F{4}Ⲗ%f '
         ;;
     *)
         PS1='%F{1}%n%f@%F{2}%m%f:%~%(!.#.$) '

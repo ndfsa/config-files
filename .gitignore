@@ -1,3 +1,4 @@
 *__pycache__
 .config/polybar/config.ini
 .prboom-plus/*.dat
+.config/nvim/plugin/

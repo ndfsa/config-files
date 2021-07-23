@@ -3,55 +3,30 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set smartindent
-set nowrap
 set incsearch
 set nohlsearch
 set nu rnu
 set colorcolumn=100
+set tw=99
+set nowrap
 set signcolumn=yes
 set cursorline
 set noswapfile
 set nobackup
-set undodir=~/.vim/undodir
 set undofile
 set hidden
 set encoding=UTF-8
 set laststatus=2
 set scrolloff=8
+set undofile
 set laststatus=2
 set completeopt=menuone,noselect
 set termguicolors
 set shortmess+=c
 set updatetime=500
+set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:~,space:·,eol:§
 
-
-" Load vim plug
-call plug#begin('~/.vim/plugged')
-
-Plug 'gruvbox-community/gruvbox'
-Plug 'mbbill/undotree'
-Plug 'mattn/emmet-vim'
-Plug 'szw/vim-maximizer'
-Plug 'hoob3rt/lualine.nvim'
-Plug 'norcalli/nvim-colorizer.lua'
-Plug 'kyazdani42/nvim-web-devicons' " for file icons
-Plug 'kyazdani42/nvim-tree.lua'
-
-" vim 0.5 functions
-" lsp and treesitter
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'rafamadriz/friendly-snippets'
-Plug 'hrsh7th/nvim-compe'
-Plug 'hrsh7th/vim-vsnip'
-" telescope
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-project.nvim'
-Plug 'windwp/nvim-autopairs'
-
-call plug#end()
+lua require('plugins')
 
 let g:nvim_tree_side = 'right'
 let g:nvim_tree_width = 40
@@ -76,12 +51,11 @@ autocmd FileType html,css,javascript EmmetInstall
 set noshowmode
 
 " set some basic color settings and background override
+augroup theme_colors
+	autocmd!
+	autocmd ColorScheme * highlight Normal guibg=none
+augroup END
 colorscheme gruvbox
-if &term == 'nvim'
-	set guifont=FiraCode\ Nerd\ Font\ Mono:h13
-else
-	highlight Normal guibg=none
-endif
 
 " Remove all trailing spaces
 autocmd FileType * autocmd BufWritePre <buffer> %s/\s\+$//e
@@ -89,53 +63,54 @@ autocmd FileType * autocmd BufWritePre <buffer> %s/\s\+$//e
 " Useful keymaps
 let mapleader = " "
 
-noremap <leader>fs :write<CR>
-noremap <leader>fl :let @+ = expand('%')<CR>
+nnoremap <silent><leader>fs :write<CR>
+nnoremap <silent><leader>fl :let @+ = expand('%')<CR>
 
 " window operations
-nnoremap <leader>wh :wincmd h<CR>
-nnoremap <leader>wj :wincmd j<CR>
-nnoremap <leader>wk :wincmd k<CR>
-nnoremap <leader>wl :wincmd l<CR>
-nnoremap <leader>wc :close<CR>
+nnoremap <silent><leader>wh :wincmd h<CR>
+nnoremap <silent><leader>wj :wincmd j<CR>
+nnoremap <silent><leader>wk :wincmd k<CR>
+nnoremap <silent><leader>wl :wincmd l<CR>
+nnoremap <silent><leader>wc :close<CR>
 
 " tab operations
-nnoremap <leader>tw :tabnew<CR>
-nnoremap <leader>tc :tabclose<CR>
-nnoremap <leader>tn :tabnext<CR>
-nnoremap <leader>tp :tabprevious<CR>
+nnoremap <silent><leader>tw :tabnew<CR>
+nnoremap <silent><leader>tc :tabclose<CR>
+nnoremap <silent><leader>tn :tabnext<CR>
+nnoremap <silent><leader>tp :tabprevious<CR>
 
 " move lines
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
+vnoremap <silent><A-j> :m '>+1<CR>gv=gv
+vnoremap <silent><A-k> :m '<-2<CR>gv=gv
 
 " Vim maximizer remap
-nnoremap <F3> :MaximizerToggle<CR>
-vnoremap <F3> :MaximizerToggle<CR>gv
-inoremap <F3> <C-o>:MaximizerToggle<CR>
+nnoremap <silent><F3> :MaximizerToggle<CR>
+vnoremap <silent><F3> :MaximizerToggle<CR>gv
+inoremap <silent><F3> <C-o>:MaximizerToggle<CR>
 
 " nvimtree replacing netrw
-nnoremap <leader>op :NvimTreeToggle<CR>
+nnoremap <silent><leader>op :NvimTreeToggle<CR>
 
 " undotree
-nnoremap <F2> :UndotreeToggle<CR>
+nnoremap <silent><F2> :UndotreeToggle<CR>
 
 " toggle options
 nnoremap <leader>sn :set relativenumber!<CR>
 nnoremap <leader>sh :set hlsearch!<CR>
-nnoremap <leader>sw :set wrap!<CR>:set linebreak!<CR>
+nnoremap <leader>sw :set wrap!<CR>
+nnoremap <leader>sl :set list!<CR>
 nnoremap <leader>sc :ColorizerToggle<CR>
 
 " Telescope bindings
-nnoremap <leader>pf <cmd>lua require('telescope.builtin').find_files()<CR>
-nnoremap <leader>pr <cmd>lua require('telescope.builtin').live_grep()<CR>
-nnoremap <leader>pb <cmd>lua require('telescope.builtin').buffers()<CR>
-nnoremap <leader>ph <cmd>lua require('telescope.builtin').help_tags()<CR>
-nnoremap <leader>pz <cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>
-nnoremap <leader>pp <cmd>lua require('telescope').extensions.project.project{}<CR>
+nnoremap <silent><leader>ff <cmd>lua require('telescope.builtin').find_files()<CR>
+nnoremap <silent><leader>fr <cmd>lua require('telescope.builtin').live_grep()<CR>
+nnoremap <silent><leader>fb <cmd>lua require('telescope.builtin').buffers()<CR>
+nnoremap <silent><leader>fh <cmd>lua require('telescope.builtin').help_tags()<CR>
+nnoremap <silent><leader>fz <cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>
+nnoremap <silent><leader>fp <cmd>lua require('telescope').extensions.project.project{}<CR>
 
-nnoremap <leader>gb <cmd>lua require('telescope.builtin').git_branches()<CR>
-nnoremap <leader>gf <cmd>lua require('telescope.builtin').git_files()<CR>
+nnoremap <silent><leader>gb <cmd>lua require('telescope.builtin').git_branches()<CR>
+nnoremap <silent><leader>gf <cmd>lua require('telescope.builtin').git_files()<CR>
 
 " compe mappints
 inoremap <silent><expr> <C-Space> compe#complete()
@@ -143,5 +118,3 @@ inoremap <silent><expr> <CR> compe#confirm('<CR>')
 inoremap <silent><expr> <C-e> compe#close('<C-e>')
 inoremap <silent><expr> <C-f> compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d> compe#scroll({ 'delta': -4 })
-
-lua require('config')

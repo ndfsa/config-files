@@ -29,7 +29,7 @@ window:
   # fall back to the window manager's recommended size.
   dimensions:
     columns: 120
-    lines: 40
+    lines: 60
 
   # Window position (changes require restart)
   #
@@ -58,7 +58,7 @@ window:
   # Values for `decorations` (macOS only):
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background and no title bar buttons
-  decorations: none
+  #decorations: none
 
   # Startup Mode (changes require restart)
   #
@@ -108,8 +108,8 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    family: JetBrainsMono Nerd Font Mono
-    style: Regular
+    family: FiraCode Nerd Font Mono
+    style: Medium
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
@@ -120,7 +120,7 @@ font:
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: JetBrainsMono Nerd Font Mono
+    family: FiraCode Nerd Font Mono
     style: Bold
 
     # The `style` can be specified to pick a specific face.
@@ -132,7 +132,7 @@ font:
     #
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: JetBrainsMono Nerd Font Mono
+    family: FiraCode Nerd Font Mono
     style: Italic
 
     # The `style` can be specified to pick a specific face.
@@ -145,7 +145,7 @@ font:
     # If the bold italic family is not specified, it will fall back to the
     # value specified for the normal font.
     #family: monospace
-    family: JetBrainsMono Nerd Font Mono
+    family: FiraCode Nerd Font Mono
     style: Bold Italic
 
     # The `style` can be specified to pick a specific face.
@@ -286,7 +286,8 @@ colors:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 0.90
+background_opacity: 0.97
+# background_opacity: 1.0
 
 selection:
   # This string contains all characters that are used as separators for
