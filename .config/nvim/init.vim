@@ -44,9 +44,8 @@ let g:nvim_tree_show_icons = {
 	\ 'files': 1,
 	\ }
 
-let g:user_emmet_mode='n'
+let g:user_emmet_mode = 'n'
 let g:user_emmet_install_global = 0
-autocmd FileType html,css,javascript EmmetInstall
 
 " hide current mode, because using lightline
 set noshowmode

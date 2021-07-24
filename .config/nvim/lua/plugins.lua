@@ -3,12 +3,16 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 	vim.fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
 	vim.api.nvim_command 'packadd packer.nvim'
 end
+vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
 return require('packer').startup(function()
 	use 'gruvbox-community/gruvbox'
-	use 'npxbr/glow.nvim'
 	use 'wbthomason/packer.nvim'
 	use 'mbbill/undotree'
-	use 'mattn/emmet-vim'
+	use {
+		'mattn/emmet-vim',
+		ft = {'html', 'css', 'javascript'},
+		opt = true
+	}
 	use 'szw/vim-maximizer'
 	use {
 		'hoob3rt/lualine.nvim',
@@ -48,13 +52,19 @@ return require('packer').startup(function()
 		after = 'nvim-compe'
 	}
 	use {
-		'terrortylor/nvim-comment',
-		config = function() require('nvim_comment').setup() end
-	}
-	use {
 		'lewis6991/spellsitter.nvim',
 		ft = {'markdown', 'tex', 'text'},
+		opt = true,
 		after = 'nvim-treesitter',
 		config = function() require('spellsitter-config') end
+	}
+	use {
+		'kristijanhusak/orgmode.nvim',
+		ft = {'org'},
+		config = function() require('orgmode').setup{} end
+	}
+	use {
+		"folke/which-key.nvim",
+		config = function() require("which-key").setup() end
 	}
 end)
