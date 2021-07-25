@@ -42,12 +42,12 @@ return require('packer').startup(function()
 	use 'nvim-lua/plenary.nvim'
 	use {
 		'nvim-telescope/telescope.nvim',
-		after = {'plenary.nvim', 'popup.nvim'},
+		requires = {'plenary.nvim', 'popup.nvim'},
 		config = function() require('telescope-config') end
 	}
 	use {
 		'nvim-telescope/telescope-project.nvim',
-		after = 'telescope.nvim'
+		requires = 'telescope.nvim'
 	}
 	use {
 		'windwp/nvim-autopairs',
@@ -58,11 +58,16 @@ return require('packer').startup(function()
 		'lewis6991/spellsitter.nvim',
 		ft = {'markdown', 'tex', 'text', 'org'},
 		opt = true,
-		after = 'nvim-treesitter',
 		config = function() require('spellsitter-config') end
 	}
 	use {
 		"folke/which-key.nvim",
 		config = function() require("which-key").setup() end
 	}
+	use {
+		'lewis6991/gitsigns.nvim',
+		requires = { 'plenary.nvim' },
+		config = function() require('gitsigns').setup() end
+	}
+	use 'tpope/vim-fugitive'
 end)
