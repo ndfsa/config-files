@@ -8,6 +8,11 @@ require('telescope').setup{
 			'--line-number',
 			'--column',
 			'--smart-case',
+			'--hidden',
+			'--glob',
+			'!.git',
+			'--glob',
+			'!node_modules'
 		},
 		prompt_prefix = "> ",
 		selection_caret = "> ",

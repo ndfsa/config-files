@@ -58,7 +58,8 @@ autocmd FileType * autocmd BufWritePre <buffer> %s/\s\+$//e
 " Useful keymaps
 let mapleader = " "
 
-nnoremap <silent><leader>fs :update<CR>
+" kusa
+nnoremap <silent><leader>ww :update<CR>
 
 " window operations
 nnoremap <silent><leader>wh :wincmd h<CR>
@@ -91,23 +92,25 @@ nnoremap <leader>ss :set spell!<CR>
 nnoremap <leader>sc :ColorizerToggle<CR>
 nnoremap <leader>sk :WhichKeyEnable<CR>
 
-" Telescope bindings
-nnoremap <silent><leader>tf <cmd>lua require('telescope.builtin').find_files()<CR>
-nnoremap <silent><leader>tg <cmd>lua require('telescope.builtin').live_grep()<CR>
-nnoremap <silent><leader>tb <cmd>lua require('telescope.builtin').buffers()<CR>
-nnoremap <silent><leader>tr <cmd>lua require('telescope.builtin').registers()<CR>
-nnoremap <silent><leader>tq <cmd>lua require('telescope.builtin').quickfix()<CR>
-nnoremap <silent><leader>th <cmd>lua require('telescope.builtin').help_tags()<CR>
-nnoremap <silent><leader>tz <cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>
-nnoremap <silent><leader>ts <cmd>lua require('telescope.builtin').spel_suggest()<CR>
-nnoremap <silent><leader>tp <cmd>lua require('telescope').extensions.project.project{}<CR>
+" Telescope
+nnoremap <silent><leader>ff <cmd>lua require('find-files').project_files()<CR>
+nnoremap <silent><leader>fg :Telescope live_grep<CR>
+nnoremap <silent><leader>fb :Telescope buffers<CR>
+nnoremap <silent><leader>fr :Telescope registers<CR>
+nnoremap <silent><leader>fq :Telescope quickfix<CR>
+nnoremap <silent><leader>fz :Telescope current_buffer_fuzzy_find<CR>
+nnoremap <silent><leader>fs :Telescope spell_suggest<CR>
+nnoremap <silent><leader>fp <cmd>lua require('telescope').extensions.project.project{}<CR>
 
-nnoremap <silent><leader>gb <cmd>lua require('telescope.builtin').git_branches()<CR>
-nnoremap <silent><leader>gc <cmd>lua require('telescope.builtin').git_commits()<CR>
-nnoremap <silent><leader>gs <cmd>lua require('telescope.builtin').git_status()<CR>
-nnoremap <silent><leader>gf <cmd>lua require('telescope.builtin').git_files()<CR>
+nnoremap <silent><leader>gb :Telescope git_branches<CR>
 
-" compe mappints
+" Git fugitive
+nnoremap <silent><leader>gs <cmd>:Git<CR>
+nnoremap <silent><leader>gc <cmd>:Git log<CR>
+nnoremap <silent><leader>gp <cmd>:Git pull<CR>
+nnoremap <silent><leader>gw <cmd>:Git whatchanged<CR>
+
+" compe
 inoremap <silent><expr> <C-Space> compe#complete()
 inoremap <silent><expr> <CR> compe#confirm('<CR>')
 inoremap <silent><expr> <C-e> compe#close('<C-e>')
