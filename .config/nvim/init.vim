@@ -25,7 +25,10 @@ set termguicolors
 set shortmess+=c
 set updatetime=500
 set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:~,space:·,eol:§
-set background=dark
+set guifont=FiraCode\ Nerd\ Font\ Mono:h14
+set foldmethod=indent
+set nofoldenable
+set noshowmode
 
 lua require('plugins')
 
@@ -47,14 +50,6 @@ let g:nvim_tree_show_icons = {
 let g:user_emmet_mode = 'n'
 let g:user_emmet_install_global = 0
 
-" hide current mode, because using lightline
-set noshowmode
-
-" set some basic color settings and background override
-augroup theme_colors
-	autocmd!
-	autocmd ColorScheme * highlight Normal guibg=none
-augroup END
 colorscheme gruvbox
 
 " Remove all trailing spaces
@@ -63,8 +58,7 @@ autocmd FileType * autocmd BufWritePre <buffer> %s/\s\+$//e
 " Useful keymaps
 let mapleader = " "
 
-nnoremap <silent><leader>fs :write<CR>
-nnoremap <silent><leader>fl :let @+ = expand('%')<CR>
+nnoremap <silent><leader>fs :update<CR>
 
 " window operations
 nnoremap <silent><leader>wh :wincmd h<CR>
@@ -72,12 +66,6 @@ nnoremap <silent><leader>wj :wincmd j<CR>
 nnoremap <silent><leader>wk :wincmd k<CR>
 nnoremap <silent><leader>wl :wincmd l<CR>
 nnoremap <silent><leader>wc :close<CR>
-
-" tab operations
-nnoremap <silent><leader>tw :tabnew<CR>
-nnoremap <silent><leader>tc :tabclose<CR>
-nnoremap <silent><leader>tn :tabnext<CR>
-nnoremap <silent><leader>tp :tabprevious<CR>
 
 " move lines
 vnoremap <silent><A-j> :m '>+1<CR>gv=gv
@@ -101,17 +89,22 @@ nnoremap <leader>sw :set wrap!<CR>
 nnoremap <leader>sl :set list!<CR>
 nnoremap <leader>ss :set spell!<CR>
 nnoremap <leader>sc :ColorizerToggle<CR>
+nnoremap <leader>sk :WhichKeyEnable<CR>
 
 " Telescope bindings
-nnoremap <silent><leader>ff <cmd>lua require('telescope.builtin').find_files()<CR>
-nnoremap <silent><leader>fr <cmd>lua require('telescope.builtin').live_grep()<CR>
-nnoremap <silent><leader>fb <cmd>lua require('telescope.builtin').buffers()<CR>
-nnoremap <silent><leader>fg <cmd>lua require('telescope.builtin').registers()<CR>
-nnoremap <silent><leader>fh <cmd>lua require('telescope.builtin').help_tags()<CR>
-nnoremap <silent><leader>fz <cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>
-nnoremap <silent><leader>fp <cmd>lua require('telescope').extensions.project.project{}<CR>
+nnoremap <silent><leader>tf <cmd>lua require('telescope.builtin').find_files()<CR>
+nnoremap <silent><leader>tg <cmd>lua require('telescope.builtin').live_grep()<CR>
+nnoremap <silent><leader>tb <cmd>lua require('telescope.builtin').buffers()<CR>
+nnoremap <silent><leader>tr <cmd>lua require('telescope.builtin').registers()<CR>
+nnoremap <silent><leader>tq <cmd>lua require('telescope.builtin').quickfix()<CR>
+nnoremap <silent><leader>th <cmd>lua require('telescope.builtin').help_tags()<CR>
+nnoremap <silent><leader>tz <cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>
+nnoremap <silent><leader>ts <cmd>lua require('telescope.builtin').spel_suggest()<CR>
+nnoremap <silent><leader>tp <cmd>lua require('telescope').extensions.project.project{}<CR>
 
 nnoremap <silent><leader>gb <cmd>lua require('telescope.builtin').git_branches()<CR>
+nnoremap <silent><leader>gc <cmd>lua require('telescope.builtin').git_commits()<CR>
+nnoremap <silent><leader>gs <cmd>lua require('telescope.builtin').git_status()<CR>
 nnoremap <silent><leader>gf <cmd>lua require('telescope.builtin').git_files()<CR>
 
 " compe mappints

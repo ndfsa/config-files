@@ -5,7 +5,10 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
 return require('packer').startup(function()
-	use 'gruvbox-community/gruvbox'
+	use {
+		'gruvbox-community/gruvbox',
+		config = function() vim.cmd('highlight Normal guibg=none') end
+	}
 	use 'wbthomason/packer.nvim'
 	use 'mbbill/undotree'
 	use {
@@ -53,15 +56,10 @@ return require('packer').startup(function()
 	}
 	use {
 		'lewis6991/spellsitter.nvim',
-		ft = {'markdown', 'tex', 'text'},
+		ft = {'markdown', 'tex', 'text', 'org'},
 		opt = true,
 		after = 'nvim-treesitter',
 		config = function() require('spellsitter-config') end
-	}
-	use {
-		'kristijanhusak/orgmode.nvim',
-		ft = {'org'},
-		config = function() require('orgmode').setup{} end
 	}
 	use {
 		"folke/which-key.nvim",
