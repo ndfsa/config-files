@@ -30,6 +30,7 @@ set noshowmode
 set autowrite
 set mouse=a
 set pumheight=15
+set jumpoptions=stack
 
 let g:loaded_netrwPlugin = 1
 lua require('plugins')
@@ -94,13 +95,13 @@ nnoremap <leader>sw :set wrap!<CR>
 nnoremap <leader>sl :set list!<CR>
 nnoremap <leader>ss :set spell!<CR>
 nnoremap <leader>sc :ColorizerToggle<CR>
-nnoremap <leader>sk :WhichKeyEnable<CR>
 
 " Telescope
 nnoremap <silent><leader>ff :Telescope find_files<CR>
 nnoremap <silent><leader>fg :Telescope live_grep<CR>
 nnoremap <silent><leader>fb :Telescope buffers<CR>
 nnoremap <silent><leader>fr :Telescope registers<CR>
+nnoremap <silent><leader>fm :Telescope marks<CR>
 nnoremap <silent><leader>fq :Telescope quickfix<CR>
 nnoremap <silent><leader>fz :Telescope current_buffer_fuzzy_find<CR>
 nnoremap <silent><leader>fs :Telescope spell_suggest<CR>

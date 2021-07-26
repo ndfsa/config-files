@@ -29,11 +29,7 @@ precmd_functions+=( precmd_vcs_info )
 
 case ${TERM} in
     xterm*|rxvt*|gnome*|alacritty|st*|konsole*)
-		PS1=' %F{3}%~%f${vcs_wrapper} %F{4}>%f '
-		PS2=' %F{6}%_ >%f '
-		PS3=' %F{6}? >%f '
-		PS4=' %F{1}%N%f:%F{5}%i%f -> '
-		;;
+		PS1=' %F{3}%~%f${vcs_wrapper} %F{4}>%f ';;
     *)
 		PS1='%F{1}%n%f@%F{2}%m%f:%~ > ';;
 esac

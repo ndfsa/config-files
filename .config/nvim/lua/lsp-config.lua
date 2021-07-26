@@ -25,9 +25,9 @@ local on_attach = function(client, bufnr)
 			'<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q',
 			'<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>fm',
+	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lfm',
 			'<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-	vim.api.nvim_buf_set_keymap(bufnr, 'v', '<leader>fm',
+	vim.api.nvim_buf_set_keymap(bufnr, 'v', '<leader>lfm',
 				'<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
 
 	if client.resolved_capabilities.document_highlight then
