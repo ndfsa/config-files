@@ -43,8 +43,11 @@ let g:mundo_preview_height = 20
 let g:mundo_preview_bottom = 1
 let g:mundo_right = 1
 
-
-set termguicolors
+if (has('termguicolors') && $TERM =~ '256color$')
+	set termguicolors
+elseif ($TERM =~ '^linux')
+	let g:gruvbox_termcolors=16
+endif
 colorscheme gruvbox
 
 " Remove all trailing spaces

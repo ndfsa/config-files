@@ -38,6 +38,8 @@ return require('packer').startup(function()
 	}
 	use {
 		'nvim-treesitter/nvim-treesitter',
+		branch = '0.5-compat',
+		run = 'TSUpdate',
 		config = function() require('treesitter-config') end
 	}
 	use 'rafamadriz/friendly-snippets'

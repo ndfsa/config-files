@@ -2,9 +2,9 @@ setopt prompt_subst
 
 set_mode(){
 	case $1 in
-		vicmd) vi_mode='%F{1}>%f';;
-		viins|main) vi_mode='%F{4}>%f';;
-		*) vi_mode='%F{4}>%f'
+		vicmd) zsh_mode='%F{15}>%f';;
+		viins|main) zsh_mode='%F{4}>%f';;
+		*) zsh_mode='%F{4}>%f';;
 	esac
 }
 
@@ -15,30 +15,40 @@ precmd_vcs_info() {
 	staged=""
 	unstaged=""
 	untracked=""
-	[[ -n $(echo "$sts" | rg "^[AMD]") ]] && staged=" %F{2}%f"
-	[[ -n $(echo "$sts" | rg "^\\s[MD]") ]] && unstaged=" %F{3}%f"
-	[[ -n $(echo "$sts" | rg "^\\?\\?") ]] && untracked=" %F{1}%f"
+	[[ -n $(echo "$sts" | rg "^[AMD]") ]] && staged=" %F{2}$icon_dot%f"
+	[[ -n $(echo "$sts" | rg "^\\s[MD]") ]] && unstaged=" %F{3}$icon_dot%f"
+	[[ -n $(echo "$sts" | rg "^\\?\\?") ]] && untracked=" %F{1}$icon_dot%f"
 
 	branch=$(git branch --show-current 2> /dev/null)
 	if [[ -n $branch ]]; then
-		branch="%F{5} שׂ $branch%f"
+		branch="%F{6} $icon_branch $branch%f"
 	else
 		branch=$(git describe --tags --exact-match 2> /dev/null)
 		if [[ $branch ]]; then
-			branch="%F{5}  $branch%f"
+			branch="%F{6} $icon_tag $branch%f"
 		else
-			branch="%F{5}  $(git rev-parse --short HEAD 2> /dev/null)%f"
+			branch="%F{6} $icon_commit $(git rev-parse --short HEAD 2> /dev/null)%f"
 		fi
 	fi
 	vcs_wrapper="$branch$staged$unstaged$untracked"
 }
 
-precmd_functions+=( precmd_vcs_info )
-precmd_functions+=( set_mode main )
 
+precmd_functions+=( precmd_vcs_info )
+precmd_functions+=( set_mode )
 case ${TERM} in
     xterm*|rxvt*|gnome*|alacritty|st*|konsole*)
-		PS1=' %F{3}%~%f${vcs_wrapper} ${vi_mode} ';;
-    *)
-		PS1='%F{1}%n%f@%F{2}%m%f:%~ ${vi_mode} ';;
+		icon_branch=שׂ
+		icon_tag=
+		icon_commit=
+		icon_dot=
+		PS1=' %F{5}%~%f${vcs_wrapper} ${zsh_mode} '
+		;;
+    linux*)
+		icon_branch='[b]'
+		icon_tag='[t]'
+		icon_commit='[c]'
+		icon_dot='*'
+		PS1=' %F{5}%~%f${vcs_wrapper} ${zsh_mode} '
+		;;
 esac

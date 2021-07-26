@@ -2,8 +2,7 @@
 
 export PATH=$HOME/.local/bin:$HOME/bin:$PATH
 
-
-select opt in tty gui
+select opt in gui tty
 do
 	case $opt in
 		tty)
