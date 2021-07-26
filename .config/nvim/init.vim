@@ -1,18 +1,16 @@
 set title
 set tabstop=4
-set softtabstop=4
 set shiftwidth=4
-set smartindent
+set autoindent
 set incsearch
 set nohlsearch
 set nu rnu
 set colorcolumn=100
-set tw=99
+set textwidth=99
 set nowrap
 set signcolumn=yes
 set cursorline
 set noswapfile
-set nobackup
 set undofile
 set hidden
 set encoding=UTF-8
@@ -21,39 +19,40 @@ set scrolloff=8
 set undofile
 set laststatus=2
 set completeopt=menuone,noselect
-set termguicolors
 set shortmess+=c
 set updatetime=500
 set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:~,space:·,eol:§
 set guifont=FiraCode\ Nerd\ Font\ Mono:h14
 set foldmethod=indent
 set nofoldenable
+set fileformats=unix,dos,mac
 set noshowmode
+set autowrite
+set mouse=a
+set pumheight=15
 
+let g:loaded_netrwPlugin = 1
 lua require('plugins')
-
-let g:nvim_tree_side = 'right'
-let g:nvim_tree_width = 40
-let g:nvim_tree_auto_close = 1
-let g:nvim_tree_indent_markers = 1
-let g:nvim_tree_ignore = ['.git', 'node_modules', '.cache']
-let g:nvim_tree_auto_open = 0
-let g:undotree_WindowLayout = 4
-let g:undotree_ShortIndicators=1
-let g:undotree_SplitWidth=40
-let g:nvim_tree_update_cwd = 1
-let g:nvim_tree_show_icons = {
-	\ 'folders': 1,
-	\ 'files': 1,
-	\ }
 
 let g:user_emmet_mode = 'n'
 let g:user_emmet_install_global = 0
 
+let g:mundo_width = 40
+let g:mundo_preview_height = 20
+let g:mundo_preview_bottom = 1
+let g:mundo_right = 1
+
+
+set termguicolors
 colorscheme gruvbox
 
 " Remove all trailing spaces
-autocmd FileType * autocmd BufWritePre <buffer> %s/\s\+$//e
+augroup convinient
+	autocmd!
+	autocmd FileType * autocmd BufWritePre <buffer> %s/\s\+$//e
+	autocmd TextYankPost * lua require'vim.highlight'.on_yank({'Substitute', 300})
+	autocmd VimResized * execute "normal! \<c-w>="
+augroup END
 
 " Useful keymaps
 let mapleader = " "
@@ -66,7 +65,15 @@ nnoremap <silent><leader>wh :wincmd h<CR>
 nnoremap <silent><leader>wj :wincmd j<CR>
 nnoremap <silent><leader>wk :wincmd k<CR>
 nnoremap <silent><leader>wl :wincmd l<CR>
+nnoremap <silent><leader>w= <C-w>=<CR>
 nnoremap <silent><leader>wc :close<CR>
+
+" buffer operations
+nnoremap <silent> <leader>bp :bprevious<CR>
+nnoremap <silent> <leader>bn :bnext<CR>
+nnoremap <silent> <leader>bf :bfirst<CR>
+nnoremap <silent> <leader>bl :blast<CR>
+nnoremap <silent> <leader>bd :bd<CR>
 
 " move lines
 vnoremap <silent><A-j> :m '>+1<CR>gv=gv
@@ -77,11 +84,8 @@ nnoremap <silent><F3> :MaximizerToggle<CR>
 vnoremap <silent><F3> :MaximizerToggle<CR>gv
 inoremap <silent><F3> <C-o>:MaximizerToggle<CR>
 
-" nvimtree replacing netrw
-nnoremap <silent><leader>op :NvimTreeToggle<CR>
-
-" undotree
-nnoremap <silent><F2> :UndotreeToggle<CR>
+" mundo
+nnoremap <silent><F2> :MundoToggle<CR>
 
 " toggle options
 nnoremap <leader>sn :set relativenumber!<CR>
@@ -93,7 +97,7 @@ nnoremap <leader>sc :ColorizerToggle<CR>
 nnoremap <leader>sk :WhichKeyEnable<CR>
 
 " Telescope
-nnoremap <silent><leader>ff <cmd>lua require('find-files').project_files()<CR>
+nnoremap <silent><leader>ff :Telescope find_files<CR>
 nnoremap <silent><leader>fg :Telescope live_grep<CR>
 nnoremap <silent><leader>fb :Telescope buffers<CR>
 nnoremap <silent><leader>fr :Telescope registers<CR>
@@ -116,3 +120,7 @@ inoremap <silent><expr> <CR> compe#confirm('<CR>')
 inoremap <silent><expr> <C-e> compe#close('<C-e>')
 inoremap <silent><expr> <C-f> compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d> compe#scroll({ 'delta': -4 })
+
+" file stuff
+nnoremap <leader>op :PackerLoad nvim-tree.lua<CR>
+nnoremap <leader>oe :edit .<CR>

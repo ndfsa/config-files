@@ -82,7 +82,7 @@ require('lualine').setup({
 		theme = 'gruvbox',
 		section_separators = '  ',
 		component_separators = '  ',
-		disabled_filetypes = {'undotree', 'diff'},
+		disabled_filetypes = {'undotree', 'diff', 'NvimTree', 'qf'},
 		icons_enabled = false
 	},
 	sections = {
@@ -101,5 +101,4 @@ require('lualine').setup({
 		lualine_y = {},
 		lualine_z = {}
 	},
-	extensions = {'nvim-tree', 'quickfix'}
 })

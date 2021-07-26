@@ -10,7 +10,7 @@ return require('packer').startup(function()
 		config = function() vim.cmd('highlight Normal guibg=none') end
 	}
 	use 'wbthomason/packer.nvim'
-	use 'mbbill/undotree'
+	use 'simnalamburt/vim-mundo'
 	use {
 		'mattn/emmet-vim',
 		ft = {'html', 'css', 'javascript'},
@@ -23,7 +23,15 @@ return require('packer').startup(function()
 	}
 	use 'norcalli/nvim-colorizer.lua'
 	use 'kyazdani42/nvim-web-devicons'
-	use 'kyazdani42/nvim-tree.lua'
+	use {
+		'kyazdani42/nvim-tree.lua',
+		opt = true,
+		config = function() require('nvim-tree-config') end
+	}
+	use {
+		'tamago324/lir.nvim',
+		config = function() require('lir-config') end
+	}
 	use {
 		'neovim/nvim-lspconfig',
 		config = function () require('lsp-config') end
@@ -59,10 +67,6 @@ return require('packer').startup(function()
 		ft = {'markdown', 'tex', 'text', 'org'},
 		opt = true,
 		config = function() require('spellsitter-config') end
-	}
-	use {
-		"folke/which-key.nvim",
-		config = function() require("which-key").setup() end
 	}
 	use {
 		'lewis6991/gitsigns.nvim',
