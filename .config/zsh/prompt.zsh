@@ -1,5 +1,13 @@
 setopt prompt_subst
 
+set_mode(){
+	case $1 in
+		vicmd) vi_mode='%F{1}>%f';;
+		viins|main) vi_mode='%F{4}>%f';;
+		*) vi_mode='%F{4}>%f'
+	esac
+}
+
 precmd_vcs_info() {
     vcs_wrapper=""
     [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) != true ]] && return
@@ -26,10 +34,11 @@ precmd_vcs_info() {
 }
 
 precmd_functions+=( precmd_vcs_info )
+precmd_functions+=( set_mode main )
 
 case ${TERM} in
     xterm*|rxvt*|gnome*|alacritty|st*|konsole*)
-		PS1=' %F{3}%~%f${vcs_wrapper} %F{4}>%f ';;
+		PS1=' %F{3}%~%f${vcs_wrapper} ${vi_mode} ';;
     *)
-		PS1='%F{1}%n%f@%F{2}%m%f:%~ > ';;
+		PS1='%F{1}%n%f@%F{2}%m%f:%~ ${vi_mode} ';;
 esac

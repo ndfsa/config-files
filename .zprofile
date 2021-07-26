@@ -7,7 +7,7 @@ select opt in tty gui
 do
 	case $opt in
 		tty)
-			echo "Kernel:\t$(uname -sr)\nDate:\t$(date)\nUser:\t$(whoami)"
+			echo "\nKernel:\t$(uname -sr)\nDate:\t$(date)\nUser:\t$(whoami)"
 			break
 			;;
 		gui)

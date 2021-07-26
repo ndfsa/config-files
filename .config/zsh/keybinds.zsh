@@ -1,7 +1,3 @@
-###################
-##   KEYBINDS    ##
-###################
-
 if [[ -f ~/.zkbd/$TERM-${DISPLAY:-$VENDOR-$OSTYPE} ]]; then
     source ~/.zkbd/$TERM-${DISPLAY:-$VENDOR-$OSTYPE}
 else
@@ -9,7 +5,13 @@ else
     echo "WARNING: Keybindings may not be set correctly!"
     echo "Execute \`zkbd\` to create bindings."
 fi
-bindkey -e
+bindkey -v
+
+function zle-keymap-select() {
+	set_mode $KEYMAP
+	zle reset-prompt
+}
+zle -N zle-keymap-select
 
 ## History search
 autoload -U up-line-or-beginning-search
@@ -29,9 +31,6 @@ zle -N down-line-or-beginning-search
 [[ -n "${key[Right]}"       ]] && bindkey -- "${key[Right]}"          forward-char
 [[ -n "${key[PageUp]}"      ]] && bindkey -- "${key[PageUp]}"         beginning-of-buffer-or-history
 [[ -n "${key[PageDown]}"    ]] && bindkey -- "${key[PageDown]}"       end-of-buffer-or-history
-[[ -n "${key[S-Tab]}"       ]] && bindkey -- "${key[S-Tab]}"          reverse-menu-complete
-[[ -n "${key[C-Left]}"      ]] && bindkey -- "${key[C-Left]}"         backward-word
-[[ -n "${key[C-Right]}"     ]] && bindkey -- "${key[C-Right]}"        forward-word
-[[ -n "${key[C-Backspace]}" ]] && bindkey -- "${key[C-Backspace]}"    backward-kill-word
-[[ -n "${key[C-Delete]}"    ]] && bindkey -- "${key[C-Delete]}"       kill-word
-[[ -n "${key[A-s]}"         ]] && bindkey -- "${key[A-s]}"            sudo-command-line
+bindkey "^[s" sudo-command-line
+bindkey "^N" menu-complete
+bindkey "^P" reverse-menu-complete
