@@ -30,7 +30,6 @@ set noshowmode
 set autowrite
 set mouse=a
 set pumheight=15
-set jumpoptions=stack
 
 let g:loaded_netrwPlugin = 1
 lua require('plugins')
