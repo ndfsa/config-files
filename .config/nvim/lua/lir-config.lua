@@ -11,11 +11,9 @@ require'lir'.setup {
 		['<C-x>']		= actions.split,
 		['<C-v>']		= actions.vsplit,
 		['<C-t>']		= actions.tabedit,
-
 		['h']			= actions.up,
 		['<bs>']		= actions.up,
 		['q']			= actions.quit,
-
 		['K']			= actions.mkdir,
 		['a']			= actions.newfile,
 		['r']			= actions.rename,
@@ -23,7 +21,6 @@ require'lir'.setup {
 		['Y']			= actions.yank_path,
 		['H']			= actions.toggle_show_hidden,
 		['D']			= actions.delete,
-
 		['J'] = function()
 			mark_actions.toggle_mark()
 			vim.cmd('normal! j')

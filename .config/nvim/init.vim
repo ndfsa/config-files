@@ -64,6 +64,9 @@ let mapleader = " "
 " kusa
 nnoremap <silent><leader>ww :update<CR>
 
+" insert time
+nnoremap <silent><leader>gt :put =strftime('%c')<CR>
+
 " window operations
 nnoremap <silent><leader>wh :wincmd h<CR>
 nnoremap <silent><leader>wj :wincmd j<CR>
@@ -87,9 +90,6 @@ vnoremap <silent><A-k> :m '<-2<CR>gv=gv
 nnoremap <silent><F3> :MaximizerToggle<CR>
 vnoremap <silent><F3> :MaximizerToggle<CR>gv
 inoremap <silent><F3> <C-o>:MaximizerToggle<CR>
-
-" mundo
-nnoremap <silent><F2> :MundoToggle<CR>
 
 " toggle options
 nnoremap <leader>sn :set relativenumber!<CR>
