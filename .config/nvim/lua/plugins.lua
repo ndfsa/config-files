@@ -9,8 +9,11 @@ return require('packer').startup(function()
 		'gruvbox-community/gruvbox',
 		config = function() vim.cmd('highlight Normal guibg=none') end
 	}
+	use {
+		'navarasu/onedark.nvim',
+		config = function() vim.cmd('highlight Normal guibg=none') end
+	}
 	use 'wbthomason/packer.nvim'
-	use 'simnalamburt/vim-mundo'
 	use {
 		'mattn/emmet-vim',
 		ft = {'html', 'css', 'javascript'},
@@ -76,4 +79,9 @@ return require('packer').startup(function()
 		config = function() require('gitsigns').setup() end
 	}
 	use 'tpope/vim-fugitive'
+	use {
+		'terrortylor/nvim-comment',
+		config = function() require('nvim_comment').setup() end
+	}
+	use 'lambdalisue/suda.vim'
 end)

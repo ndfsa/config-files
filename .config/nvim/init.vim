@@ -2,6 +2,7 @@ set title
 set tabstop=4
 set shiftwidth=4
 set autoindent
+set smartcase
 set incsearch
 set nohlsearch
 set nu rnu

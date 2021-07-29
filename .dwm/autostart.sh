@@ -9,5 +9,5 @@ while pgrep -u $(id -ru) -x picom >/dev/null; do sleep 0.5; done
 # Launch the bar
 picom --experimental-backends --config "$HOME/.config/picom/picom.conf" &
 
-$HOME/bin/set_wallpaper
+$HOME/bin/set_wallpaper.sh
 slstatus &

@@ -7,11 +7,13 @@ require'lir'.setup {
 	devicons_enable = true,
 	mappings = {
 		['l']			= actions.edit,
+		['<cr>']		= actions.edit,
 		['<C-x>']		= actions.split,
 		['<C-v>']		= actions.vsplit,
 		['<C-t>']		= actions.tabedit,
 
 		['h']			= actions.up,
+		['<bs>']		= actions.up,
 		['q']			= actions.quit,
 
 		['K']			= actions.mkdir,
