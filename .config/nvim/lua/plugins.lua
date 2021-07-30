@@ -5,10 +5,7 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
 return require('packer').startup(function()
-	use {
-		'gruvbox-community/gruvbox',
-		config = function() vim.cmd('highlight Normal guibg=none') end
-	}
+	use 'gruvbox-community/gruvbox'
 	use 'wbthomason/packer.nvim'
 	use {
 		'mattn/emmet-vim',

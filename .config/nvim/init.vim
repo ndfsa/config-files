@@ -48,7 +48,12 @@ if (has('termguicolors') && $TERM =~ '256color$')
 elseif ($TERM =~ '^linux')
 	let g:gruvbox_termcolors=16
 endif
+
 colorscheme gruvbox
+augroup colorscheme_custom
+	autocmd!
+	autocmd ColorScheme * highlight Normal guibg=none
+augroup END
 
 " Remove all trailing spaces
 augroup convinient
@@ -59,7 +64,22 @@ augroup convinient
 augroup END
 
 " Useful keymaps
-let mapleader = " "
+let mapleader = ' '
+nnoremap Y y$
+
+" center search
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Undo break points
+inoremap , ,<C-g>u
+inoremap . .<C-g>u
+inoremap ! !<C-g>u
+inoremap ? ?<C-g>u
+
+" Jumplist when jump > 10
+nnoremap <expr> k (v:count > 10 ? "m'" . v:count : "") . 'k'
+nnoremap <expr> j (v:count > 10 ? "m'" . v:count : "") . 'j'
 
 " kusa
 nnoremap <silent><leader>ww :update<CR>
