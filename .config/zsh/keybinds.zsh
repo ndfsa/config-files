@@ -5,13 +5,7 @@ else
     echo "WARNING: Keybindings may not be set correctly!"
     echo "Execute \`zkbd\` to create bindings."
 fi
-bindkey -v
-
-function zle-keymap-select() {
-	set_mode $KEYMAP
-	zle reset-prompt
-}
-zle -N zle-keymap-select
+bindkey -e
 
 ## History search
 autoload -U up-line-or-beginning-search
@@ -32,5 +26,3 @@ zle -N down-line-or-beginning-search
 [[ -n "${key[PageUp]}"      ]] && bindkey -- "${key[PageUp]}"         beginning-of-buffer-or-history
 [[ -n "${key[PageDown]}"    ]] && bindkey -- "${key[PageDown]}"       end-of-buffer-or-history
 bindkey "^[s" sudo-command-line
-bindkey "^N" menu-complete
-bindkey "^P" reverse-menu-complete

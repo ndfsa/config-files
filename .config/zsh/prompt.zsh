@@ -1,13 +1,5 @@
 setopt prompt_subst
 
-set_mode(){
-	case $1 in
-		vicmd) zsh_mode='%F{15}>%f';;
-		viins|main) zsh_mode='%F{4}>%f';;
-		*) zsh_mode='%F{4}>%f';;
-	esac
-}
-
 precmd_vcs_info() {
     vcs_wrapper=""
     [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) != true ]] && return
@@ -35,20 +27,19 @@ precmd_vcs_info() {
 
 
 precmd_functions+=( precmd_vcs_info )
-precmd_functions+=( set_mode )
 case ${TERM} in
     xterm*|rxvt*|gnome*|alacritty|st*|konsole*)
 		icon_branch=שׂ
 		icon_tag=
 		icon_commit=
 		icon_dot=
-		PS1=' %F{5}%~%f${vcs_wrapper} ${zsh_mode} '
+		PS1=' %F{5}%~%f${vcs_wrapper} %F{4}>%f '
 		;;
     linux*)
 		icon_branch='[b]'
 		icon_tag='[t]'
 		icon_commit='[c]'
 		icon_dot='*'
-		PS1=' %F{5}%~%f${vcs_wrapper} ${zsh_mode} '
+		PS1=' %F{5}%~%f${vcs_wrapper} %F{4}>%f '
 		;;
 esac

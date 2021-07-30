@@ -9,10 +9,6 @@ return require('packer').startup(function()
 		'gruvbox-community/gruvbox',
 		config = function() vim.cmd('highlight Normal guibg=none') end
 	}
-	use {
-		'navarasu/onedark.nvim',
-		config = function() vim.cmd('highlight Normal guibg=none') end
-	}
 	use 'wbthomason/packer.nvim'
 	use {
 		'mattn/emmet-vim',
