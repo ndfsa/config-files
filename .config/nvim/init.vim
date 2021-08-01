@@ -63,6 +63,8 @@ augroup convinient
 	autocmd VimResized * execute "normal! \<c-w>="
 augroup END
 
+command! Doasw :w !doas tee % > /dev/null
+
 " Useful keymaps
 let mapleader = ' '
 nnoremap Y y$
