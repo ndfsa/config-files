@@ -63,7 +63,14 @@ augroup convinient
 	autocmd VimResized * execute "normal! \<c-w>="
 augroup END
 
-command! Doasw :w !doas tee % > /dev/null
+function! Doaswrite() abort
+	if (executable('doas'))
+		w !doas tee % > /dev/null
+	else
+		w !sudo tee % > /dev/null)
+	endif
+endfunction
+command! Doasw call Doaswrite()
 
 " Useful keymaps
 let mapleader = ' '

@@ -1,3 +1,2 @@
 #!/bin/dash
-file=$(ls $HOME/Pictures/Wallpapers | sort -R | tail -n 1)
-feh --bg-fill "$HOME/Pictures/Wallpapers/$file"
+/bin/ls $HOME/Pictures/Wallpapers/* | shuf | tail -n 2 | xargs feh --bg-fill
