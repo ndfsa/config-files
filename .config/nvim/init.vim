@@ -31,6 +31,7 @@ set noshowmode
 set autowrite
 set mouse=a
 set pumheight=15
+set jumpoptions=stack
 
 let g:loaded_netrwPlugin = 1
 lua require('plugins')
@@ -61,6 +62,7 @@ augroup convinient
 	autocmd FileType * autocmd BufWritePre <buffer> %s/\s\+$//e
 	autocmd TextYankPost * lua require'vim.highlight'.on_yank({'Substitute', 300})
 	autocmd VimResized * execute "normal! \<c-w>="
+	autocmd VimEnter * :clearjumps
 augroup END
 
 function! Doaswrite() abort
