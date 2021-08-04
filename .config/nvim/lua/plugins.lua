@@ -72,8 +72,5 @@ return require('packer').startup(function()
 		config = function() require('gitsigns').setup() end
 	}
 	use 'tpope/vim-fugitive'
-	use {
-		'terrortylor/nvim-comment',
-		config = function() require('nvim_comment').setup() end
-	}
+	use 'tpope/vim-commentary'
 end)
