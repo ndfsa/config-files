@@ -23,7 +23,7 @@ set completeopt=menuone,noselect
 set shortmess+=c
 set updatetime=500
 set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:~,space:·,eol:§
-set guifont=FiraCode\ Nerd\ Font\ Mono:h14
+set guifont=FiraMono:h14
 set foldmethod=indent
 set nofoldenable
 set fileformats=unix,dos,mac
@@ -140,7 +140,6 @@ nnoremap <silent><leader>fq :Telescope quickfix<CR>
 nnoremap <silent><leader>fz :Telescope current_buffer_fuzzy_find<CR>
 nnoremap <silent><leader>fs :Telescope spell_suggest<CR>
 nnoremap <silent><leader>fp <cmd>lua require('telescope').extensions.project.project{}<CR>
-
 nnoremap <silent><leader>gb :Telescope git_branches<CR>
 
 " Git fugitive
