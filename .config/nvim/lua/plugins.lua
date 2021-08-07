@@ -7,18 +7,25 @@ vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
 return require('packer').startup(function()
 	use 'gruvbox-community/gruvbox'
 	use 'wbthomason/packer.nvim'
+	use 'szw/vim-maximizer'
+	use 'norcalli/nvim-colorizer.lua'
+	use 'kyazdani42/nvim-web-devicons'
+	use 'rafamadriz/friendly-snippets'
+	use 'hrsh7th/vim-vsnip'
+	use 'nvim-lua/popup.nvim'
+	use 'nvim-lua/plenary.nvim'
+	use 'nacro90/numb.nvim'
+	use 'tpope/vim-fugitive'
+	use 'tpope/vim-commentary'
 	use {
 		'mattn/emmet-vim',
 		ft = {'html', 'css', 'javascript'},
 		opt = true
 	}
-	use 'szw/vim-maximizer'
 	use {
 		'hoob3rt/lualine.nvim',
 		config = function() require('lualine-config') end
 	}
-	use 'norcalli/nvim-colorizer.lua'
-	use 'kyazdani42/nvim-web-devicons'
 	use {
 		'kyazdani42/nvim-tree.lua',
 		opt = true,
@@ -38,14 +45,10 @@ return require('packer').startup(function()
 		run = 'TSUpdate',
 		config = function() require('treesitter-config') end
 	}
-	use 'rafamadriz/friendly-snippets'
 	use {
 		'hrsh7th/nvim-compe',
 		config = function() require('compe-config') end
 	}
-	use 'hrsh7th/vim-vsnip'
-	use 'nvim-lua/popup.nvim'
-	use 'nvim-lua/plenary.nvim'
 	use {
 		'nvim-telescope/telescope.nvim',
 		requires = {'plenary.nvim', 'popup.nvim'},
@@ -71,6 +74,4 @@ return require('packer').startup(function()
 		requires = { 'plenary.nvim' },
 		config = function() require('gitsigns').setup() end
 	}
-	use 'tpope/vim-fugitive'
-	use 'tpope/vim-commentary'
 end)

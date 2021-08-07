@@ -35,7 +35,7 @@ case ${TERM} in
 		icon_dot=
 		PS1=' %F{5}%~%f${vcs_wrapper} %F{4}>%f '
 		;;
-    linux*)
+    linux*|screen*)
 		icon_branch='[b]'
 		icon_tag='[t]'
 		icon_commit='[c]'

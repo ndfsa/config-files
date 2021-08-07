@@ -23,7 +23,7 @@ set completeopt=menuone,noselect
 set shortmess+=c
 set updatetime=500
 set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:~,space:·,eol:§
-set guifont=FiraMono:h14
+set guifont=FiraCode:h14
 set foldmethod=indent
 set nofoldenable
 set fileformats=unix,dos,mac
@@ -31,7 +31,6 @@ set noshowmode
 set autowrite
 set mouse=a
 set pumheight=15
-set jumpoptions=stack
 
 let g:loaded_netrwPlugin = 1
 lua require('plugins')
@@ -44,10 +43,10 @@ let g:mundo_preview_height = 20
 let g:mundo_preview_bottom = 1
 let g:mundo_right = 1
 
-if (has('termguicolors') && $TERM =~ '256color$')
+if (has('termguicolors') && $TERM =~ '256color')
 	set termguicolors
-elseif ($TERM =~ '^linux')
-	let g:gruvbox_termcolors=16
+elseif ($TERM =~ 'linux' || $TERM =~ 'screen')
+	let g:gruvbox_termcolors=256
 endif
 
 colorscheme gruvbox

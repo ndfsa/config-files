@@ -6,7 +6,7 @@ select opt in gui tty
 do
 	case $opt in
 		tty)
-			echo "\nKernel:\t$(uname -sr)\nDate:\t$(date)\nUser:\t$(whoami)"
+			exec screen
 			break
 			;;
 		gui)

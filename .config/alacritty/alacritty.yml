@@ -177,17 +177,10 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
-# Colors (Tomorrow Night)
-# Colors (Gruvbox dark)
 colors:
-  # Default colors
   primary:
-    # hard contrast: background = '#1d2021'
     background: '#282828'
-    # soft contrast: background = '#32302f'
     foreground: '#ebdbb2'
-
-  # Normal colors
   normal:
     black:   '#282828'
     red:     '#cc241d'
@@ -197,8 +190,6 @@ colors:
     magenta: '#b16286'
     cyan:    '#689d6a'
     white:   '#a89984'
-
-  # Bright colors
   bright:
     black:   '#928374'
     red:     '#fb4934'
@@ -208,7 +199,6 @@ colors:
     magenta: '#d3869b'
     cyan:    '#8ec07c'
     white:   '#ebdbb2'
-
   cursor:
     text: CellBackground
     cursor: CellForeground
@@ -216,11 +206,6 @@ colors:
   selection:
     text: CellBackground
     background: CellForeground
-
-  # Dim colors
-  #
-  # If the dim colors are not set, they will be calculated automatically based
-  # on the `normal` colors.
   dim:
     black:   '#32302f'
     red:     '#9d0006'
@@ -286,7 +271,7 @@ colors:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 0.95
+background_opacity: 0.93
 
 selection:
   # This string contains all characters that are used as separators for
