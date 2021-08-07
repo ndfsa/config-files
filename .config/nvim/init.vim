@@ -31,6 +31,7 @@ set noshowmode
 set autowrite
 set mouse=a
 set pumheight=15
+set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,a:blinkon30
 
 let g:loaded_netrwPlugin = 1
 lua require('plugins')
@@ -61,7 +62,6 @@ augroup convinient
 	autocmd FileType * autocmd BufWritePre <buffer> %s/\s\+$//e
 	autocmd TextYankPost * lua require'vim.highlight'.on_yank({'Substitute', 300})
 	autocmd VimResized * execute "normal! \<c-w>="
-	autocmd VimEnter * :clearjumps
 augroup END
 
 function! Doaswrite() abort
@@ -98,28 +98,28 @@ nnoremap <silent><leader>ww :update<CR>
 nnoremap <silent><leader>gt :put =strftime('%c')<CR>
 
 " window operations
-nnoremap <silent><leader>wh :wincmd h<CR>
-nnoremap <silent><leader>wj :wincmd j<CR>
-nnoremap <silent><leader>wk :wincmd k<CR>
-nnoremap <silent><leader>wl :wincmd l<CR>
+nnoremap <silent><leader>wh <cmd>wincmd h<CR>
+nnoremap <silent><leader>wj <cmd>wincmd j<CR>
+nnoremap <silent><leader>wk <cmd>wincmd k<CR>
+nnoremap <silent><leader>wl <cmd>wincmd l<CR>
 nnoremap <silent><leader>w= <C-w>=<CR>
-nnoremap <silent><leader>wc :close<CR>
+nnoremap <silent><leader>wc <cmd>close<CR>
 
 " buffer operations
-nnoremap <silent> <leader>bp :bprevious<CR>
-nnoremap <silent> <leader>bn :bnext<CR>
-nnoremap <silent> <leader>bf :bfirst<CR>
-nnoremap <silent> <leader>bl :blast<CR>
-nnoremap <silent> <leader>bd :bd<CR>
+nnoremap <silent> <leader>bp <cmd>bprevious<CR>
+nnoremap <silent> <leader>bn <cmd>bnext<CR>
+nnoremap <silent> <leader>bf <cmd>bfirst<CR>
+nnoremap <silent> <leader>bl <cmd>blast<CR>
+nnoremap <silent> <leader>bd <cmd>bd<CR>
 
 " move lines
-vnoremap <silent><A-j> :m '>+1<CR>gv=gv
-vnoremap <silent><A-k> :m '<-2<CR>gv=gv
+vnoremap <silent><A-j> <cmd>m '>+1<CR>gv=gv
+vnoremap <silent><A-k> <cmd>m '<-2<CR>gv=gv
 
 " Vim maximizer remap
-nnoremap <silent><F3> :MaximizerToggle<CR>
-vnoremap <silent><F3> :MaximizerToggle<CR>gv
-inoremap <silent><F3> <C-o>:MaximizerToggle<CR>
+nnoremap <silent><F3> <cmd>MaximizerToggle<CR>
+vnoremap <silent><F3> <cmd>MaximizerToggle<CR>gv
+inoremap <silent><F3> <C-o><cmd>MaximizerToggle<CR>
 
 " toggle options
 nnoremap <leader>sn :set relativenumber!<CR>
@@ -154,6 +154,6 @@ inoremap <silent><expr> <C-e> compe#close('<C-e>')
 inoremap <silent><expr> <C-f> compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d> compe#scroll({ 'delta': -4 })
 
-" file stuff
+" open things
 nnoremap <leader>op :PackerLoad nvim-tree.lua<CR>
-nnoremap <leader>oe :edit .<CR>
+nnoremap <silent><leader>oe <cmd>edit .<CR>

@@ -50,12 +50,29 @@
 (column-number-mode)
 (global-display-line-numbers-mode t)
 
+;; Set up package.el to work with MELPA
+(require 'package)
+(package-refresh-contents)
+
+;; Download Evil
+(unless (package-installed-p 'evil)
+  (package-install 'evil))
+
+(setq evil-want-C-i-jump t)
+(setq evil-want-C-u-delete t)
+(setq evil-want-C-u-scroll t)
+(setq evil-want-Y-yank-to-eol t)
+(setq evil-undo-system "undo-redo")
+;; Enable Evil
+(require 'evil)
+(evil-mode 1)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(doom-modeline ivy use-package)))
+ '(package-selected-packages '(evil doom-modeline ivy use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

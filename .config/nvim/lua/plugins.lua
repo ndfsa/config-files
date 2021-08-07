@@ -15,8 +15,18 @@ return require('packer').startup(function()
 	use 'nvim-lua/popup.nvim'
 	use 'nvim-lua/plenary.nvim'
 	use 'nacro90/numb.nvim'
-	use 'tpope/vim-fugitive'
 	use 'tpope/vim-commentary'
+	use 'tpope/vim-fugitive'
+	use 'plasticboy/vim-markdown'
+	use {
+		'lewis6991/gitsigns.nvim',
+		requires = { 'plenary.nvim' },
+		config = function() require('gitsigns').setup() end
+	}
+	use {
+		'tamago324/lir.nvim',
+		config = function() require('lir-config') end
+	}
 	use {
 		'mattn/emmet-vim',
 		ft = {'html', 'css', 'javascript'},
@@ -30,10 +40,6 @@ return require('packer').startup(function()
 		'kyazdani42/nvim-tree.lua',
 		opt = true,
 		config = function() require('nvim-tree-config') end
-	}
-	use {
-		'tamago324/lir.nvim',
-		config = function() require('lir-config') end
 	}
 	use {
 		'neovim/nvim-lspconfig',
@@ -68,10 +74,5 @@ return require('packer').startup(function()
 		ft = {'markdown', 'tex', 'text', 'org'},
 		opt = true,
 		config = function() require('spellsitter-config') end
-	}
-	use {
-		'lewis6991/gitsigns.nvim',
-		requires = { 'plenary.nvim' },
-		config = function() require('gitsigns').setup() end
 	}
 end)

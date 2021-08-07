@@ -125,6 +125,10 @@ local lsp_name = {
 	icon = ' LSP:',
 	color = {fg = colors.white, gui = 'bold'}
 }
+local branch = {
+	'branch',
+	right_padding = 3
+}
 local separator = {
 	function() return '%=' end
 }
@@ -133,7 +137,7 @@ require('lualine').setup({
 		theme = 'gruvbox',
 		section_separators = '  ',
 		component_separators = '  ',
-		disabled_filetypes = {'undotree', 'diff', 'NvimTree', 'qf'},
+		disabled_filetypes = {'packer', 'undotree', 'diff', 'NvimTree', 'qf'},
 		icons_enabled = false
 	},
 	sections = {
@@ -150,7 +154,14 @@ require('lualine').setup({
 			separator,
 			lsp_name
 		},
-		lualine_x = {encoding, fileformat, hexvalue, 'filetype', 'branch', decals},
+		lualine_x = {
+			encoding,
+			fileformat,
+			hexvalue,
+			'filetype',
+			branch,
+			decals
+		},
 		lualine_y = {},
 		lualine_z = {}
 	},
