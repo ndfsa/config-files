@@ -31,9 +31,11 @@ set noshowmode
 set autowrite
 set mouse=a
 set pumheight=15
-set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,a:blinkon30
+set guicursor=a:blinkwait5-blinkon5-blinkoff5,n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
 
+let g:loaded_netrw = 1
 let g:loaded_netrwPlugin = 1
+
 lua require('plugins')
 
 let g:user_emmet_mode = 'n'
@@ -54,24 +56,29 @@ colorscheme gruvbox
 augroup colorscheme_custom
 	autocmd!
 	autocmd ColorScheme * highlight Normal guibg=none
+	autocmd ColorScheme * highlight Folded guibg=none
 augroup END
 
 " Remove all trailing spaces
 augroup convinient
 	autocmd!
-	autocmd FileType * autocmd BufWritePre <buffer> %s/\s\+$//e
 	autocmd TextYankPost * lua require'vim.highlight'.on_yank({'Substitute', 300})
 	autocmd VimResized * execute "normal! \<c-w>="
 augroup END
 
-function! Doaswrite() abort
-	if (executable('doas'))
-		w !doas tee % > /dev/null
-	else
-		w !sudo tee % > /dev/null)
-	endif
+function! W() abort
+	w !sudo tee % > /dev/null)
 endfunction
-command! Doasw call Doaswrite()
+command! W call W()
+
+function! FoldText()
+	let line = getline(v:foldstart)
+	let folded_line_num = v:foldend - v:foldstart
+	let fillcharcount = &textwidth - len(line_text) - len(folded_line_num)
+	return '+' . repeat('-', (94 - len(folded_line_num . ''))) . '(' . folded_line_num . ' L)'
+endfunction
+set fillchars=fold:\ 
+set foldtext=FoldText()
 
 " Useful keymaps
 let mapleader = ' '
@@ -98,28 +105,28 @@ nnoremap <silent><leader>ww :update<CR>
 nnoremap <silent><leader>gt :put =strftime('%c')<CR>
 
 " window operations
-nnoremap <silent><leader>wh <cmd>wincmd h<CR>
-nnoremap <silent><leader>wj <cmd>wincmd j<CR>
-nnoremap <silent><leader>wk <cmd>wincmd k<CR>
-nnoremap <silent><leader>wl <cmd>wincmd l<CR>
-nnoremap <silent><leader>w= <C-w>=<CR>
-nnoremap <silent><leader>wc <cmd>close<CR>
+nnoremap <silent><leader>wh :wincmd h<CR>
+nnoremap <silent><leader>wj :wincmd j<CR>
+nnoremap <silent><leader>wk :wincmd k<CR>
+nnoremap <silent><leader>wl :wincmd l<CR>
+nnoremap <silent><leader>w= <C-w>=
+nnoremap <silent><leader>wc :close<CR>
 
 " buffer operations
-nnoremap <silent> <leader>bp <cmd>bprevious<CR>
-nnoremap <silent> <leader>bn <cmd>bnext<CR>
-nnoremap <silent> <leader>bf <cmd>bfirst<CR>
-nnoremap <silent> <leader>bl <cmd>blast<CR>
-nnoremap <silent> <leader>bd <cmd>bd<CR>
+nnoremap <silent> <leader>bp :bprevious<CR>
+nnoremap <silent> <leader>bn :bnext<CR>
+nnoremap <silent> <leader>bf :bfirst<CR>
+nnoremap <silent> <leader>bl :blast<CR>
+nnoremap <silent> <leader>bd :bd<CR>
 
 " move lines
-vnoremap <silent><A-j> <cmd>m '>+1<CR>gv=gv
-vnoremap <silent><A-k> <cmd>m '<-2<CR>gv=gv
+vnoremap <silent><A-j> :m '>+1<CR>gv=gv
+vnoremap <silent><A-k> :m '<-2<CR>gv=gv
 
 " Vim maximizer remap
-nnoremap <silent><F3> <cmd>MaximizerToggle<CR>
-vnoremap <silent><F3> <cmd>MaximizerToggle<CR>gv
-inoremap <silent><F3> <C-o><cmd>MaximizerToggle<CR>
+nnoremap <silent><F3> :MaximizerToggle<CR>
+vnoremap <silent><F3> :MaximizerToggle<CR>gv
+inoremap <silent><F3> <C-o>:MaximizerToggle<CR>
 
 " toggle options
 nnoremap <leader>sn :set relativenumber!<CR>
@@ -128,7 +135,7 @@ nnoremap <leader>sw :set wrap!<CR>
 nnoremap <leader>sl :set list!<CR>
 nnoremap <leader>ss :set spell!<CR>
 nnoremap <leader>sc :ColorizerToggle<CR>
-
+nnoremap <leader>sr :%s/\s\+$//e<CR>
 " Telescope
 nnoremap <silent><leader>ff :Telescope find_files<CR>
 nnoremap <silent><leader>fg :Telescope live_grep<CR>
@@ -142,10 +149,10 @@ nnoremap <silent><leader>fp <cmd>lua require('telescope').extensions.project.pro
 nnoremap <silent><leader>gb :Telescope git_branches<CR>
 
 " Git fugitive
-nnoremap <silent><leader>gs <cmd>:Git<CR>
-nnoremap <silent><leader>gc <cmd>:Git log<CR>
-nnoremap <silent><leader>gp <cmd>:Git pull<CR>
-nnoremap <silent><leader>gw <cmd>:Git whatchanged<CR>
+nnoremap <silent><leader>gs :Git<CR>
+nnoremap <silent><leader>gc :Git log<CR>
+nnoremap <silent><leader>gp :Git pull<CR>
+nnoremap <silent><leader>gw :Git whatchanged<CR>
 
 " compe
 inoremap <silent><expr> <C-Space> compe#complete()
@@ -156,4 +163,4 @@ inoremap <silent><expr> <C-d> compe#scroll({ 'delta': -4 })
 
 " open things
 nnoremap <leader>op :PackerLoad nvim-tree.lua<CR>
-nnoremap <silent><leader>oe <cmd>edit .<CR>
+nnoremap <silent><leader>oe :edit .<CR>

@@ -25,8 +25,8 @@ require'lir'.setup {
 			mark_actions.toggle_mark()
 			vim.cmd('normal! j')
 		end,
-		['c'] = clipboard_actions.copy,
-		['x'] = clipboard_actions.cut,
+		['y'] = clipboard_actions.copy,
+		['d'] = clipboard_actions.cut,
 		['p'] = clipboard_actions.paste,
 	},
 	float = {
@@ -37,14 +37,14 @@ require'lir'.setup {
 require'nvim-web-devicons'.setup({
 	override = {
 		lir_folder_icon = {
-		icon = "",
-		color = "#8094b4",
-		name = "LirFolderNode"
+			icon = "",
+			color = "#8094b4",
+			name = "LirFolderNode"
 		},
 	}
 })
 function _G.LirSettings()
-	vim.api.nvim_buf_set_keymap('', 'x', 'J',
+	vim.api.nvim_buf_set_keymap(0, 'x', 'J',
 		':<C-u>lua require"lir.mark.actions".toggle_mark("v")<CR>',
 		{noremap = true, silent = true}
 	)
