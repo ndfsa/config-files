@@ -48,8 +48,6 @@ let g:mundo_right = 1
 
 if (has('termguicolors') && $TERM =~ '256color')
 	set termguicolors
-elseif ($TERM =~ 'linux' || $TERM =~ 'screen')
-	let g:gruvbox_termcolors=256
 endif
 
 colorscheme gruvbox
@@ -62,6 +60,7 @@ augroup END
 " Remove all trailing spaces
 augroup convinient
 	autocmd!
+	autocmd FileType * autocmd BufWritePre <buffer> %s/\s\+$//e
 	autocmd TextYankPost * lua require'vim.highlight'.on_yank({'Substitute', 300})
 	autocmd VimResized * execute "normal! \<c-w>="
 augroup END
@@ -73,11 +72,10 @@ command! W call W()
 
 function! FoldText()
 	let line = getline(v:foldstart)
-	let folded_line_num = v:foldend - v:foldstart
-	let fillcharcount = &textwidth - len(line_text) - len(folded_line_num)
+	let folded_line_num = v:foldend - v:foldstart + 1
 	return '+' . repeat('-', (94 - len(folded_line_num . ''))) . '(' . folded_line_num . ' L)'
 endfunction
-set fillchars=fold:\ 
+set fillchars=fold:\ ,eob:\ ,
 set foldtext=FoldText()
 
 " Useful keymaps
@@ -135,7 +133,7 @@ nnoremap <leader>sw :set wrap!<CR>
 nnoremap <leader>sl :set list!<CR>
 nnoremap <leader>ss :set spell!<CR>
 nnoremap <leader>sc :ColorizerToggle<CR>
-nnoremap <leader>sr :%s/\s\+$//e<CR>
+
 " Telescope
 nnoremap <silent><leader>ff :Telescope find_files<CR>
 nnoremap <silent><leader>fg :Telescope live_grep<CR>

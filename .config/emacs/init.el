@@ -5,7 +5,7 @@
 (set-fringe-mode 10)
 (menu-bar-mode -1)
 (setq visible-bell t)
-
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (set-face-attribute 'default nil :font "FiraCode-13:Medium")
 
 (setq frame-resize-pixelwise t)
@@ -38,7 +38,6 @@
 
 (use-package flx)
 (use-package counsel)
-
 (use-package ivy
   :diminish
   :config
@@ -46,9 +45,16 @@
   (setq ivy–regex-fuzzy t)
   (setq ivy-re-builders-alist
 		'((t . ivy--regex-fuzzy))))
+(use-package ivy-rich
+  :after ivy
+  :init
+  (ivy-rich-mode 1))
 
 (column-number-mode)
 (global-display-line-numbers-mode t)
+(menu-bar--display-line-numbers-mode-relative)
+
+(setq backup-directory-alist `(("." . "~/.cache/emacs/saves")))
 
 (setq whitespace-style (quote (lines-tail))
   whitespace-line-column 100)
@@ -60,17 +66,29 @@
 
 ;; Enable Evil
 (use-package evil
-  :config
-  (evil-mode 1)
+  :init
+  (setq evil-want-keybinding nil)
+  (setq evil-want-integration t)
   (setq evil-want-C-i-jump t)
   (setq evil-want-C-u-delete t)
   (setq evil-want-C-u-scroll t)
   (setq evil-want-Y-yank-to-eol t)
-  (setq evil-undo-system 'undo-redo))
+  (setq evil-undo-system 'undo-redo)
+  :config
+  (evil-mode 1))
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
 
+(use-package all-the-icons)
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1))
+
+(use-package projectile)
+(projectile-mode +1)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -78,7 +96,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(counsel flx mood-line gruvbox-theme use-package ivy evil doom-modeline)))
+   '(projectile ivy-rich evil-collection counsel flx mood-line gruvbox-theme use-package ivy evil doom-modeline)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

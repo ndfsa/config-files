@@ -21,7 +21,7 @@ local hexvalue = {
 }
 local bufinfo = {
 	function ()
-		return "[%n] %t%4m%5r%4w"
+		return "%n:%t%4m%5r%4w"
 	end,
 	color = {fg = colors.white, gui = 'bold' }
 }
