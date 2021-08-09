@@ -32,7 +32,7 @@ URxvt.color14: [100]#8ec07c
 URxvt.color7:  [100]#a89984
 URxvt.color15: [100]#ebdbb2
 
-URxvt*font: xft:JetBrainsMono\ Nerd\ Font\ Mono:size=13,xft:Hack:size=13,xft:Symbola:size=13,xft:IPAMincho:size=11
+URxvt*font: xft:FiraCode:size=14,xft:Hack:size=14,xft:Symbola:size=14,xft:IPAMincho:size=11
 URxvt*lineSpace: 0
 URxvt.clipboard.autocopy: true
 URxvt.scrollBar: false
