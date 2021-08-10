@@ -18,6 +18,13 @@ return require('packer').startup(function()
 	use 'tpope/vim-commentary'
 	use 'tpope/vim-fugitive'
 	use 'plasticboy/vim-markdown'
+	use 'vimwiki/vimwiki'
+	use 'mattn/calendar-vim'
+	use {
+		'junegunn/goyo.vim',
+		opt = true,
+		ft = {'vimwiki'}
+	}
 	use {
 		'lewis6991/gitsigns.nvim',
 		requires = { 'plenary.nvim' },
@@ -35,11 +42,6 @@ return require('packer').startup(function()
 	use {
 		'hoob3rt/lualine.nvim',
 		config = function() require('lualine-config') end
-	}
-	use {
-		'kyazdani42/nvim-tree.lua',
-		opt = true,
-		config = function() require('nvim-tree-config') end
 	}
 	use {
 		'neovim/nvim-lspconfig',

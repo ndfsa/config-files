@@ -50,12 +50,13 @@ if (has('termguicolors') && $TERM =~ '256color')
 	set termguicolors
 endif
 
-colorscheme gruvbox
 augroup colorscheme_custom
 	autocmd!
 	autocmd ColorScheme * highlight Normal guibg=none
+	autocmd ColorScheme * highlight Normal guibg=none
 	autocmd ColorScheme * highlight Folded guibg=none
 augroup END
+colorscheme gruvbox
 
 " Remove all trailing spaces
 augroup convinient
@@ -78,7 +79,13 @@ endfunction
 set fillchars=fold:\ ,eob:\ ,
 set foldtext=FoldText()
 
-" Useful keymaps
+let g:vimwiki_list = [{
+	\ 'path': '~/Documents/vimwiki/',
+	\ 'auto_diary_index': 1,
+	\ 'syntax': 'markdown', 'ext': '.md'
+	\ }]
+
+" useful keymaps
 let mapleader = ' '
 nnoremap Y y$
 
@@ -86,45 +93,29 @@ nnoremap Y y$
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
-" Undo break points
+" undo break points
 inoremap , ,<C-g>u
 inoremap . .<C-g>u
 inoremap ! !<C-g>u
 inoremap ? ?<C-g>u
 
-" Jumplist when jump > 10
+" jumplist when jump > 10
 nnoremap <expr> k (v:count > 10 ? "m'" . v:count : "") . 'k'
 nnoremap <expr> j (v:count > 10 ? "m'" . v:count : "") . 'j'
-
-" kusa
-nnoremap <silent><leader>ww :update<CR>
 
 " insert time
 nnoremap <silent><leader>gt :put =strftime('%c')<CR>
 
-" window operations
-nnoremap <silent><leader>wh :wincmd h<CR>
-nnoremap <silent><leader>wj :wincmd j<CR>
-nnoremap <silent><leader>wk :wincmd k<CR>
-nnoremap <silent><leader>wl :wincmd l<CR>
-nnoremap <silent><leader>w= <C-w>=
-nnoremap <silent><leader>wc :close<CR>
-
 " buffer operations
-nnoremap <silent> <leader>bp :bprevious<CR>
-nnoremap <silent> <leader>bn :bnext<CR>
-nnoremap <silent> <leader>bf :bfirst<CR>
-nnoremap <silent> <leader>bl :blast<CR>
-nnoremap <silent> <leader>bd :bd<CR>
+nnoremap <silent><leader>bp :bprevious<CR>
+nnoremap <silent><leader>bn :bnext<CR>
+nnoremap <silent><leader>bf :Telescope buffers<CR>
+nnoremap <silent><leader>bd :bd<CR>
 
 " move lines
 vnoremap <silent><A-j> :m '>+1<CR>gv=gv
 vnoremap <silent><A-k> :m '<-2<CR>gv=gv
 
-" Vim maximizer remap
-nnoremap <silent><F3> :MaximizerToggle<CR>
-vnoremap <silent><F3> :MaximizerToggle<CR>gv
-inoremap <silent><F3> <C-o>:MaximizerToggle<CR>
 
 " toggle options
 nnoremap <leader>sn :set relativenumber!<CR>
@@ -134,19 +125,22 @@ nnoremap <leader>sl :set list!<CR>
 nnoremap <leader>ss :set spell!<CR>
 nnoremap <leader>sc :ColorizerToggle<CR>
 
-" Telescope
+" file
+nnoremap <silent><leader>fs :update<CR>
 nnoremap <silent><leader>ff :Telescope find_files<CR>
 nnoremap <silent><leader>fg :Telescope live_grep<CR>
-nnoremap <silent><leader>fb :Telescope buffers<CR>
-nnoremap <silent><leader>fr :Telescope registers<CR>
-nnoremap <silent><leader>fm :Telescope marks<CR>
-nnoremap <silent><leader>fq :Telescope quickfix<CR>
 nnoremap <silent><leader>fz :Telescope current_buffer_fuzzy_find<CR>
-nnoremap <silent><leader>fs :Telescope spell_suggest<CR>
-nnoremap <silent><leader>fp <cmd>lua require('telescope').extensions.project.project{}<CR>
-nnoremap <silent><leader>gb :Telescope git_branches<CR>
 
-" Git fugitive
+" open
+nnoremap <silent><leader>op <cmd>lua require('telescope').extensions.project.project{}<CR>
+nnoremap <silent><leader>oe :edit .<CR>
+nnoremap <silent><leader>oc :Telescope commands<CR>
+nnoremap <silent><leader>or :Telescope registers<CR>
+nnoremap <silent><leader>om :Telescope marks<CR>
+nnoremap <silent><leader>oq :Telescope quickfix<CR>
+
+" git
+nnoremap <silent><leader>gb :Telescope git_branches<CR>
 nnoremap <silent><leader>gs :Git<CR>
 nnoremap <silent><leader>gc :Git log<CR>
 nnoremap <silent><leader>gp :Git pull<CR>
@@ -159,6 +153,12 @@ inoremap <silent><expr> <C-e> compe#close('<C-e>')
 inoremap <silent><expr> <C-f> compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d> compe#scroll({ 'delta': -4 })
 
-" open things
-nnoremap <leader>op :PackerLoad nvim-tree.lua<CR>
-nnoremap <silent><leader>oe :edit .<CR>
+" function
+" goyo
+nnoremap <silent><F2> :Goyo 101<CR>
+" vim maximizer
+nnoremap <silent><F3> :MaximizerToggle<CR>
+vnoremap <silent><F3> :MaximizerToggle<CR>gv
+inoremap <silent><F3> <C-o>:MaximizerToggle<CR>
+" vimwiki calendar
+nnoremap <silent><leader>w<leader>c :CalendarH<CR>
