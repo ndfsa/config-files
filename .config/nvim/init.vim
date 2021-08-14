@@ -24,7 +24,6 @@ set laststatus=2
 set completeopt=menuone,noselect
 set shortmess+=c
 set updatetime=500
-set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:~,space:·,eol:§
 set guifont=FiraCode:h14
 set foldmethod=indent
 set nofoldenable
@@ -33,7 +32,6 @@ set noshowmode
 set autowrite
 set mouse=a
 set pumheight=15
-set guicursor=a:blinkwait5-blinkon5-blinkoff5,n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
 
 let g:loaded_netrw = 1
 let g:loaded_netrwPlugin = 1
@@ -123,7 +121,6 @@ vnoremap <silent><A-k> :m '<-2<CR>gv=gv
 nnoremap <leader>sn :set relativenumber!<CR>
 nnoremap <leader>sh :set hlsearch!<CR>
 nnoremap <leader>sw :set wrap!<CR>
-nnoremap <leader>sl :set list!<CR>
 nnoremap <leader>ss :set spell!<CR>
 nnoremap <leader>sc :ColorizerToggle<CR>
 
