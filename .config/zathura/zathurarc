@@ -1,6 +1,6 @@
 set sandbox none
 set selection-clipboard clipboard
-set font "FiraCodeMedium 14"
+set font "FiraCode 14"
 set adjust-open width
 
 set default-bg                  "#282828"

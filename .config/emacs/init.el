@@ -6,7 +6,7 @@
 (menu-bar-mode -1)
 (setq visible-bell t)
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-(set-face-attribute 'default nil :font "FiraCode-14:Medium")
+(set-face-attribute 'default nil :font "FiraCode-14")
 
 (setq frame-resize-pixelwise t)
 

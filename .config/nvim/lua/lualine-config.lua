@@ -168,7 +168,7 @@ require('lualine').setup({
 	inactive_sections = {
 		lualine_a = {},
 		lualine_b = {},
-		lualine_c = {filesize, 'filetype', bufinfo},
+		lualine_c = {separator, filesize, 'filetype', bufinfo},
 		lualine_x = {},
 		lualine_y = {},
 		lualine_z = {}
