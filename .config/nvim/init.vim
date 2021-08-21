@@ -41,11 +41,6 @@ lua require('plugins')
 let g:user_emmet_mode = 'n'
 let g:user_emmet_install_global = 0
 
-let g:mundo_width = 40
-let g:mundo_preview_height = 20
-let g:mundo_preview_bottom = 1
-let g:mundo_right = 1
-
 if (has('termguicolors') && $TERM =~ '256color')
 	set termguicolors
 endif
