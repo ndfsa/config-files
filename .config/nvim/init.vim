@@ -4,7 +4,7 @@ set shiftwidth=4
 set softtabstop=4
 set noexpandtab
 set autoindent
-set smartcase
+set ignorecase smartcase
 set incsearch
 set nohlsearch
 set nu rnu
@@ -32,6 +32,7 @@ set noshowmode
 set autowrite
 set mouse=a
 set pumheight=15
+set background=dark
 
 let g:loaded_netrw = 1
 let g:loaded_netrwPlugin = 1
@@ -44,21 +45,23 @@ let g:user_emmet_install_global = 0
 if (has('termguicolors') && $TERM =~ '256color')
 	set termguicolors
 endif
-
+let g:gruvbox_material_transparent_background = 1
+let g:gruvbox_material_enable_italic = 1
+let g:gruvbox_material_disable_italic_comment = 1
+let g:gruvbox_material_palette = 'original'
+let g:gruvbox_material_enable_bold = 1
 augroup colorscheme_custom
 	autocmd!
-	autocmd ColorScheme * highlight Normal guibg=none
-	autocmd ColorScheme * highlight Normal guibg=none
-	autocmd ColorScheme * highlight Folded guibg=none
+	autocmd ColorScheme * highlight WhichKeyFloat guibg=none
 augroup END
-colorscheme gruvbox
+colorscheme gruvbox-material
 
 " Remove all trailing spaces
 augroup convinient
 	autocmd!
 	autocmd FileType * autocmd BufWritePre <buffer> %s/\s\+$//e
-	autocmd TextYankPost * lua require'vim.highlight'.on_yank({'Substitute', 300})
-	autocmd VimResized * execute "normal! \<c-w>="
+	autocmd TextYankPost * silent!
+				\ lua vim.highlight.on_yank({higroup="HighlightedYankRegion", timeout=200})
 augroup END
 
 function! W() abort
@@ -76,9 +79,17 @@ set foldtext=FoldText()
 
 let g:vimwiki_list = [{
 	\ 'path': '~/Documents/vimwiki/',
-	\ 'auto_diary_index': 1,
-	\ 'syntax': 'markdown', 'ext': '.md'
+	\ 'auto_diary_index': 1
 	\ }]
+augroup vwheader
+	autocmd!
+	autocmd FileType vimwiki highlight VimwikiHeader1 guifg=#fabd2f
+	autocmd FileType vimwiki highlight VimwikiHeader2 guifg=#fe8019
+	autocmd FileType vimwiki highlight VimwikiHeader3 guifg=#fb4934
+	autocmd FileType vimwiki highlight VimwikiHeader4 guifg=#83a598
+	autocmd FileType vimwiki highlight VimwikiHeader5 guifg=#8ec07c
+	autocmd FileType vimwiki highlight VimwikiHeader6 guifg=#d3869b
+augroup END
 
 " useful keymaps
 let mapleader = ' '
@@ -129,7 +140,6 @@ nnoremap <silent><leader>fz :Telescope current_buffer_fuzzy_find<CR>
 nnoremap <silent><leader>op <cmd>lua require('telescope').extensions.project.project{}<CR>
 nnoremap <silent><leader>oe :edit .<CR>
 nnoremap <silent><leader>oc :Telescope commands<CR>
-nnoremap <silent><leader>or :Telescope registers<CR>
 nnoremap <silent><leader>om :Telescope marks<CR>
 nnoremap <silent><leader>oq :Telescope quickfix<CR>
 
@@ -154,5 +164,3 @@ nnoremap <silent><F2> :Goyo 101<CR>
 nnoremap <silent><F3> :MaximizerToggle<CR>
 vnoremap <silent><F3> :MaximizerToggle<CR>gv
 inoremap <silent><F3> <C-o>:MaximizerToggle<CR>
-" vimwiki calendar
-nnoremap <silent><leader>w<leader>c :CalendarH<CR>

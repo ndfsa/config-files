@@ -5,7 +5,7 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
 return require('packer').startup(function()
-	use 'gruvbox-community/gruvbox'
+	use 'sainnhe/gruvbox-material'
 	use 'wbthomason/packer.nvim'
 	use 'szw/vim-maximizer'
 	use 'norcalli/nvim-colorizer.lua'
@@ -15,11 +15,10 @@ return require('packer').startup(function()
 	use 'nvim-lua/popup.nvim'
 	use 'nvim-lua/plenary.nvim'
 	use 'nacro90/numb.nvim'
-	use 'tpope/vim-commentary'
+	use 'b3nj5m1n/kommentary'
 	use 'tpope/vim-fugitive'
 	use 'plasticboy/vim-markdown'
 	use 'vimwiki/vimwiki'
-	use 'mattn/calendar-vim'
 	use {
 		'junegunn/goyo.vim',
 		opt = true,
@@ -76,5 +75,9 @@ return require('packer').startup(function()
 		ft = {'markdown', 'tex', 'text', 'org'},
 		opt = true,
 		config = function() require('spellsitter-config') end
+	}
+	use {
+		'folke/which-key.nvim',
+		config = function() require('which-key-config') end
 	}
 end)

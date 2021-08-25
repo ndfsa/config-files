@@ -6,7 +6,11 @@ super + Return
 super + r
 	rofi -show drun -show-icons
 
-super + shift + period
+# file explorer
+super + e
+	rofi -show file-browser
+
+super + p
 	"$HOME/bin/powermenu.sh"
 
 # make sxhkd reload its configuration files:
@@ -23,19 +27,14 @@ super + shift + {q,r}
 super + shift + {c, alt + c}
 	bspc node -{c,k}
 
-# alternate between the tiled and monocle layout
-#super + @space
-#	bspc desktop -l next
-
 # swap the current node and the biggest window
 super + @space
 	bspc node -s biggest.local.window
 
 # state/flags
-#
 
 # set the window state
-super + {t,p,s,f}
+super + {t,s,f,F}
 	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
 # set the node flags
@@ -43,7 +42,6 @@ super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
 
 # focus/swap
-#
 
 # focus the node in the given direction
 super + {_,shift + }{h,j,k,l}
@@ -61,18 +59,11 @@ super + {_,shift + }Tab
 super + {grave,Tab}
 	bspc {node,desktop} -f last
 
-# focus the older or newer node in the focus history
-#super + {o,i}
-#	bspc wm -h off; \
-#	bspc node {older,newer} -f; \
-#	bspc wm -h on
-
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} '^{1-9,10}'
 
 # preselect
-#
 
 # preselect the direction
 super + ctrl + {h,j,k,l}
@@ -103,22 +94,22 @@ super + {Left,Down,Up,Right}
 
 # change wallpaper
 super + bracketleft
-    "$HOME/bin/random_wallpaper"
+    "$HOME/bin/random_wallpaper.sh"
 
 # volume
 XF86Audio{RaiseVolume,LowerVolume,Mute}
 	"$HOME/bin/volume.sh" {up, down, mute}
 
-# Brightness
-XF86MonBrightnessUp
-    xbacklight -inc 5
-
-XF86MonBrightnessDown
-    xbacklight -dec 5
+XF86MonBrightness{Up,Down}
+    xbacklight -{inc,dec} 5
 
 # Rotate nodes
 super + w
     bspc node @/ -R 90
 
 super + b
-	polybar-msg cmd toggle; bspc config top_padding 0
+	polybar-msg cmd toggle
+
+# Equalize
+super + equal
+	bspc node @/ -B

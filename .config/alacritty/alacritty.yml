@@ -200,8 +200,8 @@ colors:
     cyan:    '#8ec07c'
     white:   '#ebdbb2'
   cursor:
-    text: CellBackground
-    cursor: CellForeground
+    text: '#282828'
+    cursor: '#ebdbb2'
 
   selection:
     text: CellBackground
@@ -271,7 +271,7 @@ colors:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 0.93
+background_opacity: 0.95
 
 selection:
   # This string contains all characters that are used as separators for
@@ -288,7 +288,9 @@ cursor:
   #   - ▇ Block
   #   - _ Underline
   #   - | Beam
-  style: Block
+  style:
+    blinking: always
+  blink_interval: 300
 
   # Vi mode cursor style
   #

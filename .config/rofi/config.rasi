@@ -1,4 +1,4 @@
 configuration {
-    modi: "run,window,drun";
+    modi: "run,window,drun,file-browser";
     theme: "gruvbox-dark";
  }
