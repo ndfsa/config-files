@@ -6,7 +6,6 @@ select opt in gui tty
 do
 	case $opt in
 		tty)
-			exec screen
 			break
 			;;
 		gui)

@@ -42,9 +42,7 @@ lua require('plugins')
 let g:user_emmet_mode = 'n'
 let g:user_emmet_install_global = 0
 
-if (has('termguicolors') && $TERM =~ '256color')
-	set termguicolors
-endif
+set termguicolors
 let g:gruvbox_material_transparent_background = 1
 let g:gruvbox_material_enable_italic = 1
 let g:gruvbox_material_disable_italic_comment = 1
@@ -63,11 +61,6 @@ augroup convinient
 	autocmd TextYankPost * silent!
 				\ lua vim.highlight.on_yank({higroup="HighlightedYankRegion", timeout=200})
 augroup END
-
-function! W() abort
-	w !sudo tee % > /dev/null)
-endfunction
-command! W call W()
 
 function! FoldText()
 	let line = getline(v:foldstart)
