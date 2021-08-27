@@ -22,3 +22,5 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 killall -q polybar
 while pgrep -u $(id -ru) -x polybar >/dev/null; do sleep 0.5; done
 polybar main --config="$HOME/.config/polybar/config.ini" &
+
+set_wallpaper.sh
