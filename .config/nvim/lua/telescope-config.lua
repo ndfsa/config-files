@@ -5,8 +5,8 @@ require('telescope').setup{
 		layout_config = {
 			height = 20,
 		},
-		border = false,
 		preview_title = "",
+		border = false,
 		file_ignore_patterns = {'.git', 'node_modules'}
 	},
 	pickers = {

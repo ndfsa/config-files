@@ -32,7 +32,6 @@ set noshowmode
 set autowrite
 set mouse=a
 set pumheight=15
-set background=dark
 
 let g:loaded_netrw = 1
 let g:loaded_netrwPlugin = 1
@@ -48,6 +47,7 @@ let g:gruvbox_material_enable_italic = 1
 let g:gruvbox_material_disable_italic_comment = 1
 let g:gruvbox_material_palette = 'original'
 let g:gruvbox_material_enable_bold = 1
+let g:gruvbox_material_better_performance = 1
 augroup colorscheme_custom
 	autocmd!
 	autocmd ColorScheme * highlight WhichKeyFloat guibg=none
@@ -122,6 +122,7 @@ nnoremap <leader>sh :set hlsearch!<CR>
 nnoremap <leader>sw :set wrap!<CR>
 nnoremap <leader>ss :set spell!<CR>
 nnoremap <leader>sc :ColorizerToggle<CR>
+nnoremap <leader>sl :IndentBlanklineToggle<CR>
 
 " file
 nnoremap <silent><leader>fs :update<CR>
@@ -143,12 +144,7 @@ nnoremap <silent><leader>gc :Git log<CR>
 nnoremap <silent><leader>gp :Git pull<CR>
 nnoremap <silent><leader>gw :Git whatchanged<CR>
 
-" compe
-inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR> compe#confirm('<CR>')
-inoremap <silent><expr> <C-e> compe#close('<C-e>')
-inoremap <silent><expr> <C-f> compe#scroll({ 'delta': +4 })
-inoremap <silent><expr> <C-d> compe#scroll({ 'delta': -4 })
+" cmp
 
 " function
 " goyo

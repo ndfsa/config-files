@@ -10,7 +10,7 @@ local on_attach = function(client, bufnr)
 			'<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
 	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>',
 			'<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D',
+	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>t',
 			'<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
 	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn',
 			'<cmd>lua vim.lsp.buf.rename()<CR>', opts)
@@ -44,6 +44,7 @@ local on_attach = function(client, bufnr)
 	end
 end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport = {
 	properties = {
