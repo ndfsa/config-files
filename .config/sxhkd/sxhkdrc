@@ -8,7 +8,7 @@ super + r
 
 # file explorer
 super + e
-	rofi -show file-browser
+	alacritty -e lf
 
 super + p
 	"$HOME/bin/powermenu.sh"
