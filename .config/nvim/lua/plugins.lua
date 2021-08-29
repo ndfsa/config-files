@@ -18,6 +18,7 @@ return require('packer').startup(function()
 	use 'plasticboy/vim-markdown'
 	use 'vimwiki/vimwiki'
 	use 'ThePrimeagen/vim-be-good'
+	use 'L3MON4D3/LuaSnip'
 	use {
 		'lukas-reineke/indent-blankline.nvim',
 		config = function() require('indent-blankline-config') end
@@ -60,6 +61,7 @@ return require('packer').startup(function()
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-path",
+			"saadparwaiz1/cmp_luasnip",
 		},
 		config = function() require('cmp-config') end
 	}

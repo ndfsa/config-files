@@ -107,8 +107,8 @@ XF86MonBrightness{Up,Down}
 super + w
     bspc node @/ -R 90
 
-super + b
-	polybar-msg cmd toggle
+super + {b,B}
+	{act=show; pad=30, act=hide; pad=0};polybar-msg cmd $act; bspc config top_padding $pad
 
 # Equalize
 super + equal

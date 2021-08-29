@@ -21,7 +21,7 @@ set laststatus=2
 set scrolloff=8
 set undofile
 set laststatus=2
-set completeopt=menuone,noselect
+set completeopt=menu,menuone,noselect
 set shortmess+=c
 set updatetime=500
 set guifont=FiraCode:h14

@@ -53,13 +53,15 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 		'additionalTextEdits',
 	}
 }
-local servers = { "pyright", "rust_analyzer", "tsserver", "vimls", "clangd", "cmake" }
+local servers = {
+	"pyright", "rust_analyzer", "tsserver", "vimls", "clangd", "cmake", "clojure_lsp"
+}
 for _, lsp in ipairs(servers) do
 	nvim_lsp[lsp].setup {
 		on_attach = on_attach,
 		capabilities = capabilities,
 		flags = {
-			debounce_text_changes = 150,
+			debounce_text_changes = 200,
 		}
 	}
 end
