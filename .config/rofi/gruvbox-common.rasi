@@ -6,6 +6,11 @@
    Modified: Mon Feb 12 2018 06:06:47 PST -0800
    ========================================================================== */
 
+element-text, element-icon {
+    background-color: inherit;
+    text-color:       inherit;
+}
+
 window {
     background-color: @background;
     border:           2;

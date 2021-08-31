@@ -1,4 +1,8 @@
 configuration {
-    modi: "run,window,drun,file-browser";
+    modi: "run,window,drun";
     theme: "gruvbox-dark";
- }
+	timeout {
+		delay:  15;
+		action: "kb-cancel";
+	}
+}
