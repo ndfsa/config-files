@@ -29,7 +29,7 @@
     # the top and down respectively.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "300x5-18+48"
+    geometry = "500x5-18+48"
 
     # Turn on the progess bar
     progress_bar = true
@@ -327,21 +327,21 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#282828e0"
+    background = "#282828"
     foreground = "#ebdbb2"
     timeout = 10
     # Icon for notifications with low urgency, uncomment to enable
     icon = ~/.config/dunst/low.png
 
 [urgency_normal]
-    background = "#458588e0"
+    background = "#458588"
     foreground = "#ebdbb2"
     timeout = 10
     # Icon for notifications with normal urgency, uncomment to enable
     icon = ~/.config/dunst/med.png
 
 [urgency_critical]
-    background = "#cc241de0"
+    background = "#cc241d"
     foreground = "#ebdbb2"
     frame_color = "#ebdbb2"
     timeout = 0

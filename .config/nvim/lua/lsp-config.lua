@@ -54,7 +54,7 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 	}
 }
 local servers = {
-	"pyright", "rust_analyzer", "tsserver", "vimls", "clangd", "cmake", "clojure_lsp"
+	"pyright", "rust_analyzer", "tsserver", "vimls", "clangd", "cmake", "hls"
 }
 for _, lsp in ipairs(servers) do
 	nvim_lsp[lsp].setup {

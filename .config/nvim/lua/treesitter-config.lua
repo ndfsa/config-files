@@ -2,11 +2,11 @@ require('nvim-treesitter.configs').setup({
 	ensure_installed = {
 		"bash",
 		"c",
-		"clojure",
 		"cmake",
 		"comment",
 		"css",
 		"gdscript",
+		"haskell",
 		"html",
 		"java",
 		"json",
