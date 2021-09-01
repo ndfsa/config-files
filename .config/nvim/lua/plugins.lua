@@ -16,9 +16,12 @@ return require('packer').startup(function()
 	use 'b3nj5m1n/kommentary'
 	use 'tpope/vim-fugitive'
 	use 'plasticboy/vim-markdown'
-	use 'vimwiki/vimwiki'
 	use 'ThePrimeagen/vim-be-good'
 	use 'L3MON4D3/LuaSnip'
+	use {
+		'kristijanhusak/orgmode.nvim',
+		config = function() require('orgmode-config') end
+	}
 	use {
 		'lukas-reineke/indent-blankline.nvim',
 		config = function() require('indent-blankline-config') end

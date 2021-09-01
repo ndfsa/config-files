@@ -22,5 +22,6 @@ cmp.setup {
 		{ name = 'nvim_lsp' },
 		{ name = 'path' },
 		{ name = 'luasnip' },
+		{ name = 'orgmode' },
 	},
 }
