@@ -5,8 +5,13 @@
    Source: https://github.com/bardisty/gruvbox-rofi
    Modified: Mon Feb 12 2018 06:06:47 PST -0800
    ========================================================================== */
+element-icon {
+    background-color: inherit;
+    text-color:       inherit;
+	margin: 5px;
+}
 
-element-text, element-icon {
+element-text{
     background-color: inherit;
     text-color:       inherit;
 }
