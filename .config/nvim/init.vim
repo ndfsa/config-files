@@ -70,20 +70,6 @@ endfunction
 set fillchars=fold:\ ,eob:\ ,
 set foldtext=FoldText()
 
-let g:vimwiki_list = [{
-	\ 'path': '~/Documents/vimwiki/',
-	\ 'auto_diary_index': 1
-	\ }]
-augroup vwheader
-	autocmd!
-	autocmd FileType vimwiki highlight VimwikiHeader1 guifg=#fabd2f
-	autocmd FileType vimwiki highlight VimwikiHeader2 guifg=#fe8019
-	autocmd FileType vimwiki highlight VimwikiHeader3 guifg=#fb4934
-	autocmd FileType vimwiki highlight VimwikiHeader4 guifg=#83a598
-	autocmd FileType vimwiki highlight VimwikiHeader5 guifg=#8ec07c
-	autocmd FileType vimwiki highlight VimwikiHeader6 guifg=#d3869b
-augroup END
-
 " useful keymaps
 let mapleader = ' '
 nnoremap Y y$
@@ -114,7 +100,6 @@ nnoremap <silent><leader>bd :bd<CR>
 " move lines
 vnoremap <silent><A-j> :m '>+1<CR>gv=gv
 vnoremap <silent><A-k> :m '<-2<CR>gv=gv
-
 
 " toggle options
 nnoremap <leader>sn :set relativenumber!<CR>

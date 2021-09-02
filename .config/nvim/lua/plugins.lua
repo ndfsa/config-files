@@ -23,6 +23,10 @@ return require('packer').startup(function()
 		config = function() require('orgmode-config') end
 	}
 	use {
+		'akinsho/org-bullets.nvim',
+		config = function() require("org-bullets").setup() end
+	}
+	use {
 		'lukas-reineke/indent-blankline.nvim',
 		config = function() require('indent-blankline-config') end
 	}
