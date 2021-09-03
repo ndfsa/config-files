@@ -33,7 +33,7 @@ return require('packer').startup(function()
 	use {
 		'junegunn/goyo.vim',
 		opt = true,
-		ft = {'vimwiki'}
+		ft = {'org'}
 	}
 	use {
 		'lewis6991/gitsigns.nvim',
