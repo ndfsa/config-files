@@ -118,7 +118,6 @@ nnoremap <silent><leader>fz :Telescope current_buffer_fuzzy_find<CR>
 " open
 nnoremap <silent><leader>op <cmd>lua require('telescope').extensions.project.project{}<CR>
 nnoremap <silent><leader>oe :edit .<CR>
-nnoremap <silent><leader>oc :Telescope commands<CR>
 nnoremap <silent><leader>om :Telescope marks<CR>
 nnoremap <silent><leader>oq :Telescope quickfix<CR>
 
