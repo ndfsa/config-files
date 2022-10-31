@@ -49,6 +49,8 @@ do
     esac
 done
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 [[ $- != *i* ]] && return
 
 ### Options
@@ -62,7 +64,7 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_EXPIRE_DUPS_FIRST
 
 ### Completion
-fpath=(/usr/share/zsh/site-functions $fpath)
+fpath=($(brew --prefix)/share/zsh-completions $fpath)
 autoload -Uz compinit
 compinit -d $ZCACHES/zcompdump
 
@@ -216,4 +218,4 @@ else
 fi
 
 ### Syntax highlighting
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
