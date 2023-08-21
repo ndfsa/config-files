@@ -5,6 +5,7 @@ require("oil").setup({
         "size",
         "icon",
     },
+    delete_to_trash = true,
     view_options = {
         show_hidden = true,
     },

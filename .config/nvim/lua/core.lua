@@ -89,7 +89,7 @@ for _, provider in ipairs(default_providers) do
     vim.g["loaded_" .. provider .. "_provider"] = 0
 end
 
-vim.g.sql_type_default = "mysql"
+vim.g.sql_type_default = "postgresql"
 
 vim.g.mapleader = " "
 

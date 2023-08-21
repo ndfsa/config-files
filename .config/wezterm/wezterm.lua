@@ -42,6 +42,7 @@ local config = {
     bold_brightens_ansi_colors = true,
     adjust_window_size_when_changing_font_size = false,
     force_reverse_video_cursor = true,
+    tab_bar_at_bottom = true,
     colors = {
         foreground = "#dcd7ba",
         background = "#1f1f28",
