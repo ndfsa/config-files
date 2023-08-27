@@ -1,21 +1,31 @@
+; clean up gui
 (setq inhibit-startup-message t)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (tooltip-mode -1)
 (set-fringe-mode 10)
 (menu-bar-mode -1)
+
+; make semicolon work like in vim
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
+; set font
 (set-face-attribute 'default nil :font "JetBrainsMono-14:Medium")
 
+; set frame size
+(when window-system (set-frame-size (selected-frame) 120 36))
+
+; allow frame using fractional characters
 (setq frame-resize-pixelwise t)
 
+; scroll margin before cursor is at the end
 (setq scroll-margin 5)
 (setq scroll-step 1)
 
 (set-language-environment "UTF-8")
-
 (set-default-coding-systems 'utf-8)
 
+; bootstrap straight.el
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -29,12 +39,16 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
+; register use-package macro
 (straight-use-package 'use-package)
 
+; assume :straight t is the default
 (setq straight-use-package-by-default t)
-(use-package atom-one-dark-theme
+
+; packages
+(use-package dracula-theme
   :config
-  (load-theme 'atom-one-dark t))
+  (load-theme 'dracula t))
 (use-package mood-line
   :config
   (mood-line-mode 1))
@@ -48,6 +62,7 @@
   (setq evil-want-C-u-scroll t)
   (setq evil-want-C-w-delete t)
   (setq evil-want-Y-yank-to-eol t)
+  (setq evil-undo-system 'undo-redo)
   :config
   (evil-mode 1))
 (use-package evil-collection
@@ -79,7 +94,8 @@
   :init
   (setq lsp-keymap-prefix "C-c l")
   :hook ((rust-mode . lsp))
-  :commands lsp)(use-package lsp-ui :commands lsp-ui-mode)
+  :commands lsp)
+(use-package lsp-ui :commands lsp-ui-mode)
 (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
 (use-package org :straight nil)
 (use-package magit)
