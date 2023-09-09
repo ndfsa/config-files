@@ -84,6 +84,7 @@ return require("lazy").setup({
         dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-lua/popup.nvim",
+            "nvim-neorg/neorg-telescope",
             "nvim-telescope/telescope-project.nvim",
             "nvim-telescope/telescope-symbols.nvim",
             "nvim-telescope/telescope-ui-select.nvim",
@@ -170,5 +171,17 @@ return require("lazy").setup({
     {
         "ashfinal/qfview.nvim",
         config = true,
+    },
+    {
+        "nvim-tree/nvim-tree.lua",
+        config = function()
+            require("plugin.nvim-tree")
+        end,
+    },
+    {
+        "mickael-menu/zk-nvim",
+        config = function()
+            require("plugin.zk")
+        end,
     },
 })

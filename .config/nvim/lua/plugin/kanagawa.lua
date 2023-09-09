@@ -23,3 +23,19 @@ require("kanagawa").setup({
     },
 })
 vim.cmd("colorscheme kanagawa")
+
+local colors = require("kanagawa.colors").setup().palette
+
+local markdownHighlights = {
+    colors.autumnRed,
+    colors.roninYellow,
+    colors.autumnGreen,
+    colors.crystalBlue,
+    colors.oniViolet,
+    colors.sakuraPink,
+}
+
+for index, value in ipairs(markdownHighlights) do
+    vim.cmd(string.format("hi @text.title.%d.marker.markdown gui=bold guifg=%s", index, value))
+    vim.cmd(string.format("hi @text.title.%d.markdown gui=bold guifg=%s", index, value))
+end
