@@ -81,11 +81,7 @@ setopt menu_complete
 
 ### Alias
 function __scoped_edit(){
-    M_LAST_CWD="`pwd`"
-    cd "$1"
-    nvim .
-    cd "$M_LAST_CWD" 2> /dev/null || cd "$HOME"
-    unset M_LAST_CWD
+    (cd "$1" && nvim .)
 }
 
 function rm(){

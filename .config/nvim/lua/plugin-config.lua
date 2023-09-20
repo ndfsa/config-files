@@ -157,9 +157,9 @@ return require("lazy").setup({
         config = true,
     },
     {
-        "nvimdev/guard.nvim",
+        "stevearc/conform.nvim",
         config = function()
-            require("plugin.guard")
+            require("plugin.conform")
         end,
     },
     {
