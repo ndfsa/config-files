@@ -33,7 +33,9 @@ require("lualine").setup({
                 "diagnostics",
                 sources = { "nvim_diagnostic" },
             },
-            "filename",
+            function()
+                return "%t%4m%5r%4w"
+            end,
             "branch",
         },
         lualine_x = {

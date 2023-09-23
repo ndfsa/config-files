@@ -7,7 +7,7 @@ require("kanagawa").setup({
     statementStyle = { bold = true },
     typeStyle = {},
     transparent = false,
-    dimInactive = false,
+    dimInactive = true,
     globalStatus = true,
     colors = {
         palette = {},
