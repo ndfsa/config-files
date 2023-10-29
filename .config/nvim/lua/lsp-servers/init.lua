@@ -1,7 +1,7 @@
 local M = {}
 
 local module_loc = "lsp-servers."
-M.clangd = {}
+M.ccls = {}
 M.dartls = {}
 M.emmet_ls = {}
 M.gopls = {}

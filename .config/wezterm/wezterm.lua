@@ -1,5 +1,4 @@
 local wezterm = require("wezterm")
-local act = wezterm.action
 
 local function rule(intensity, weight, italic)
     return {
@@ -102,7 +101,7 @@ local config = {
         {
             event = { Up = { streak = 1, button = "Left" } },
             mods = "CTRL",
-            action = act.OpenLinkAtMouseCursor,
+            action = wezterm.action.OpenLinkAtMouseCursor,
         },
         {
             event = { Up = { streak = 1, button = "Right" } },
@@ -114,18 +113,26 @@ config.keys = {
     {
         key = "t",
         mods = "ALT",
-        action = act.SpawnTab("CurrentPaneDomain"),
+        action = wezterm.action.SpawnTab("CurrentPaneDomain"),
     },
-    { key = "{", mods = "SHIFT|ALT", action = act.MoveTabRelative(-1) },
-    { key = "}", mods = "SHIFT|ALT", action = act.MoveTabRelative(1) },
-    { key = "[", mods = "ALT", action = act.ActivateTabRelative(-1) },
-    { key = "]", mods = "ALT", action = act.ActivateTabRelative(1) },
+    { key = "{", mods = "SHIFT|ALT", action = wezterm.action.MoveTabRelative(-1) },
+    { key = "}", mods = "SHIFT|ALT", action = wezterm.action.MoveTabRelative(1) },
+    { key = "[", mods = "ALT", action = wezterm.action.ActivateTabRelative(-1) },
+    { key = "]", mods = "ALT", action = wezterm.action.ActivateTabRelative(1) },
 }
 for i = 1, 9 do
     table.insert(config.keys, {
         key = tostring(i),
         mods = "ALT",
-        action = act.ActivateTab(i - 1),
+        action = wezterm.action_callback(function(win, pane)
+            local mux = win:mux_window()
+
+            if #mux:tabs() + 1 == i then
+                mux:spawn_tab({})
+            end
+
+            win:perform_action(wezterm.action.ActivateTab(i - 1), pane)
+        end),
     })
 end
 return config

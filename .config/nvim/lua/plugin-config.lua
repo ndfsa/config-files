@@ -25,9 +25,8 @@ return require("lazy").setup({
     },
     {
         "lukas-reineke/indent-blankline.nvim",
-        config = function()
-            require("plugin.indent-blankline")
-        end,
+        main = "ibl",
+        opts = require("plugin.indent-blankline"),
     },
     {
         "stevearc/oil.nvim",
@@ -154,7 +153,9 @@ return require("lazy").setup({
     },
     {
         "folke/which-key.nvim",
-        config = true,
+        config = function ()
+            require("plugin.which-key")
+        end,
     },
     {
         "stevearc/conform.nvim",
@@ -182,6 +183,9 @@ return require("lazy").setup({
         "mickael-menu/zk-nvim",
         config = function()
             require("plugin.zk")
+        end,
+        cond = function()
+            return #vim.fs.find(".zk", {}) > 0
         end,
     },
 })

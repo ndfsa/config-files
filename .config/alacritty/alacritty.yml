@@ -4,10 +4,7 @@ env:
 window:
   dimensions:
     columns: 120
-    lines: 40
-  padding:
-    x: 4
-    y: 4
+    lines: 36
   dynamic_padding: true
   dynamic_title: true
 
@@ -27,7 +24,6 @@ font:
   size: 14.0
 draw_bold_text_with_bright_colors: true
 
-# Colors (Gruvbox dark)
 colors:
   primary:
     background: '0x1f1f28'
@@ -85,3 +81,4 @@ mouse:
   hide_when_typing: true
 key_bindings:
   - { key: N, mods: Control|Shift, action: SpawnNewInstance }
+  - { key: Q, mods: Alt, action: Quit }
