@@ -23,11 +23,9 @@ export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 export CARGO_HOME=$XDG_DATA_HOME/cargo
 export OPAMROOT=$XDG_DATA_HOME/opam
 export PARALLEL_HOME=$XDG_CONFIG_HOME/parallel
-export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
 export RUSTUP_HOME=$XDG_DATA_HOME/rustup
 export LEIN_HOME=$XDG_DATA_HOME/lein
 export LESSHISTFILE=$XDG_CACHE_HOME/less/history
-export GOPATH=$XDG_DATA_HOME/go
 
 if [[ -n $(command -v opam) ]]
 then

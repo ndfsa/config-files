@@ -1,5 +1,9 @@
 #!/bin/zsh
 
+which go && go env -w GOPATH="$HOME/.local/share/go"
+which npm && npm config set prefix="$HOME/.local/share/npm"
+which npm && npm config set cache="$XDG_CACHE_HOME/npm"
+
 dotfiles_dir=${0:a:h}
 
 curr_dir=$(pwd)

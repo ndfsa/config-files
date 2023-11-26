@@ -8,6 +8,7 @@ conform.setup({
         lua = { "stylua" },
         python = { "black" },
         javascript = { "prettier" },
+        javascriptreact = { "prettier" },
     },
 })
 

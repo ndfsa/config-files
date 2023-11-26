@@ -1,9 +1,10 @@
 local M = {}
 
 local module_loc = "lsp-servers."
+M.astro = {}
 M.ccls = {}
 M.dartls = {}
-M.emmet_ls = {}
+M.emmet_language_server = {}
 M.gopls = {}
 M.html = {}
 M.jsonls = {}
