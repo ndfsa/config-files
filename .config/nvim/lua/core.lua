@@ -42,7 +42,7 @@ vim.opt.shiftwidth = 4
 
 -- EXPERIMENTAL FEATURES
 -- vim.opt.cmdheight = 0
-vim.opt.diffopt = 'linematch:60'
+-- vim.opt.diffopt = 'linematch:60'
 
 local default_plugins = {
     "2html_plugin",
