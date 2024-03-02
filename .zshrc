@@ -59,7 +59,7 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_EXPIRE_DUPS_FIRST
 
 ### Completion
-fpath=($(brew --prefix)/share/zsh-completions $fpath)
+fpath=($(brew --prefix)/share/zsh-completions $(brew --prefix)/share/zsh/site-functions $fpath)
 autoload -Uz compinit
 compinit -d $ZCACHES/zcompdump
 
