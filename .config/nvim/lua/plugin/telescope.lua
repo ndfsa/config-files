@@ -1,3 +1,20 @@
+local vimgrep_arguments = {
+    "rg",
+    "--color=never",
+    "--hidden",
+    "--no-heading",
+    "--with-filename",
+    "--line-number",
+    "--column",
+    "--smart-case",
+    "--trim",
+}
+
+if vim.uv.fs_stat(".gitignore") then
+    table.insert(vimgrep_arguments, "--ignore-file")
+    table.insert(vimgrep_arguments, ".gitignore")
+end
+
 local telescope = require("telescope")
 local ignore_patterns = { "%.git[/\\]" }
 
@@ -9,23 +26,9 @@ telescope.setup({
             prompt_position = "top",
             mirror = true,
         },
+        vimgrep_arguments = vimgrep_arguments,
         preview = true,
         file_ignore_patterns = ignore_patterns,
-        vimgrep_arguments = {
-            "rg",
-            "--hidden",
-            "--color=never",
-            "--no-heading",
-            "--with-filename",
-            "--line-number",
-            "--column",
-            "--smart-case",
-        },
-    },
-    pickers = {
-        find_files = {
-            hidden = true,
-        },
     },
 })
 telescope.load_extension("fzf")
@@ -37,7 +40,12 @@ local tl_ext = telescope.extensions
 local tl_builtin = require("telescope.builtin")
 local opts = require("utils").opts
 
-vim.keymap.set("n", "<leader><space>", tl_builtin.find_files, opts("Find file"))
+vim.keymap.set(
+    "n",
+    "<leader><space>",
+    require("utils").project_files(tl_builtin),
+    opts("Find file")
+)
 vim.keymap.set("n", "<leader>bz", tl_builtin.current_buffer_fuzzy_find, opts("Buffer fuzzy find"))
 vim.keymap.set("n", "<leader>fg", tl_builtin.live_grep, opts("Find grep"))
 vim.keymap.set("n", "<leader>fr", tl_builtin.registers, opts("Find registers"))

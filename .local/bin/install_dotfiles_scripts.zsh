@@ -1,25 +1,11 @@
 #!/bin/zsh
 
-which go && go env -w GOPATH="$HOME/.local/share/go"
-which npm && npm config set prefix="$HOME/.local/share/npm"
-which npm && npm config set cache="$XDG_CACHE_HOME/npm"
-
-dotfiles_dir=${0:a:h}
+dotfiles_dir="$HOME/.dotfiles"
 
 curr_dir=$(pwd)
 cd $dotfiles_dir
 
-# declare all files to bootstrap
 configs=(
-    .config/emacs/init.el
-    .config/starship.toml
-    .prboom-plus/prboom-plus.cfg
-    .xserverrc
-    .zshenv
-    .zshrc
-    .config/nvim
-    .config/sxhkd
-    .config/wezterm
     .local/bin/*
 )
 
