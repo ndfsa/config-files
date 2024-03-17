@@ -4,10 +4,9 @@ which go && go env -w GOPATH="$HOME/.local/share/go"
 which npm && npm config set prefix="$HOME/.local/share/npm"
 which npm && npm config set cache="$XDG_CACHE_HOME/npm"
 
-dotfiles_dir=${0:a:h}
+dotfiles_dir="$HOME/.dotfiles"
 
-curr_dir=$(pwd)
-cd $dotfiles_dir
+pushd $dotfiles_dir
 
 # declare all files to bootstrap
 configs=(
@@ -39,10 +38,10 @@ function handle_entry() {
 
 for i in $configs
 do
-    if [[ -e "$HOME/.dotfiles/$i" ]]
+    if [[ -e "$dotfiles_dir/$i" ]]
     then
         handle_entry $i $dotfiles_dir
     fi
 done
 
-cd $curr_dir
+popd

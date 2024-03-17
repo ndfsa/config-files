@@ -24,6 +24,7 @@ local config = {
         rule("Normal", "Regular", true),
         rule("Bold", "ExtraBold", true),
     },
+    default_prog = { '/usr/bin/fish'},
     warn_about_missing_glyphs = false,
     hide_tab_bar_if_only_one_tab = true,
     audible_bell = "Disabled",

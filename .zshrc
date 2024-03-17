@@ -26,7 +26,7 @@ export LESSHISTFILE=$XDG_CACHE_HOME/less/history
 export GHCUP_USE_XDG_DIRS=1
 
 ### Custom paths
-CUSTOM_PATHS=( $HOME/.local/bin )
+CUSTOM_PATHS=( $HOME/.dotfiles/bin )
 
 [[ -n $(command -v go) ]] && CUSTOM_PATHS+="$(go env GOPATH)/bin"
 [[ -n $(command -v cargo) ]] && CUSTOM_PATHS+="$CARGO_HOME/bin"
