@@ -1,4 +1,11 @@
-format = " $directory$git_branch$python$character"
+format = """ $directory\
+$git_branch\
+$git_commit\
+$git_state\
+$python\
+$jobs\
+$status\
+$character"""
 add_newline = false
 
 [directory]
@@ -6,3 +13,11 @@ style = "purple"
 
 [python]
 format = '[(\($virtualenv\) )]($style)'
+
+[character]
+success_symbol = '[❯](bold green)'
+error_symbol = '[✕](bold red)'
+
+[status]
+format = '[\[$status\]]($style) '
+disabled = false

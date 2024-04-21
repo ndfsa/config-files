@@ -18,15 +18,7 @@ return require("lazy").setup({
         config = function()
             require("plugin.kanagawa")
         end,
-    },
-    {
-        "numToStr/Comment.nvim",
-        config = true,
-    },
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        main = "ibl",
-        opts = require("plugin.indent-blankline"),
+        priority = 0,
     },
     {
         "stevearc/oil.nvim",
@@ -84,9 +76,9 @@ return require("lazy").setup({
             "nvim-lua/plenary.nvim",
             "nvim-lua/popup.nvim",
             "nvim-neorg/neorg-telescope",
-            "nvim-telescope/telescope-project.nvim",
             "nvim-telescope/telescope-symbols.nvim",
             "nvim-telescope/telescope-ui-select.nvim",
+            "debugloop/telescope-undo.nvim",
             "LinArcX/telescope-env.nvim",
             {
                 "nvim-telescope/telescope-fzf-native.nvim",
@@ -119,10 +111,6 @@ return require("lazy").setup({
         end,
     },
     {
-        "kylechui/nvim-surround",
-        config = true,
-    },
-    {
         "NvChad/nvim-colorizer.lua",
         config = function()
             require("plugin.nvim-colorizer")
@@ -136,19 +124,6 @@ return require("lazy").setup({
         "nmac427/guess-indent.nvim",
         config = function()
             require("guess-indent").setup({ autocmd = false })
-        end,
-    },
-    {
-        "NTBBloodbath/rest.nvim",
-        config = function()
-            require("plugin.rest")
-        end,
-        ft = { "http" },
-    },
-    {
-        "mbbill/undotree",
-        init = function()
-            require("plugin.undotree")
         end,
     },
     {
@@ -179,5 +154,13 @@ return require("lazy").setup({
             require("plugin.nvim-tree")
         end,
         cmd = "EnableNvimTree",
+    },
+    { "echasnovski/mini.ai", config = true },
+    { "echasnovski/mini.surround", config = true },
+    {
+        "ThePrimeagen/git-worktree.nvim",
+        config = function()
+            require("plugin.git-worktree")
+        end,
     },
 })

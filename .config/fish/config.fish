@@ -25,18 +25,19 @@ set -x RUSTUP_HOME $XDG_DATA_HOME/rustup
 set -x LESSHISTFILE $XDG_CACHE_HOME/less/history
 set -x GHCUP_USE_XDG_DIRS 1
 
+set -a PATH "$XDG_BIN_HOME"
 set -a PATH "$HOME/.dotfiles/bin"
 
-if test -n $(command -v go)
+if command -q go
 	set -a PATH "$(go env GOPATH)/bin"
 end
-if test -n $(command -v cargo)
+if command -q cargo
 	set -a PATH "$CARGO_HOME/bin"
 end
-if test -n $(command -v npm)
+if command -q npm
 	set -a PATH "$XDG_DATA_HOME/npm/bin"
 end
-if test -n $(command -v dotnet)
+if command -q dotnet
 	set -a PATH "$HOME/.dotnet/tools"
 end
 

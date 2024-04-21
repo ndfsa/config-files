@@ -1,5 +1,4 @@
 require("kanagawa").setup({
-    compile = true,
     undercurl = true,
     commentStyle = { italic = true },
     functionStyle = { bold = true },

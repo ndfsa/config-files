@@ -1,12 +1,14 @@
-#!/bin/sh --
-# aur-remove - remove listed packages from all local repositories
+#!/bin/bash
+# Remove unused build files in aur-sync cache
+XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
+AURDEST=${AURDEST:-$XDG_CACHE_HOME/aurutils/sync}
 
-if [ "$#" -eq 0 ]; then
-   printf 'usage: aur remove package [package ...]\n' >&2
-   exit 1
-fi
+# Assumes build files were retrieved through git(1)
+find "$AURDEST" -name .git -execdir git clean -xdf \;
 
-aur repo --list-path | while read -r repo_path; do
-   repo-remove "$repo_path" "$@"
-   paccache -c "${repo_path%/*}" -rvk0 "$@"
+# Print directories which do not contain a PKGBUILD file
+for d in "$AURDEST"/*; do
+   if [[ -d $d ]] && [[ ! -f $d/PKGBUILD ]]; then
+       printf '%s\n' "$d"
+   fi
 done

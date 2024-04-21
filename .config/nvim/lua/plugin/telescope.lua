@@ -19,22 +19,21 @@ local telescope = require("telescope")
 local ignore_patterns = { "%.git[/\\]" }
 
 telescope.setup({
-    defaults = {
-        sorting_strategy = "ascending",
-        layout_strategy = "vertical",
+    defaults = require("telescope.themes").get_ivy({
         layout_config = {
             prompt_position = "top",
-            mirror = true,
+            height = 100,
         },
         vimgrep_arguments = vimgrep_arguments,
         preview = true,
         file_ignore_patterns = ignore_patterns,
-    },
+    }),
 })
 telescope.load_extension("fzf")
-telescope.load_extension("project")
 telescope.load_extension("env")
 telescope.load_extension("ui-select")
+telescope.load_extension("git_worktree")
+telescope.load_extension("undo")
 
 local tl_ext = telescope.extensions
 local tl_builtin = require("telescope.builtin")
@@ -50,7 +49,6 @@ vim.keymap.set("n", "<leader>bz", tl_builtin.current_buffer_fuzzy_find, opts("Bu
 vim.keymap.set("n", "<leader>fg", tl_builtin.live_grep, opts("Find grep"))
 vim.keymap.set("n", "<leader>fr", tl_builtin.registers, opts("Find registers"))
 vim.keymap.set("n", "<leader>fb", tl_builtin.buffers, opts("Find buffers"))
-vim.keymap.set("n", "<leader>fp", function()
-    tl_ext.project.project({})
-end, opts("Find projects"))
+vim.keymap.set("n", "<leader>fh", tl_builtin.help_tags, opts("Find help"))
+vim.keymap.set("n", "<leader>fu", tl_ext.undo.undo, opts("Find undo"))
 vim.keymap.set("n", "<leader>fE", tl_ext.env.env, opts("Find environment variables"))

@@ -43,10 +43,10 @@ cmp.setup({
             maxwidth = 50,
             mode = "symbol_text",
             menu = {
-                buffer = "[Buffer]",
+                buffer = "[Buff]",
                 path = "[Path]",
-                nvim_lsp = "[LSP]",
-                luasnip = "[LuaSnip]",
+                nvim_lsp = "[Lsp]",
+                luasnip = "[Snip]",
             },
         }),
     },

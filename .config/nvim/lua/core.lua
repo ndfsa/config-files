@@ -98,9 +98,6 @@ local opts = require("utils").opts
 vim.keymap.set("n", "n", "nzz", opts())
 vim.keymap.set("n", "N", "Nzz", opts())
 
-vim.keymap.set("n", "<C-u>", "<C-u>zz", opts())
-vim.keymap.set("n", "<C-d>", "<C-d>zz", opts())
-
 vim.keymap.set("n", "k", [[v:count == 0 ? 'gk' : 'k']], opts(nil, { expr = true }))
 vim.keymap.set("n", "j", [[v:count == 0 ? 'gj' : 'j']], opts(nil, { expr = true }))
 
