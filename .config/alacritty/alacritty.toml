@@ -70,6 +70,7 @@ text = "CellBackground"
 bindings = [
     { action = "SpawnNewInstance", key = "N", mods = "Control|Shift" },
     { action = "Quit", key = "Q", mods = "Alt" },
+    { action = "ToggleFullscreen", key = "Enter", mods = "Alt" },
 ]
 
 [mouse]

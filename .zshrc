@@ -57,7 +57,6 @@ done
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-
 # cache directory
 ZCACHES=$XDG_CACHE_HOME/zsh
 
@@ -200,8 +199,10 @@ then
 fi
 
 # fzf integration
-source $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh
-source $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh
+if command -v fzf &> /dev/null
+then
+    eval "$(fzf --zsh)"
+fi
 
 # syntax highlighting
 source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
