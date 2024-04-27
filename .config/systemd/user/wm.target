@@ -1,3 +1,0 @@
-[Unit]
-Description=X server session for user
-Requires=graphical-session.target

@@ -14,14 +14,16 @@ vim.opt.rtp:prepend(lazypath)
 return require("lazy").setup({
     {
         "rebelot/kanagawa.nvim",
-        build = ":KanagawaCompile",
+        priority = 1000,
+        lazy = false,
         config = function()
             require("plugin.kanagawa")
         end,
-        priority = 0,
     },
     {
         "stevearc/oil.nvim",
+        priority = 1000,
+        lazy = false,
         config = function()
             require("plugin.oil")
         end,
@@ -153,7 +155,7 @@ return require("lazy").setup({
         config = function()
             require("plugin.nvim-tree")
         end,
-        cmd = "EnableNvimTree",
+        lazy = true,
     },
     { "echasnovski/mini.ai", config = true },
     { "echasnovski/mini.surround", config = true },
@@ -162,5 +164,12 @@ return require("lazy").setup({
         config = function()
             require("plugin.git-worktree")
         end,
+    },
+    {
+        "Vigemus/iron.nvim",
+        config = function()
+            require("plugin.iron")
+        end,
+        lazy = true,
     },
 })

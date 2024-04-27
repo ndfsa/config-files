@@ -1,5 +1,0 @@
-theme = "gruvbox"
-
-[editor]
-scrolloff = 5
-line-number = "relative"

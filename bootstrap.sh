@@ -12,14 +12,9 @@ pushd $dotfiles_dir
 configs=(
     .config/emacs/init.el
     .config/starship.toml
-    .prboom-plus/prboom-plus.cfg
-    .xserverrc
-    .zshenv
     .zshrc
     .config/nvim
-    .config/sxhkd
     .config/wezterm
-    .local/bin/*
 )
 
 # handle all files

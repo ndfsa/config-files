@@ -1,7 +1,0 @@
-[Unit]
-Description=Changes Wallpaper every hour
-PartOf=graphical-session.target
-
-[Timer]
-OnActiveSec=30m
-OnUnitActiveSec=1h

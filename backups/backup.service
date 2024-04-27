@@ -1,5 +1,0 @@
-[Unit]
-Description=Borg Backup
-
-[Service]
-ExecStart=/usr/bin/backup

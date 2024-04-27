@@ -3,17 +3,16 @@ vim.g.zig_fmt_autosave = 0
 
 local M = {}
 
-local mod_dir = "lsp-servers."
 M.csharp_ls = {}
 M.dartls = {}
 M.emmet_language_server = {}
-M.gopls = {}
-M.hls = require(mod_dir .. "hls")
+M.gopls = require("lsp-servers.gopls")
+M.hls = require("lsp-servers.hls")
 M.html = {}
 M.jsonls = {}
-M.lua_ls = require(mod_dir .. "lua")
+M.lua_ls = require("lsp-servers.lua_ls")
 M.pyright = {}
-M.rust_analyzer = require(mod_dir .. "rust")
+M.rust_analyzer = require("lsp-servers.rust_analyzer")
 M.tsserver = {}
 M.zls = {}
 

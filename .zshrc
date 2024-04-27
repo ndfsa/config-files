@@ -15,7 +15,7 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export SXHKD_SHELL=dash
 export JDTLS_HOME=/usr/share/java/jdtls
 export AUR_PAGER=lf
-# export FZF_DEFAULT_OPTS=--color=16
+export FZF_DEFAULT_OPTS=--color=16
 export DIFFPROG='nvim -d'
 export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/docker.sock"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
@@ -46,7 +46,7 @@ then
     CUSTOM_PATHS+=( "$HOME/.dotnet/tools" )
 fi
 
-# merge PATH and CUSTOM_PATH
+# merge PATH and CUSTOM_PATHS
 for i in ${CUSTOM_PATHS[@]}
 do
     case ":$PATH:" in
@@ -54,6 +54,7 @@ do
         *) PATH="$i:$PATH";;
     esac
 done
+unset CUSTOM_PATHS
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
@@ -87,7 +88,7 @@ autoload -Uz compinit
 compinit -d $ZCACHES/zcompdump
 
 # set completion menu to select mode
-zstyle ':completion:*' menu select=1
+zstyle ':completion:*' menu select
 
 # use verbose completions always
 zstyle ':completion:*' verbose yes
@@ -123,7 +124,9 @@ function __scoped_edit(){
 }
 
 # setup aliases
-alias rm=trash
+function rm() {
+    trash $@
+}
 alias ls='eza --icons --sort=type --classify=always --group'
 alias la='ls -a'
 alias lsl='ls -l'
@@ -172,8 +175,6 @@ key[Control-Right]="${terminfo[kRIT5]}"
 [[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
 [[ -n "${key[Left]}" ]] && bindkey -- "${key[Left]}" backward-char
 [[ -n "${key[Right]}" ]] && bindkey -- "${key[Right]}" forward-char
-[[ -n "${key[PageUp]}" ]] && bindkey -- "${key[PageUp]}" beginning-of-buffer-or-history
-[[ -n "${key[PageDown]}" ]] && bindkey -- "${key[PageDown]}" end-of-buffer-or-history
 [[ -n "${key[Control-Left]}" ]] && bindkey -- "${key[Control-Left]}" backward-word
 [[ -n "${key[Control-Right]}" ]] && bindkey -- "${key[Control-Right]}" forward-word
 bindkey "^N" menu-complete
@@ -192,20 +193,36 @@ if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
 	add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
 fi
 
+# use zoxide
+if command -v zoxide &> /dev/null
+then
+    # turn off completions for now
+    eval "$(zoxide init zsh --cmd cd | sed -n '/# Completion.*/q;p')"
+fi
+
 # use starship prompt
 if command -v starship &> /dev/null
 then
     eval "$(starship init zsh)"
 fi
 
-# fzf integration
-if command -v fzf &> /dev/null
-then
-    eval "$(fzf --zsh)"
-fi
-
 # syntax highlighting
-source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+PLUGIN=$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[[ -e $PLUGIN ]] && source $PLUGIN
 
 # auto-suggestions
-source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+PLUGIN=$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+[[ -e $PLUGIN ]] && source $PLUGIN
+
+# history substring search
+PLUGIN=$HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+if [[ -e $PLUGIN ]]
+then
+    source $PLUGIN
+    [[ -n "${key[PageUp]}" ]] && bindkey -- "${key[PageUp]}" history-substring-search-up
+    [[ -n "${key[PageDown]}" ]] && bindkey -- "${key[PageDown]}" history-substring-search-down
+else
+    [[ -n "${key[PageUp]}" ]] && bindkey -- "${key[PageUp]}" beginning-of-buffer-or-history
+    [[ -n "${key[PageDown]}" ]] && bindkey -- "${key[PageDown]}" end-of-buffer-or-history
+fi
+unset PLUGIN

@@ -7,10 +7,12 @@ vim.keymap.set("n", "<leader>le", vim.diagnostic.open_float, opts("LSP diagnosti
 
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-    callback = function(args)
-        vim.bo[args.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+    callback = function(ev)
+        vim.bo[ev.buf].formatexpr = nil
+        vim.bo[ev.buf].omnifunc = nil
+        vim.keymap.del("n", "K", { buffer = ev.buf })
         local buf_opts = function(desc)
-            return opts(desc, { buffer = args.buf })
+            return opts(desc, { buffer = ev.buf })
         end
         vim.keymap.set("n", "gD", vim.lsp.buf.declaration, buf_opts("Go to declaration"))
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, buf_opts("Go to definition"))

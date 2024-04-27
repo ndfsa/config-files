@@ -29,7 +29,7 @@ M.project_files = function(tl_builtin)
         end
 
         if is_inside_work_tree[cwd] == "git" then
-            tl_builtin.git_files({})
+            tl_builtin.git_files({ show_untracked = true })
         else
             tl_builtin.find_files({})
         end
