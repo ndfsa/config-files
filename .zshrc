@@ -171,10 +171,10 @@ key[Control-Right]="${terminfo[kRIT5]}"
 [[ -n "${key[Insert]}" ]] && bindkey -- "${key[Insert]}" overwrite-mode
 [[ -n "${key[Backspace]}" ]] && bindkey -- "${key[Backspace]}" backward-delete-char
 [[ -n "${key[Delete]}" ]] && bindkey -- "${key[Delete]}" delete-char
-[[ -n "${key[Up]}" ]] && bindkey -- "${key[Up]}" up-line-or-beginning-search
-[[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
 [[ -n "${key[Left]}" ]] && bindkey -- "${key[Left]}" backward-char
 [[ -n "${key[Right]}" ]] && bindkey -- "${key[Right]}" forward-char
+[[ -n "${key[PageUp]}" ]] && bindkey -- "${key[PageUp]}" beginning-of-buffer-or-history
+[[ -n "${key[PageDown]}" ]] && bindkey -- "${key[PageDown]}" end-of-buffer-or-history
 [[ -n "${key[Control-Left]}" ]] && bindkey -- "${key[Control-Left]}" backward-word
 [[ -n "${key[Control-Right]}" ]] && bindkey -- "${key[Control-Right]}" forward-word
 bindkey "^N" menu-complete
@@ -219,10 +219,10 @@ PLUGIN=$HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring
 if [[ -e $PLUGIN ]]
 then
     source $PLUGIN
-    [[ -n "${key[PageUp]}" ]] && bindkey -- "${key[PageUp]}" history-substring-search-up
-    [[ -n "${key[PageDown]}" ]] && bindkey -- "${key[PageDown]}" history-substring-search-down
+    [[ -n "${key[Up]}" ]] && bindkey -- "${key[Up]}" history-substring-search-up
+    [[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" history-substring-search-down
 else
-    [[ -n "${key[PageUp]}" ]] && bindkey -- "${key[PageUp]}" beginning-of-buffer-or-history
-    [[ -n "${key[PageDown]}" ]] && bindkey -- "${key[PageDown]}" end-of-buffer-or-history
+    [[ -n "${key[Up]}" ]] && bindkey -- "${key[Up]}" up-line-or-beginning-search
+    [[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
 fi
 unset PLUGIN
