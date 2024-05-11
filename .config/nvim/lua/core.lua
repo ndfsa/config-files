@@ -5,7 +5,7 @@ vim.opt.incsearch = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.wrap = true
-vim.opt.signcolumn = "yes"
+-- vim.opt.signcolumn = "yes"
 vim.opt.colorcolumn = "100"
 vim.opt.cursorline = true
 vim.opt.swapfile = false
@@ -42,7 +42,7 @@ vim.opt.shiftwidth = 4
 
 -- EXPERIMENTAL FEATURES
 -- vim.opt.cmdheight = 0
--- vim.opt.diffopt = 'linematch:60'
+vim.opt.diffopt = { "internal", "filler", "foldcolumn:0" }
 
 local default_plugins = {
     "2html_plugin",
@@ -98,8 +98,8 @@ local opts = require("utils").opts
 vim.keymap.set("n", "n", "nzz", opts())
 vim.keymap.set("n", "N", "Nzz", opts())
 
-vim.keymap.set("n", "k", [[v:count == 0 ? 'gk' : 'k']], opts(nil, { expr = true }))
-vim.keymap.set("n", "j", [[v:count == 0 ? 'gj' : 'j']], opts(nil, { expr = true }))
+vim.keymap.set({ "n", "v" }, "k", [[v:count == 0 ? 'gk' : 'k']], opts(nil, { expr = true }))
+vim.keymap.set({ "n", "v" }, "j", [[v:count == 0 ? 'gj' : 'j']], opts(nil, { expr = true }))
 
 vim.keymap.set("v", ">", ">gv", opts())
 vim.keymap.set("v", "<", "<gv", opts())
@@ -138,10 +138,3 @@ vim.keymap.set("n", "<leader>fs", "<cmd>update<CR>", opts("File save"))
 vim.keymap.set("n", "<leader>fy", '<cmd>let @+=expand("%:p")<CR>', opts("File copy path"))
 
 vim.keymap.set("n", "<leader>oe", "<cmd>Oil %:p:h<CR>", opts("Open File Explorer"))
-
-if vim.opt.diff:get() then
-    vim.opt.winbar = "%=%f%="
-    vim.keymap.set("n", "<leader>1", "<cmd>diffget LO<CR>", opts("Diff get local"))
-    vim.keymap.set("n", "<leader>2", "<cmd>diffget BA<CR>", opts("Diff get base"))
-    vim.keymap.set("n", "<leader>3", "<cmd>diffget RE<CR>", opts("Diff get remote"))
-end

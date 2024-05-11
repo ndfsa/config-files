@@ -16,47 +16,29 @@ return require("lazy").setup({
         "rebelot/kanagawa.nvim",
         priority = 1000,
         lazy = false,
-        config = function()
-            require("plugin.kanagawa")
-        end,
+        config = require("plugin.kanagawa"),
     },
     {
         "stevearc/oil.nvim",
         priority = 1000,
         lazy = false,
-        config = function()
-            require("plugin.oil")
-        end,
+        config = require("plugin.oil"),
         dependencies = { "nvim-tree/nvim-web-devicons" },
     },
-    {
-        "nvim-lualine/lualine.nvim",
-        config = function()
-            require("plugin.lualine")
-        end,
-    },
-    {
-        "neovim/nvim-lspconfig",
-        config = function()
-            require("plugin.lspconfig")
-        end,
-    },
+    { "nvim-lualine/lualine.nvim", config = require("plugin.lualine") },
+    { "neovim/nvim-lspconfig", config = require("plugin.lspconfig") },
     {
         "nvim-treesitter/nvim-treesitter",
         build = function()
             require("nvim-treesitter.install").update({ with_sync = true })
         end,
-        config = function()
-            require("plugin.treesitter")
-        end,
+        config = require("plugin.treesitter"),
     },
     {
         "L3MON4D3/LuaSnip",
-        config = function()
-            require("plugin.luasnip")
-        end,
         build = "make install_jsregexp",
         dependencies = { "honza/vim-snippets" },
+        config = require("plugin.luasnip"),
     },
     {
         "hrsh7th/nvim-cmp",
@@ -68,9 +50,7 @@ return require("lazy").setup({
             "saadparwaiz1/cmp_luasnip",
             "onsails/lspkind-nvim",
         },
-        config = function()
-            require("plugin.cmp")
-        end,
+        config = require("plugin.cmp"),
     },
     {
         "nvim-telescope/telescope.nvim",
@@ -87,89 +67,22 @@ return require("lazy").setup({
                 build = "make",
             },
         },
-        config = function()
-            require("plugin.telescope")
-        end,
+        config = require("plugin.telescope"),
     },
-    {
-        "lewis6991/gitsigns.nvim",
-        dependencies = { "nvim-lua/plenary.nvim" },
-        config = true,
-    },
-    {
-        "sQVe/sort.nvim",
-        config = true,
-    },
-    {
-        "anuvyklack/pretty-fold.nvim",
-        config = function()
-            require("plugin.pretty-fold")
-        end,
-    },
-    {
-        "tpope/vim-fugitive",
-        init = function()
-            require("plugin.vim-fugitive")
-        end,
-    },
-    {
-        "NvChad/nvim-colorizer.lua",
-        config = function()
-            require("plugin.nvim-colorizer")
-        end,
-    },
-    {
-        "monkoose/matchparen.nvim",
-        config = true,
-    },
-    {
-        "nmac427/guess-indent.nvim",
-        config = function()
-            require("guess-indent").setup({ autocmd = false })
-        end,
-    },
-    {
-        "folke/which-key.nvim",
-        config = function()
-            require("plugin.which-key")
-        end,
-    },
-    {
-        "stevearc/conform.nvim",
-        config = function()
-            require("plugin.conform")
-        end,
-    },
-    {
-        "folke/twilight.nvim",
-        config = function()
-            require("plugin.twilight")
-        end,
-    },
-    {
-        "ashfinal/qfview.nvim",
-        config = true,
-    },
-    {
-        "nvim-tree/nvim-tree.lua",
-        config = function()
-            require("plugin.nvim-tree")
-        end,
-        lazy = true,
-    },
+    { "sQVe/sort.nvim", config = true },
+    { "anuvyklack/pretty-fold.nvim", config = require("plugin.pretty-fold") },
+    { "tpope/vim-fugitive", init = require("plugin.vim-fugitive") },
+    { "NvChad/nvim-colorizer.lua", config = require("plugin.nvim-colorizer") },
+    { "monkoose/matchparen.nvim", config = true },
+    { "nmac427/guess-indent.nvim", opts = { autocmd = false }, config = true },
+    { "folke/which-key.nvim", config = require("plugin.which-key") },
+    { "stevearc/conform.nvim", config = require("plugin.conform") },
+    { "folke/twilight.nvim", opts = { context = -1, treesitter = true }, config = true },
+    { "ashfinal/qfview.nvim", config = true },
+    { "nvim-tree/nvim-tree.lua", config = require("plugin.nvim-tree"), lazy = true },
     { "echasnovski/mini.ai", config = true },
     { "echasnovski/mini.surround", config = true },
-    {
-        "ThePrimeagen/git-worktree.nvim",
-        config = function()
-            require("plugin.git-worktree")
-        end,
-    },
-    {
-        "Vigemus/iron.nvim",
-        config = function()
-            require("plugin.iron")
-        end,
-        lazy = true,
-    },
+    { "echasnovski/mini.diff", config = true },
+    { "ThePrimeagen/git-worktree.nvim", config = require("plugin.git-worktree") },
+    { "Vigemus/iron.nvim", config = require("plugin.iron"), lazy = true },
 })

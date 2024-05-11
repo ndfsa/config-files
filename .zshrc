@@ -147,44 +147,29 @@ zle -N down-line-or-beginning-search
 autoload -Uz select-word-style
 select-word-style bash
 
-# set emacs mode
-bindkey -e
-
 # use terminfo to setup keybinds
-typeset -g -A key
-key[Home]="${terminfo[khome]}"
-key[End]="${terminfo[kend]}"
-key[Insert]="${terminfo[kich1]}"
-key[Backspace]="${terminfo[kbs]}"
-key[Delete]="${terminfo[kdch1]}"
-key[Up]="${terminfo[kcuu1]}"
-key[Down]="${terminfo[kcud1]}"
-key[Left]="${terminfo[kcub1]}"
-key[Right]="${terminfo[kcuf1]}"
-key[PageUp]="${terminfo[kpp]}"
-key[PageDown]="${terminfo[knp]}"
-key[Shift-Tab]="${terminfo[kcbt]}"
-key[Control-Left]="${terminfo[kLFT5]}"
-key[Control-Right]="${terminfo[kRIT5]}"
-[[ -n "${key[Home]}" ]] && bindkey -- "${key[Home]}" beginning-of-line
-[[ -n "${key[End]}" ]] && bindkey -- "${key[End]}" end-of-line
-[[ -n "${key[Insert]}" ]] && bindkey -- "${key[Insert]}" overwrite-mode
-[[ -n "${key[Backspace]}" ]] && bindkey -- "${key[Backspace]}" backward-delete-char
-[[ -n "${key[Delete]}" ]] && bindkey -- "${key[Delete]}" delete-char
-[[ -n "${key[Left]}" ]] && bindkey -- "${key[Left]}" backward-char
-[[ -n "${key[Right]}" ]] && bindkey -- "${key[Right]}" forward-char
-[[ -n "${key[PageUp]}" ]] && bindkey -- "${key[PageUp]}" beginning-of-buffer-or-history
-[[ -n "${key[PageDown]}" ]] && bindkey -- "${key[PageDown]}" end-of-buffer-or-history
-[[ -n "${key[Control-Left]}" ]] && bindkey -- "${key[Control-Left]}" backward-word
-[[ -n "${key[Control-Right]}" ]] && bindkey -- "${key[Control-Right]}" forward-word
-bindkey "^N" menu-complete
-bindkey "^P" reverse-menu-complete
+bindkey "${terminfo[khome]}" beginning-of-line # home
+bindkey "${terminfo[kend]}" end-of-line # end
+bindkey "${terminfo[kich1]}" overwrite-mode # insert
+bindkey "${terminfo[kbs]}" backward-delete-char # backspace
+bindkey "${terminfo[kdch1]}" delete-char # delete
+bindkey "${terminfo[kcuu1]}" up-line-or-beginning-search # up
+bindkey "${terminfo[kcud1]}" down-line-or-beginning-search # down
+bindkey "${terminfo[kcub1]}" backward-char # left
+bindkey "${terminfo[kcuf1]}" forward-char # right
+bindkey "${terminfo[kpp]}" beginning-of-buffer-or-history # page up
+bindkey "${terminfo[knp]}" end-of-buffer-or-history # page down
+bindkey "${terminfo[kLFT5]}" backward-word # control-left
+bindkey "${terminfo[kRIT5]}" forward-word # control-right
+bindkey '^N' menu-complete
+bindkey '^P' reverse-menu-complete
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
+bindkey -r '^['
 
-# make sure zle is in application mode, only then terminfo is valid
+# make sure zle is in application mode, only then is terminfo valid
 if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
 	autoload -Uz add-zle-hook-widget
 	function zle_application_mode_start { echoti smkx }
@@ -206,6 +191,17 @@ then
     eval "$(starship init zsh)"
 fi
 
+# integrate fzf
+if command -v fzf &> /dev/null
+then
+    # turn off keybinds
+    FZF_ALT_C_COMMAND=
+    FZF_CTRL_T_COMMAND=
+    eval "$(fzf --zsh)"
+else
+    bindkey '^R' history-incremental-search-backward
+fi
+
 # syntax highlighting
 PLUGIN=$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [[ -e $PLUGIN ]] && source $PLUGIN
@@ -214,15 +210,4 @@ PLUGIN=$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 PLUGIN=$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 [[ -e $PLUGIN ]] && source $PLUGIN
 
-# history substring search
-PLUGIN=$HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-if [[ -e $PLUGIN ]]
-then
-    source $PLUGIN
-    [[ -n "${key[Up]}" ]] && bindkey -- "${key[Up]}" history-substring-search-up
-    [[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" history-substring-search-down
-else
-    [[ -n "${key[Up]}" ]] && bindkey -- "${key[Up]}" up-line-or-beginning-search
-    [[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
-fi
 unset PLUGIN
