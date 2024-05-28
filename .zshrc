@@ -159,8 +159,8 @@ bindkey "${terminfo[kcub1]}" backward-char # left
 bindkey "${terminfo[kcuf1]}" forward-char # right
 bindkey "${terminfo[kpp]}" beginning-of-buffer-or-history # page up
 bindkey "${terminfo[knp]}" end-of-buffer-or-history # page down
-bindkey "${terminfo[kLFT5]}" backward-word # control-left
-bindkey "${terminfo[kRIT5]}" forward-word # control-right
+bindkey "^[[1;9D" backward-word # control-left
+bindkey "^[[1;9C" forward-word # control-right
 bindkey '^N' menu-complete
 bindkey '^P' reverse-menu-complete
 bindkey -M menuselect 'h' vi-backward-char
